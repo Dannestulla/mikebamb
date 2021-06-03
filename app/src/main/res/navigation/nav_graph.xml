@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/menuFragment">
+
+    <fragment
+        android:id="@+id/equipmentListFragment"
+        android:name="com.example.mikebamb.presenter.fragment.EquipmentListFragment"
+        android:label="fragment_equipment_list"
+        tools:layout="@layout/fragment_equipment_list" >
+        <action
+            android:id="@+id/action_equipmentListFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_equipmentListFragment_to_descriptionEquipmentFragment"
+            app:destination="@id/descriptionEquipmentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEquipmentFragment"
+        android:name="com.example.mikebamb.presenter.fragment.AddEquipmentFragment"
+        android:label="fragment_add_equipment"
+        tools:layout="@layout/fragment_add_equipment" >
+        <action
+            android:id="@+id/action_addEquipmentFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.mikebamb.presenter.fragment.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_equipmentListFragment"
+            app:destination="@id/equipmentListFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_addEquipmentFragment"
+            app:destination="@id/addEquipmentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/descriptionEquipmentFragment"
+        android:name="com.example.mikebamb.presenter.fragment.DescriptionEquipmentFragment"
+        android:label="fragment_description_equipment"
+        tools:layout="@layout/fragment_description_equipment" >
+        <action
+            android:id="@+id/action_descriptionEquipmentFragment_to_equipmentListFragment"
+            app:destination="@id/equipmentListFragment" />
+    </fragment>
+</navigation>

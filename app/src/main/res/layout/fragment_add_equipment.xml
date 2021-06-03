@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presenter.fragment.AddEquipmentFragment"
+    android:backgroundTint="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/equip_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:text="Equipment Number"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/edit_equip_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/equip_name"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/manufacturer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_equip_name"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:text="Manufacturer"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/edit_manufacturer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/manufacturer"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_manufacturer"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:text="Model"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/edit_model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/model"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/serial_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_model"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:text="Serial Number"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/edit_serial_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/serial_number"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/install_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_serial_number"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:text="Install Date"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/edit_install_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/install_date"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/fluig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_install_date"
+            android:layout_centerHorizontal="true"
+            android:text="Fluig"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/edit_fluig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fluig"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/manuallink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_fluig"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:text="Link to Manual"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/edit_manuallink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/manuallink"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_manuallink"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:text="Hours"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/edit_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/hours"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/qr_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_hours"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:text="QrCode"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/edit_qr_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/qr_code"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_qr_code"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:text="Comments"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/edit_comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/comments"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/addequipment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edit_comments"
+            android:layout_centerHorizontal="true"
+            android:text="Add Equipment" />
+    </RelativeLayout>
+</ScrollView>
