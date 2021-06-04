@@ -15,4 +15,5 @@
     <string name="comments">Comments:</string>
     <string name="save_changes">Save Changes</string>
     <string name="remove_equipment">Remove Equipment</string>
+    <string name="delete_equipment">Delete Equipment</string>
 </resources>

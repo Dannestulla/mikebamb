@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presenter.fragment.DescriptionEquipmentFragment"
+    tools:context=".presenter.fragment.DescriptionEditEquipmentFragment"
 >
 
     <RelativeLayout
@@ -80,7 +80,7 @@
             style="@style/NormalText"/>
 
         <EditText
-            android:id="@+id/edit_serial_number"
+            android:id="@+id/edit_part_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_model"
@@ -102,7 +102,7 @@
             android:id="@+id/edit_install_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/edit_serial_number"
+            android:layout_below="@+id/edit_part_number"
             android:layout_toRightOf="@id/install_date"
             android:background="@null"
             android:padding="8dp"
@@ -174,15 +174,25 @@
             android:text="@string/qrcode"
             style="@style/NormalText"/>
 
+        <ImageView
+            android:id="@+id/scan_qr_description"
+            android:layout_width="35dp"
+            android:layout_height="36dp"
+            android:layout_below="@id/edit_hours"
+            android:layout_toRightOf="@+id/qr_code"
+            android:src="@drawable/ic_baseline_qr_code_24"/>
+
+
         <EditText
             android:id="@+id/edit_qr_code"
+            style="@style/NormalText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_hours"
-            android:layout_toRightOf="@id/qr_code"
+            android:layout_marginStart="46dp"
+            android:layout_toEndOf="@id/qr_code"
             android:background="@null"
-            android:padding="8dp"
-            style="@style/NormalText"/>
+            android:padding="8dp" />
 
         <TextView
             android:id="@+id/comments"
@@ -212,5 +222,30 @@
             android:text="@string/save_changes"
             style="@style/Button"
             />
+
+        <Button
+            android:id="@+id/delete_equip"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/save_changes"
+            android:layout_centerHorizontal="true"
+            android:text="@string/delete_equipment" />
+
+        <Button
+            android:id="@+id/add_qr_code"
+            style="@style/Button"
+            android:layout_width="200dp"
+            android:layout_height="56dp"
+            android:layout_below="@+id/save_changes"
+            android:layout_centerHorizontal="true"
+            android:text="Generate new QR Code To This Equipment" />
+        <ImageView
+            android:id="@+id/generated_qr"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/add_qr_code"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_baseline_qr_code_24"/>
     </RelativeLayout>
 </ScrollView>

@@ -7,7 +7,7 @@
         <item name="android:gravity">center</item>
     </style>
     <style name="Button">
-        <item name="android:textColor">@color/orange_light</item>
-
+        <item name ="android:textColor">@color/gray_dark</item>
+        <item name ="android:backgroundTint">@color/orange_light</item>
     </style>
 </resources>

@@ -4,7 +4,7 @@ object EquipmentPresenterModel {
     lateinit var presenterEquipName: String
     lateinit var presenterManufacturer: String
     lateinit var presenterModel: String
-    lateinit var presenterSerialNumber: String
+    lateinit var presenterPartNumber: String
     lateinit var presenterInstallDate: String
     lateinit var presenterFluig: String
     lateinit var presenterLinkToManual: String

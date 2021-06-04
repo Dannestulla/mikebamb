@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mikebamb.R
 import com.example.mikebamb.databinding.FragmentEquipmentListBinding
 import com.example.mikebamb.presenter.viewmodel.EquipmentAdapter
-import com.example.mikebamb.presenter.viewmodel.EquipmentListViewModel
+import com.example.mikebamb.presenter.viewmodel.EquipmenViewModel
 
 class EquipmentListFragment : Fragment() {
     private var _binding: FragmentEquipmentListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by activityViewModels<EquipmentListViewModel>()
+    private val viewModel by activityViewModels<EquipmenViewModel>()
     private val mAdapter = EquipmentAdapter()
 
     override fun onCreateView(
@@ -32,6 +32,13 @@ class EquipmentListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getListFromDatabase()
         setupRecyclerView()
+        defaultDBStartup()
+    }
+
+    private fun defaultDBStartup() {
+        viewModel.addNewItem(DBData().itemOne)
+        viewModel.addNewItem(DBData().itemTwo)
+        viewModel.addNewItem(DBData().itemThree)
     }
 
     private fun setupRecyclerView() {

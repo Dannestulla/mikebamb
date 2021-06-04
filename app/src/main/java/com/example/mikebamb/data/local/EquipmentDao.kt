@@ -16,7 +16,7 @@ interface EquipmentDao {
     suspend fun deleteEquipment(partNumber: String)
 
     @Query("SELECT * FROM equipment WHERE part_number=:partNumber")
-    suspend fun getEquipment(partNumber: String): EquipmentEntity
+    suspend fun getEquipmentByPartNumber(partNumber: String): EquipmentEntity
 
     @Query("SELECT * FROM equipment")
     fun getListFromDB() : List<EquipmentEntity>

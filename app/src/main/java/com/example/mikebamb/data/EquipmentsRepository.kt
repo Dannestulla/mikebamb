@@ -19,12 +19,18 @@ class EquipmentsRepository @Inject constructor(
         return database.getListFromDB()
     }
 
-    suspend fun getEquipment(partNumber: String): EquipmentEntity {
-        return database.getEquipment(partNumber)
+    suspend fun getEquipmentByPartNumber(partNumber: String): EquipmentEntity {
+        return database.getEquipmentByPartNumber(partNumber)
     }
 
-    fun removeItem() {
+    suspend fun removeItem(partNumber: String) {
+        database.deleteEquipment(partNumber)
+    }
+
+    fun getEquipmentByQRCode() {
         TODO("Not yet implemented")
     }
+
+
 
 }

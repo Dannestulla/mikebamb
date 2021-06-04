@@ -32,7 +32,7 @@ class EquipmentAdapter :
         fun bindView(equipment: EquipmentEntity) {
             binding.apply {
                 partNumber.text = equipment.partNumber
-                equipName.text = equipment.equip_name
+                equipName.text = equipment.equipNameEntity
             }
             itemView.setOnClickListener { onItemClick!!.invoke(adapterPosition) }
         }

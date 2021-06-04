@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/addEquipmentFragment"
-        android:icon="@drawable/ic_baseline_edit_24"
-        android:title="Edit" />
+        android:icon="@drawable/ic_baseline_add_24"
+        android:title="Add Equipment" />
     <item
         android:id="@+id/equipmentListFragment"
         android:icon="@drawable/ic_baseline_format_list_bulleted_24"

@@ -9,43 +9,52 @@
         android:id="@+id/equipmentListFragment"
         android:name="com.example.mikebamb.presenter.fragment.EquipmentListFragment"
         android:label="fragment_equipment_list"
-        tools:layout="@layout/fragment_equipment_list" >
+        tools:layout="@layout/fragment_equipment_list">
         <action
             android:id="@+id/action_equipmentListFragment_to_descriptionEquipmentFragment"
             app:destination="@id/descriptionEquipmentFragment"
-            app:popExitAnim="@anim/to_right"
-            app:popEnterAnim="@anim/from_left"
             app:enterAnim="@anim/from_right"
             app:exitAnim="@anim/to_left"
-            >
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right">
             <argument
                 android:name="myArg"
-                app:argType="string"
-                android:defaultValue="1" /> </action>
+                android:defaultValue="1"
+                app:argType="string" />
+        </action>
         <action
             android:id="@+id/action_equipmentListFragment_to_addEquipmentFragment"
             app:destination="@id/addEquipmentFragment" />
         <action
             android:id="@+id/action_equipmentListFragment_to_QRFragment"
             app:destination="@id/QRFragment"
-            app:popExitAnim="@anim/to_right"
-            app:popEnterAnim="@anim/from_left"
             app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left"/>
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/addEquipmentFragment"
-        android:name="com.example.mikebamb.presenter.fragment.EditEquipmentFragment"
+        android:name="com.example.mikebamb.presenter.fragment.AddEquipmentFragment"
         android:label="fragment_add_equipment"
         tools:layout="@layout/fragment_edit_equipment" />
     <fragment
         android:id="@+id/descriptionEquipmentFragment"
-        android:name="com.example.mikebamb.presenter.fragment.DescriptionEquipmentFragment"
+        android:name="com.example.mikebamb.presenter.fragment.DescriptionEditEquipmentFragment"
         android:label="fragment_description_equipment"
         tools:layout="@layout/fragment_description_equipment" />
     <fragment
         android:id="@+id/QRFragment"
         android:name="com.example.mikebamb.presenter.fragment.QRFragment"
         android:label="fragment_q_r"
-        tools:layout="@layout/fragment_q_r" />
+        tools:layout="@layout/fragment_q_r">
+        <action
+            android:id="@+id/action_QRFragment_to_descriptionEquipmentFragment"
+            app:destination="@id/descriptionEquipmentFragment">
+            <argument
+                android:name="qr_code"
+                android:defaultValue="empty"
+                app:argType="string" />
+        </action>
+    </fragment>
 </navigation>
