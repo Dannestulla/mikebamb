@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class AddEquipmentViewModel @Inject constructor(
+class EditEquipmentViewModel @Inject constructor(
     val repository: EquipmentsRepository
 ) : ViewModel() {
 

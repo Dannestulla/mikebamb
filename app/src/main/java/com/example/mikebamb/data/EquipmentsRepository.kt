@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class EquipmentsRepository @Inject constructor(
     db: EquipmentDatabase,
-){
+) {
 
     private val database: EquipmentDao = db.equipmentDao()
 
@@ -15,8 +15,16 @@ class EquipmentsRepository @Inject constructor(
         database.addNewItem(newItem)
     }
 
-
-    fun getListFromDatabase() : List<EquipmentEntity> {
+    fun getListFromDatabase(): List<EquipmentEntity> {
         return database.getListFromDB()
     }
+
+    suspend fun getEquipment(partNumber: String): EquipmentEntity {
+        return database.getEquipment(partNumber)
+    }
+
+    fun removeItem() {
+        TODO("Not yet implemented")
+    }
+
 }

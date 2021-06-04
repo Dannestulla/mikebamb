@@ -14,6 +14,7 @@ import javax.inject.Inject
 class EquipmentListViewModel @Inject constructor(
     val repository: EquipmentsRepository
 ) : ViewModel() {
+    lateinit var partNumberClicked: String
     var recyclerViewItems = MutableLiveData<List<EquipmentEntity>>()
 
     fun addNewItem(newItem: EquipmentEntity) {
@@ -26,5 +27,9 @@ class EquipmentListViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             val listFromDB = repository.getListFromDatabase()
             recyclerViewItems.postValue(listFromDB)}
+    }
+
+    suspend fun getEquipment(partNumber : String) : EquipmentEntity {
+        return repository.getEquipment(partNumber)
     }
 }

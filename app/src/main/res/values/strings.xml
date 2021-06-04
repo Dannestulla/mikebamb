@@ -1,7 +1,18 @@
 <resources>
     <string name="app_name">MikeBamb</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="equipment_list">Equipment List</string>
     <string name="add_equipment">Add Equipment</string>
+    <string name="equipment_number">Equipment Number:</string>
+    <string name="manufacturer">Manufacturer:</string>
+    <string name="model">Model:</string>
+    <string name="serial_number">Serial Number:</string>
+    <string name="install_date">Install Date:</string>
+    <string name="fluig">Fluig:</string>
+    <string name="link_to_manual">Link to Manual:</string>
+    <string name="hours">Hours:</string>
+    <string name="qrcode">QrCode:</string>
+    <string name="comments">Comments:</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="remove_equipment">Remove Equipment</string>
 </resources>

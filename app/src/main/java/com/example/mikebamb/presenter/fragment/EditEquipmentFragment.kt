@@ -4,10 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.mikebamb.data.local.EquipmentEntity
-import com.example.mikebamb.databinding.FragmentAddEquipmentBinding
+import com.example.mikebamb.databinding.FragmentEditEquipmentBinding
 import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterComments
 import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterEquipName
 import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterFluig
@@ -21,8 +22,8 @@ import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterhou
 import com.example.mikebamb.presenter.viewmodel.EquipmentListViewModel
 
 
-class AddEquipmentFragment : Fragment() {
-    private var _binding: FragmentAddEquipmentBinding? = null
+class EditEquipmentFragment : Fragment() {
+    private var _binding: FragmentEditEquipmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<EquipmentListViewModel>()
 
@@ -30,14 +31,26 @@ class AddEquipmentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentAddEquipmentBinding.inflate(inflater, container, false)
+        _binding = FragmentEditEquipmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.addequipment.setOnClickListener { addNewItem() }
+        binding.removeEquipment.setOnClickListener { }
     }
+
+    /*private fun removeEquipment() {
+        val equipmentSelected = binding.editSerialNumber.text
+
+        val searchForEquipment = viewModel.repository.getEquipment(equipmentSelected.toString())
+        if (!equipmentSelected.isNullOrBlank() || searchForEquipment.isEmpty()) {
+            viewModel.repository.removeItem()
+        } else {
+            Toast.makeText(context,"Insert a Valid Equipment Number",Toast.LENGTH_LONG).show()
+        }
+    }*/
 
     private fun addNewItem() {
         presenterEquipName = binding.editEquipName.text.toString()
@@ -64,6 +77,7 @@ class AddEquipmentFragment : Fragment() {
             presenterComments
         )
         viewModel.addNewItem(newItem)
+        Toast.makeText(context,"New Item Added!",Toast.LENGTH_LONG).show()
     }
 }
 

@@ -12,11 +12,11 @@ interface EquipmentDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addNewItem(newEquip: EquipmentEntity)
 
-    @Query("DELETE FROM equipment WHERE name =:equipment")
-    suspend fun deleteEquipment(equipment: String)
+    @Query("DELETE FROM equipment WHERE part_number =:partNumber")
+    suspend fun deleteEquipment(partNumber: String)
 
     @Query("SELECT * FROM equipment WHERE part_number=:partNumber")
-    suspend fun findEquipment(partNumber: String): List<EquipmentEntity>
+    suspend fun getEquipment(partNumber: String): EquipmentEntity
 
     @Query("SELECT * FROM equipment")
     fun getListFromDB() : List<EquipmentEntity>
