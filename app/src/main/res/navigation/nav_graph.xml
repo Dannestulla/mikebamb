@@ -40,7 +40,7 @@
         tools:layout="@layout/fragment_edit_equipment" />
     <fragment
         android:id="@+id/descriptionEquipmentFragment"
-        android:name="com.example.mikebamb.presenter.fragment.DescriptionEditEquipmentFragment"
+        android:name="com.example.mikebamb.presenter.fragment.DescriptionEquipmentFragment"
         android:label="fragment_description_equipment"
         tools:layout="@layout/fragment_description_equipment" />
     <fragment

@@ -15,5 +15,11 @@ data class EquipmentEntity(
     @ColumnInfo(name = "install_date") var installdateEntity: String,
     @ColumnInfo(name = "hours") var hoursEntity: String,
     @ColumnInfo(name = "qr_code") var qrCodeEntity: String,
-    @ColumnInfo(name = "comments") var commentsEntity: String
+    @ColumnInfo(name = "comments") var commentsEntity: String,
+    @ColumnInfo(name = "category1") var category1Entity: String,
+    @ColumnInfo(name = "category2") var category2Entity: String,
+    @ColumnInfo(name = "category3") var category3Entity: String,
+    @ColumnInfo(name = "observations1") var observations1Entity: String,
+    @ColumnInfo(name = "observations2") var observations2Entity: String,
+    @ColumnInfo(name = "observations3") var cobservations3Entity: String,
 )

@@ -21,4 +21,10 @@ interface EquipmentDao {
     @Query("SELECT * FROM equipment")
     fun getListFromDB() : List<EquipmentEntity>
 
+    @Query("SELECT * FROM equipment WHERE qr_code=:qrCode")
+    fun getEquipmentByQRcode(qrCode: String) : EquipmentEntity
+
+    @Query("SELECT qr_code FROM equipment")
+    fun printAllQrCodes() : List<String>
+
 }

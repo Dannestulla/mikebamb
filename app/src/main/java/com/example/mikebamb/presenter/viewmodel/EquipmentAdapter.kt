@@ -7,7 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mikebamb.data.local.EquipmentEntity
-import com.example.mikebamb.databinding.CardViewBinding
+import com.example.mikebamb.databinding.CardViewEquipmentBinding
+
 
 class EquipmentAdapter :
     ListAdapter<EquipmentEntity, EquipmentAdapter.AdapterViewHolder>(ReceitasComparator()) {
@@ -15,7 +16,7 @@ class EquipmentAdapter :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterViewHolder {
         val binding =
-            CardViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            CardViewEquipmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AdapterViewHolder(binding)
     }
 
@@ -26,7 +27,7 @@ class EquipmentAdapter :
         }
     }
 
-    inner class AdapterViewHolder(private val binding: CardViewBinding) :
+    inner class AdapterViewHolder(private val binding: CardViewEquipmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bindView(equipment: EquipmentEntity) {
@@ -45,6 +46,5 @@ class EquipmentAdapter :
         override fun areContentsTheSame(oldItem: EquipmentEntity, newItem: EquipmentEntity) =
             oldItem == newItem
     }
-
 }
 

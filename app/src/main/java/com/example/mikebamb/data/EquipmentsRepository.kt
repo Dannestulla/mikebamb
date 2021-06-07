@@ -27,10 +27,13 @@ class EquipmentsRepository @Inject constructor(
         database.deleteEquipment(partNumber)
     }
 
-    fun getEquipmentByQRCode() {
-        TODO("Not yet implemented")
+    fun getEquipmentByQRCode(qrCode : String) : EquipmentEntity {
+        return database.getEquipmentByQRcode(qrCode)
     }
 
+    fun printAllQrCodes(): List<String> {
+        return database.printAllQrCodes()
+    }
 
 
 }

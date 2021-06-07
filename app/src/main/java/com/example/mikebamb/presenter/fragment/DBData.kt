@@ -13,7 +13,13 @@ class DBData {
         "10/12/1999",
         "485332",
         "",
-        "great Engine"
+        "great Engine",
+        "engine",
+        "main deck",
+        "no deck",
+        "cool",
+        "nice",
+        "cat"
     )
     val itemTwo = EquipmentEntity(
         "76545",
@@ -25,7 +31,15 @@ class DBData {
         "5/4/2002",
         "40005952",
         "",
-        "great pump"
+        "great pump",
+        "engine",
+        "engine",
+        "main deck",
+        "no deck",
+        "cool",
+        "nice",
+
+
     )
     val itemThree = EquipmentEntity(
         "45151",
@@ -37,6 +51,13 @@ class DBData {
         "5/4/1934",
         "4044123456",
         "",
-        "A Really old Chair"
+        "A Really old Chair",
+        "chair",
+        "engine",
+        "main deck",
+        "no deck",
+        "cool",
+        "nice",
+
     )
 }

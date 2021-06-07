@@ -11,14 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mikebamb.R
 import com.example.mikebamb.databinding.FragmentEquipmentListBinding
-import com.example.mikebamb.presenter.viewmodel.EquipmentAdapter
 import com.example.mikebamb.presenter.viewmodel.EquipmenViewModel
 
 class EquipmentListFragment : Fragment() {
     private var _binding: FragmentEquipmentListBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<EquipmenViewModel>()
-    private val mAdapter = EquipmentAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +25,7 @@ class EquipmentListFragment : Fragment() {
         _binding = FragmentEquipmentListBinding.inflate(inflater, container, false)
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,13 +42,15 @@ class EquipmentListFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.recyclerView.apply {
-            adapter = mAdapter
+            adapter = viewModel.mAdapter
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
-        mAdapter.onItemClick = { position ->
+        viewModel.mAdapter.onItemClick = { position ->
             navigateToDescription(position)
         }
-        viewModel.recyclerViewItems.observe(viewLifecycleOwner, { mAdapter.submitList(it) })
+        viewModel.recyclerViewItems.observe(
+            viewLifecycleOwner,
+            { viewModel.mAdapter.submitList(it) })
 
     }
 

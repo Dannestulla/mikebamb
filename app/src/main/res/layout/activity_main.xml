@@ -29,7 +29,6 @@
         app:menu="@menu/bottom_nav_menu"
         app:itemTextColor="@color/bottom_nav_item"
         app:itemIconTint="@color/bottom_nav_item"
-
        />
 
 </RelativeLayout>

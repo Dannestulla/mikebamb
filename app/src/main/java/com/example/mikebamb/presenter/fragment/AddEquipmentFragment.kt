@@ -7,18 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.example.mikebamb.data.local.EquipmentEntity
+import com.example.mikebamb.data.toEquipmentEntity
 import com.example.mikebamb.databinding.FragmentEditEquipmentBinding
-import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterComments
-import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterEquipName
-import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterFluig
-import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterInstallDate
-import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterLinkToManual
-import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterManufacturer
-import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterModel
-import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterQrCode
-import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterPartNumber
-import com.example.mikebamb.presenter.model.EquipmentPresenterModel.presenterhours
+import com.example.mikebamb.domain.EquipmentModel
 import com.example.mikebamb.presenter.viewmodel.EquipmenViewModel
 
 
@@ -41,29 +32,26 @@ class AddEquipmentFragment : Fragment() {
     }
 
     private fun addNewItem() {
-        presenterEquipName = binding.editEquipName.text.toString()
-        presenterManufacturer = binding.editManufacturer.text.toString()
-        presenterModel = binding.editModel.text.toString()
-        presenterPartNumber = binding.editPartNumber.text.toString()
-        presenterInstallDate = binding.editInstallDate.text.toString()
-        presenterFluig = binding.editFluig.text.toString()
-        presenterLinkToManual = binding.editManuallink.text.toString()
-        presenterhours = binding.editHours.text.toString()
-        presenterQrCode = binding.editQrCode.text.toString()
-        presenterComments = binding.editComments.text.toString()
-        val newItem = EquipmentEntity(
-            presenterPartNumber,
-            presenterEquipName,
-            presenterModel,
-            presenterManufacturer,
-            presenterLinkToManual,
-            presenterFluig,
-            presenterInstallDate,
-            presenterhours,
-            presenterQrCode,
-            presenterComments
+        val newItem = EquipmentModel(
+            nameModel = binding.editEquipName.text.toString(),
+            manufacturerModel = binding.editManufacturer.text.toString(),
+            modelModel = binding.editModel.text.toString(),
+            partNumberModel = binding.editPartNumber.text.toString(),
+            installDateModel = binding.editInstallDate.text.toString(),
+            fluigModel = binding.editFluig.text.toString(),
+            linkToManualModel = binding.editManuallink.text.toString(),
+            hoursModel = binding.editHours.text.toString(),
+            qrCodeModel = binding.editQrCode.text.toString(),
+            commentsModel = binding.editComments.text.toString(),
+            category1Model = binding.editComments.text.toString(),
+            category2Model = binding.editCategory2.text.toString(),
+            category3Model = binding.editCategory3.text.toString(),
+            observation1Model = binding.observation1.text.toString(),
+            observation2Model = binding.observation2.text.toString(),
+            observation3Model =binding.observation3.text.toString(),
         )
-        viewModel.addNewItem(newItem)
+
+        viewModel.addNewItem(newItem.toEquipmentEntity())
         Toast.makeText(context,"New Item Added!",Toast.LENGTH_LONG).show()
     }
 }
