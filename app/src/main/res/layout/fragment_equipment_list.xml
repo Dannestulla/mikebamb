@@ -3,13 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presenter.fragment.EquipmentListFragment"
-    >
+    tools:context=".presenter.fragment.EquipmentListFragment">
 
-     <androidx.recyclerview.widget.RecyclerView
+    <TextView
+        android:id="@id/equip_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:text="Equipment: "
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/edit_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/equip_name"
+        android:paddingLeft="20dp"
+        android:text="Equip Name"
+        android:textSize="20dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/card_view_equipment"
-         />
+        android:layout_below="@id/edit_name"
+        tools:listitem="@layout/card_view_equipment" />
 </RelativeLayout>

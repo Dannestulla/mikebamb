@@ -5,6 +5,10 @@
         android:icon="@drawable/ic_baseline_add_24"
         android:title="Add Equipment" />
     <item
+        android:id="@+id/categoryFragment"
+        android:icon="@drawable/ic_baseline_star_24"
+        android:title="Categories" />
+    <item
         android:id="@+id/equipmentListFragment"
         android:icon="@drawable/ic_baseline_format_list_bulleted_24"
         android:title="Equipments" />
@@ -12,4 +16,5 @@
         android:id="@+id/QRFragment"
         android:icon="@drawable/ic_baseline_qr_code_24"
         android:title="QR Code" />
+
 </menu>

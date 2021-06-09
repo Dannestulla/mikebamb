@@ -16,22 +16,42 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 
 @HiltViewModel
-class EquipmenViewModel @Inject constructor(
-    val app : Application,
-    val repository: EquipmentsRepository
+class DescriptionViewModel @Inject constructor(
+    val app: Application,
+    val repository: EquipmentsRepository,
+
 ) : AndroidViewModel(app) {
     var qrCodeFromScaner = ""
     lateinit var partNumberClicked: String
-    var recyclerViewItems = MutableLiveData<List<EquipmentEntity>>()
-    var equipmentDescriptionLiveData = MutableLiveData(EquipmentEntity("","","","","","","","","","","","","","","",""))
+    var equipmentDescriptionLiveData = MutableLiveData(
+        EquipmentEntity(
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        )
+    )
     lateinit var equipmentDescriptionData: EquipmentEntity
-    var listFromDB = ArrayList<EquipmentEntity>()
-    var mAdapter = EquipmentAdapter()
-    var emptyEquipmentEntity = EquipmentEntity("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
+    var emptyEquipmentEntity =
+        EquipmentEntity("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
     var equipmentUseCase = EquipmentUseCase(repository)
 
     fun addNewItem(newItem: EquipmentEntity) {
@@ -40,16 +60,9 @@ class EquipmenViewModel @Inject constructor(
         }
     }
 
-    fun getListFromDatabase() {
-        CoroutineScope(IO).launch {
-            listFromDB = repository.getListFromDatabase() as ArrayList<EquipmentEntity>
-            recyclerViewItems.postValue(listFromDB)
-            mAdapter = EquipmentAdapter()
-        }
-    }
 
     suspend fun getEquipmentByPartNumber(partNumber: String): EquipmentEntity {
-        return repository.getEquipmentByPartNumber(partNumber)
+        return equipmentUseCase.getEquipmentByPartNumber(partNumber)
     }
 
     fun getInDBEquipmentDescription() {
@@ -69,11 +82,11 @@ class EquipmenViewModel @Inject constructor(
         return equipmentUseCase.createQR(text)
     }
 
-    fun getEquipmentByQrCode(qrCodeFromScaner: String) : EquipmentEntity {
+    fun getEquipmentByQrCode(qrCodeFromScaner: String): EquipmentEntity {
         return repository.getEquipmentByQRCode(qrCodeFromScaner)
     }
 
-    fun createQrImageFile(wrapper : ContextWrapper, qrCreated : Bitmap): Uri? {
+    fun createQrImageFile(wrapper: ContextWrapper, qrCreated: Bitmap): Uri? {
         val file = equipmentUseCase.createQrImageFile(wrapper, qrCreated)
         val imageUri = FileProvider.getUriForFile(
             app.applicationContext,
@@ -82,6 +95,7 @@ class EquipmenViewModel @Inject constructor(
         )
         return imageUri
     }
+
     fun shareQrCode(image_uri: Uri?, equipmentQRcode: String): Intent {
         val emailIntent = Intent(Intent.ACTION_SEND)
         emailIntent.type = "application/image"
@@ -94,6 +108,5 @@ class EquipmenViewModel @Inject constructor(
 
     fun printAllQrCodes() {
         val allQrCodes = equipmentUseCase.printAllQrCodes()
-
     }
 }

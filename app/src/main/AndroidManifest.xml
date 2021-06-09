@@ -3,15 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.mikebamb">
 
-    <uses-permission android:name="Android.permission.CAMERA"/>
+    <uses-permission android:name="Android.permission.CAMERA" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <application
 
+    <application
         android:name="com.example.mikebamb.di.EquipmentsApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_engineering"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_engineering"
         android:supportsRtl="true"
         android:theme="@style/Theme.MikeBamb">
         <provider
@@ -19,7 +19,7 @@
             android:authorities="com.example.mikebamb.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-           <meta-data
+            <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>

@@ -12,7 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mikebamb.R
 import com.example.mikebamb.databinding.FragmentQRBinding
-import com.example.mikebamb.presenter.viewmodel.EquipmenViewModel
+import com.example.mikebamb.presenter.viewmodel.DescriptionViewModel
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
 
@@ -20,7 +20,7 @@ import com.google.zxing.integration.android.IntentResult
 class QRFragment : Fragment() {
     private var _binding: FragmentQRBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by activityViewModels<EquipmenViewModel>()
+    private val viewModel by activityViewModels<DescriptionViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

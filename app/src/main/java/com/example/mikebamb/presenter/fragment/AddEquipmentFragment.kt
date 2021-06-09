@@ -10,13 +10,15 @@ import androidx.fragment.app.activityViewModels
 import com.example.mikebamb.data.toEquipmentEntity
 import com.example.mikebamb.databinding.FragmentEditEquipmentBinding
 import com.example.mikebamb.domain.EquipmentModel
-import com.example.mikebamb.presenter.viewmodel.EquipmenViewModel
+import com.example.mikebamb.presenter.viewmodel.DescriptionViewModel
+import java.sql.Timestamp
+import java.util.*
 
 
 class AddEquipmentFragment : Fragment() {
     private var _binding: FragmentEditEquipmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by activityViewModels<EquipmenViewModel>()
+    private val viewModel by activityViewModels<DescriptionViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,11 +50,14 @@ class AddEquipmentFragment : Fragment() {
             category3Model = binding.editCategory3.text.toString(),
             observation1Model = binding.observation1.text.toString(),
             observation2Model = binding.observation2.text.toString(),
-            observation3Model =binding.observation3.text.toString(),
+            observation3Model = binding.observation3.text.toString(),
+            observation4Model = binding.observation4.text.toString(),
+            observation5Model = binding.observation5.text.toString(),
+            timestamp = Timestamp(Date().time),
         )
 
         viewModel.addNewItem(newItem.toEquipmentEntity())
-        Toast.makeText(context,"New Item Added!",Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "New Item Added!", Toast.LENGTH_LONG).show()
     }
 }
 

@@ -27,4 +27,13 @@ interface EquipmentDao {
     @Query("SELECT qr_code FROM equipment")
     fun printAllQrCodes() : List<String>
 
+    @Query("SELECT category1 FROM equipment")
+    fun getMainCategory() : List<String>
+
+    @Query("SELECT category1 FROM equipment WHERE category1=:subCategory")
+    fun getSubCategory(subCategory : String) : List<String>
+
+    @Query("SELECT timestamp FROM equipment ORDER BY timestamp DESC")
+    fun getTimestamp() : List<String>
+
 }

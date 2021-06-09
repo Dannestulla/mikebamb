@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.util.Log
 import com.example.mikebamb.data.EquipmentsRepository
 import com.example.mikebamb.data.local.EquipmentEntity
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
@@ -14,11 +15,18 @@ import java.io.File
 import java.io.FileOutputStream
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class EquipmentUseCase @Inject constructor(
     val repository: EquipmentsRepository
 ){
+
+    fun initializeRemoteDatabase() {
+        repository.initializeRemoteDatabase()
+
+      /*  getOnlineTimestamp()
+        compareTimestamps()*/
+    }
+
     fun createQR(text: String) :Bitmap {
         val width = 500
         val height = 500
@@ -49,7 +57,19 @@ class EquipmentUseCase @Inject constructor(
 
     fun printAllQrCodes(): List<String> {
         return repository.printAllQrCodes()
-
-
     }
+
+    fun getSubCategory(subCategory: String): List<String> {
+        return repository.getSubCategory(subCategory)
+    }
+
+    fun getMainCategory(): List<String>  {
+        return repository.getMainCategory()
+    }
+
+    suspend fun getEquipmentByPartNumber(partNumber: String): EquipmentEntity {
+        return repository.getEquipmentByPartNumber(partNumber)
+    }
+
+
 }

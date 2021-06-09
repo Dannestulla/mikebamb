@@ -21,5 +21,8 @@ data class EquipmentEntity(
     @ColumnInfo(name = "category3") var category3Entity: String,
     @ColumnInfo(name = "observations1") var observations1Entity: String,
     @ColumnInfo(name = "observations2") var observations2Entity: String,
-    @ColumnInfo(name = "observations3") var cobservations3Entity: String,
+    @ColumnInfo(name = "observations3") var observations3Entity: String,
+    @ColumnInfo(name = "observations4") var observations4Entity: String,
+    @ColumnInfo(name = "observations5") var observations5Entity: String,
+    @ColumnInfo(name = "timestamp") var timestampEntity: String,
 )

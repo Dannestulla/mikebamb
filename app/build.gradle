@@ -3,7 +3,9 @@ plugins {
     id 'kotlin-android'
     id "org.jetbrains.kotlin.kapt"
     id("dagger.hilt.android.plugin")
+    id "com.google.gms.google-services"
     id("androidx.navigation.safeargs.kotlin")
+
 
 }
 
@@ -42,6 +44,7 @@ android {
 dependencies {
     //Dagger Hilt
     implementation 'com.google.dagger:hilt-android:2.35'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     kapt 'com.google.dagger:hilt-compiler:2.35'
     
     implementation 'androidx.core:core-ktx:1.5.0'
@@ -69,4 +72,10 @@ dependencies {
 
     //QR code
     implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
+    //Firebase
+    implementation platform('com.google.firebase:firebase-bom:28.1.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx:23.0.1'
+
+
 }

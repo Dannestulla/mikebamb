@@ -20,4 +20,7 @@ fun EquipmentModel.toEquipmentEntity() = EquipmentEntity(
     observation1Model,
     observation2Model,
     observation3Model,
+    observation4Model,
+    observation5Model,
+    timestamp.toString()
 )

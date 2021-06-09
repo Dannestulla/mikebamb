@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/equipmentListFragment">
+    app:startDestination="@id/categoryFragment">
 
     <fragment
         android:id="@+id/equipmentListFragment"
         android:name="com.example.mikebamb.presenter.fragment.EquipmentListFragment"
         android:label="fragment_equipment_list"
         tools:layout="@layout/fragment_equipment_list">
+        <argument
+            android:name="subCategory"
+            app:argType="string"
+            android:defaultValue=""/>
         <action
             android:id="@+id/action_equipmentListFragment_to_descriptionEquipmentFragment"
             app:destination="@id/descriptionEquipmentFragment"
@@ -18,9 +22,9 @@
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right">
             <argument
-                android:name="myArg"
-                android:defaultValue="1"
-                app:argType="string" />
+                android:name="partNumber"
+                app:argType="string"
+                android:defaultValue=""/>
         </action>
         <action
             android:id="@+id/action_equipmentListFragment_to_addEquipmentFragment"
@@ -42,7 +46,12 @@
         android:id="@+id/descriptionEquipmentFragment"
         android:name="com.example.mikebamb.presenter.fragment.DescriptionEquipmentFragment"
         android:label="fragment_description_equipment"
-        tools:layout="@layout/fragment_description_equipment" />
+        tools:layout="@layout/fragment_description_equipment">
+        <argument
+            android:name="partNumber"
+            app:argType="string"
+            android:defaultValue=""/>
+    </fragment>
     <fragment
         android:id="@+id/QRFragment"
         android:name="com.example.mikebamb.presenter.fragment.QRFragment"
@@ -55,6 +64,20 @@
                 android:name="qr_code"
                 android:defaultValue="empty"
                 app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.mikebamb.presenter.fragment.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category">
+        <action
+            android:id="@+id/action_categoryFragment_to_equipmentListFragment"
+            app:destination="@id/equipmentListFragment">
+            <argument
+                android:name="subCategory"
+                app:argType="string"
+                android:defaultValue=""/>
         </action>
     </fragment>
 </navigation>

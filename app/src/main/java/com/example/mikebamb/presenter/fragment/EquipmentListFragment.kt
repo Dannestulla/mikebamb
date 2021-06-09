@@ -1,22 +1,25 @@
 package com.example.mikebamb.presenter.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mikebamb.R
 import com.example.mikebamb.databinding.FragmentEquipmentListBinding
-import com.example.mikebamb.presenter.viewmodel.EquipmenViewModel
+import com.example.mikebamb.presenter.viewmodel.DescriptionViewModel
+import com.example.mikebamb.presenter.viewmodel.EquipmentListViewModel
 
 class EquipmentListFragment : Fragment() {
     private var _binding: FragmentEquipmentListBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by activityViewModels<EquipmenViewModel>()
+    private val viewModel by activityViewModels<EquipmentListViewModel>()
+    private val args: EquipmentListFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,18 +29,18 @@ class EquipmentListFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.editName.text = args.subCategory
         viewModel.getListFromDatabase()
         setupRecyclerView()
         defaultDBStartup()
     }
 
     private fun defaultDBStartup() {
-        viewModel.addNewItem(DBData().itemOne)
+        /*viewModel.addNewItem(DBData().itemOne)
         viewModel.addNewItem(DBData().itemTwo)
-        viewModel.addNewItem(DBData().itemThree)
+        viewModel.addNewItem(DBData().itemThree)*/
     }
 
     private fun setupRecyclerView() {
@@ -51,12 +54,11 @@ class EquipmentListFragment : Fragment() {
         viewModel.recyclerViewItems.observe(
             viewLifecycleOwner,
             { viewModel.mAdapter.submitList(it) })
-
     }
 
     private fun navigateToDescription(position: Int) {
         val partNumberClicked = viewModel.recyclerViewItems.value?.get(position)?.partNumber!!
-        viewModel.partNumberClicked = partNumberClicked
-        findNavController().navigate(R.id.action_equipmentListFragment_to_descriptionEquipmentFragment)
+        val action = EquipmentListFragmentDirections.actionEquipmentListFragmentToDescriptionEquipmentFragment(partNumberClicked)
+        findNavController().navigate(action)
     }
 }

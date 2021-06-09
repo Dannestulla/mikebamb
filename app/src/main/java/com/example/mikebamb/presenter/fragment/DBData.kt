@@ -19,7 +19,10 @@ class DBData {
         "no deck",
         "cool",
         "nice",
-        "cat"
+        "cat",
+        "",
+        "",
+        ""
     )
     val itemTwo = EquipmentEntity(
         "76545",
@@ -38,6 +41,9 @@ class DBData {
         "no deck",
         "cool",
         "nice",
+        "",
+        "",
+        ""
 
 
     )
@@ -58,6 +64,9 @@ class DBData {
         "no deck",
         "cool",
         "nice",
+        "",
+        "",
+        ""
 
     )
 }

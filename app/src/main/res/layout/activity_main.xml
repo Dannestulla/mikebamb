@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presenter.MainActivity"
-  >
+    tools:context=".presenter.MainActivity">
 
     <fragment
         android:id="@+id/fragment"
@@ -24,11 +23,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/gray"
+        app:itemIconTint="@color/bottom_nav_item"
+        app:itemTextColor="@color/bottom_nav_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu"
-        app:itemTextColor="@color/bottom_nav_item"
-        app:itemIconTint="@color/bottom_nav_item"
-       />
+        app:menu="@menu/bottom_nav_menu" />
 
 </RelativeLayout>

@@ -10,18 +10,23 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.example.mikebamb.data.local.EquipmentEntity
 import com.example.mikebamb.databinding.FragmentDescriptionEquipmentBinding
-import com.example.mikebamb.presenter.viewmodel.EquipmenViewModel
+import com.example.mikebamb.presenter.viewmodel.DescriptionViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
+import java.sql.Timestamp
+import java.util.*
 
 
 class DescriptionEquipmentFragment : Fragment() {
     private var _binding: FragmentDescriptionEquipmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by activityViewModels<EquipmenViewModel>()
+    private val viewModel by activityViewModels<DescriptionViewModel>()
+    private val args: DescriptionEquipmentFragmentArgs by navArgs()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +38,7 @@ class DescriptionEquipmentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.partNumberClicked = args.partNumber
         incomingFromScanerOrRecyclerView()
         applyBinding()
         binding.addQrCode.setOnClickListener { clickOnCreateQR() }
@@ -54,7 +60,7 @@ class DescriptionEquipmentFragment : Fragment() {
                 saveChanges.setOnClickListener { saveChanges() }
                 scanQrDescription.setOnClickListener { }
                 deleteEquip.setOnClickListener { deleteEquipment() }
-                printAllQrDatabase.setOnClickListener { printAllQrDatabase() }
+                //printAllQrDatabase.setOnClickListener { printAllQrDatabase() }
             }
         })
     }
@@ -118,6 +124,9 @@ class DescriptionEquipmentFragment : Fragment() {
                 editObservations1.text.toString(),
                 editObservations2.text.toString(),
                 editObservations3.text.toString(),
+                editObservations4.text.toString(),
+                editObservations5.text.toString(),
+                Timestamp(Date().time).toString(),
             )
             viewModel.addNewItem(newItem)
             Toast.makeText(context, "Saved Changes!", Toast.LENGTH_LONG).show()

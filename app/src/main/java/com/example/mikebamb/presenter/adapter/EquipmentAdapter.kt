@@ -1,4 +1,4 @@
-package com.example.mikebamb.presenter.viewmodel
+package com.example.mikebamb.presenter.adapter
 
 
 import android.view.LayoutInflater
@@ -13,6 +13,7 @@ import com.example.mikebamb.databinding.CardViewEquipmentBinding
 class EquipmentAdapter :
     ListAdapter<EquipmentEntity, EquipmentAdapter.AdapterViewHolder>(ReceitasComparator()) {
     var onItemClick: ((Int) -> Unit)? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterViewHolder {
         val binding =
