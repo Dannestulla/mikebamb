@@ -1,26 +1,24 @@
 package com.example.mikebamb.data
 
-import com.example.mikebamb.data.local.EquipmentDao
 import com.example.mikebamb.data.local.EquipmentDatabase
 import com.example.mikebamb.data.local.EquipmentEntity
 import com.example.mikebamb.data.remote.CloudFirestore
-import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
 class EquipmentsRepository @Inject constructor(
     localDB: EquipmentDatabase,
-
     ) {
     // LOCAL
     private val localDB = localDB.equipmentDao()
+    private val remoteDB = CloudFirestore()
 
-
-    suspend fun addNewItem(newItem: EquipmentEntity) {
-        localDB.addNewItem(newItem)
+    suspend fun addNewItemLocal(newItem: EquipmentEntity) {
+        localDB.addNewItemLocal(newItem)
     }
 
-    fun getListFromDatabase(): List<EquipmentEntity> {
-        return localDB.getListFromDB()
+
+    fun getEquipmentsFromDatabase(): List<EquipmentEntity> {
+        return localDB.getEquipmentsFromDatabase()
     }
 
     suspend fun getEquipmentByPartNumber(partNumber: String): EquipmentEntity {
@@ -47,6 +45,10 @@ class EquipmentsRepository @Inject constructor(
         return localDB.getSubCategory(subCategory)
     }
 
+    fun getSubSubCategory(subSubCategory: String) : List<String>{
+        return localDB.getSubSubCategory(subSubCategory)
+    }
+
     fun getLocalTimestamp(): List<String> {
         return localDB.getTimestamp()
     }
@@ -54,7 +56,19 @@ class EquipmentsRepository @Inject constructor(
     // REMOTE
 
     fun initializeRemoteDatabase() {
-        return CloudFirestore().initializeRemoteDatabase()
+        return remoteDB.initializeRemoteDatabase()
     }
 
+    fun getAllRemoteData()  {
+        return remoteDB.getAllRemoteData()
+    }
+
+    fun addNewItemRemote(toEquipmentEntity: EquipmentEntity) {
+        remoteDB.addNewItemRemote(toEquipmentEntity)
+    }
+
+    suspend fun doesEquipExists(partNumber: String): Boolean {
+        return localDB.doesEquipExists(partNumber)
+
+    }
 }

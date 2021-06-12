@@ -10,7 +10,7 @@ import androidx.room.Query
 interface EquipmentDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addNewItem(newEquip: EquipmentEntity)
+    suspend fun addNewItemLocal(newEquip: EquipmentEntity)
 
     @Query("DELETE FROM equipment WHERE part_number =:partNumber")
     suspend fun deleteEquipment(partNumber: String)
@@ -18,8 +18,11 @@ interface EquipmentDao {
     @Query("SELECT * FROM equipment WHERE part_number=:partNumber")
     suspend fun getEquipmentByPartNumber(partNumber: String): EquipmentEntity
 
+    @Query("SELECT EXISTS(SELECT * FROM equipment WHERE part_number=:partNumber)")
+    suspend fun doesEquipExists(partNumber: String): Boolean
+
     @Query("SELECT * FROM equipment")
-    fun getListFromDB() : List<EquipmentEntity>
+    fun getEquipmentsFromDatabase() : List<EquipmentEntity>
 
     @Query("SELECT * FROM equipment WHERE qr_code=:qrCode")
     fun getEquipmentByQRcode(qrCode: String) : EquipmentEntity
@@ -30,8 +33,11 @@ interface EquipmentDao {
     @Query("SELECT category1 FROM equipment")
     fun getMainCategory() : List<String>
 
-    @Query("SELECT category1 FROM equipment WHERE category1=:subCategory")
+    @Query("SELECT category2 FROM equipment WHERE category1=:subCategory")
     fun getSubCategory(subCategory : String) : List<String>
+
+    @Query("SELECT category2 FROM equipment WHERE category2=:subSubCategory")
+    fun getSubSubCategory(subSubCategory : String) : List<String>
 
     @Query("SELECT timestamp FROM equipment ORDER BY timestamp DESC")
     fun getTimestamp() : List<String>

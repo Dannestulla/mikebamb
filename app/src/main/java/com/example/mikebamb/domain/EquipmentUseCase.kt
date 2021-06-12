@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.util.Log
 import com.example.mikebamb.data.EquipmentsRepository
 import com.example.mikebamb.data.local.EquipmentEntity
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
@@ -17,17 +16,14 @@ import java.util.*
 import javax.inject.Inject
 
 class EquipmentUseCase @Inject constructor(
-    val repository: EquipmentsRepository
-){
+    private val repository: EquipmentsRepository
+) {
 
     fun initializeRemoteDatabase() {
         repository.initializeRemoteDatabase()
-
-      /*  getOnlineTimestamp()
-        compareTimestamps()*/
     }
 
-    fun createQR(text: String) :Bitmap {
+    fun createQR(text: String): Bitmap {
         val width = 500
         val height = 500
         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
@@ -45,11 +41,11 @@ class EquipmentUseCase @Inject constructor(
         return bitmap
     }
 
-    fun createQrImageFile(wrapper: ContextWrapper, qrCreated: Bitmap,): File {
+    fun createQrImageFile(wrapper: ContextWrapper, qrCreated: Bitmap): File {
         var file = wrapper.getDir("Images", Context.MODE_PRIVATE)
-        file = File(file,"${UUID.randomUUID()}.png")
+        file = File(file, "${UUID.randomUUID()}.png")
         val stream = FileOutputStream(file)
-        qrCreated.compress(Bitmap.CompressFormat.PNG,100,stream)
+        qrCreated.compress(Bitmap.CompressFormat.PNG, 100, stream)
         stream.flush()
         stream.close()
         return file
@@ -63,7 +59,11 @@ class EquipmentUseCase @Inject constructor(
         return repository.getSubCategory(subCategory)
     }
 
-    fun getMainCategory(): List<String>  {
+    fun getSubSubCategory(subSubCategory : String) : List<String> {
+        return repository.getSubSubCategory(subSubCategory)
+    }
+
+    fun getMainCategory(): List<String> {
         return repository.getMainCategory()
     }
 
@@ -71,5 +71,19 @@ class EquipmentUseCase @Inject constructor(
         return repository.getEquipmentByPartNumber(partNumber)
     }
 
+    fun getEquipmentsFromDatabase(): List<EquipmentEntity> {
+        return repository.getEquipmentsFromDatabase()
+    }
 
+    fun getAllRemoteData() {
+        repository.getAllRemoteData()
+    }
+
+    suspend fun doesEquipExists(partNumber: String): Boolean {
+        return repository.doesEquipExists(partNumber)
+    }
+
+    suspend fun addNewItemLocal(newItem : EquipmentEntity) {
+        repository.addNewItemLocal(newItem)
+    }
 }

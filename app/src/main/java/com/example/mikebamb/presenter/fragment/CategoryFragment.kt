@@ -10,6 +10,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mikebamb.data.remote.CloudFirestore
+import com.example.mikebamb.data.remote.CloudFirestore.Companion.documentsLiveData
 import com.example.mikebamb.databinding.FragmentCategoryBinding
 import com.example.mikebamb.presenter.viewmodel.CategoryViewModel
 
@@ -17,6 +19,7 @@ class CategoryFragment : Fragment() {
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<CategoryViewModel>()
+    var cloudFirestore = CloudFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,18 +35,40 @@ class CategoryFragment : Fragment() {
             adapter = viewModel.mAdapter
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         }
-        viewModel.initializeRemoteDatabase()
+        defaultValues()
+        viewModel.getListFromDatabase()
+        initAndCheckRemoteDB()
         getMainCategory()
-
+        observableRemoteData()
         viewModel.mAdapter.onItemClick = { position ->
-            if (viewModel.exitCategoryMenu == false) {
+            if (!viewModel.exitCategoryMenu) {
                 val subCategory = viewModel.categorySelected[position]
                 viewModel.getSubCategory(subCategory)
                 binding.editCategory.text = subCategory
                 binding.textCategory.text = "Sub Category: "
             } else {
-                navigateToDescription(position)
+                navigateToEquipmentList(position)
             }
+        }
+
+    }
+
+    private fun observableRemoteData() {
+        cloudFirestore.documentsLiveData.observe(viewLifecycleOwner, {
+            viewModel.remoteDBdata = it
+            Log.e("remote", "$it \n")
+            viewModel.compareRemoteAndLocalData(it)
+        })
+    }
+
+    private fun defaultValues() {
+        binding.editCategory.text = ""
+    }
+
+    private fun initAndCheckRemoteDB() {
+        if (!viewModel.checkedRemote) {
+            viewModel.initializeRemoteDatabase()
+            viewModel.getAllRemoteData()
         }
     }
 
@@ -51,13 +76,16 @@ class CategoryFragment : Fragment() {
         viewModel.getMainCategory()
         viewModel.currentCategory.observe(viewLifecycleOwner, {
             viewModel.mAdapter.submitList(it)
-        })
+        }
+        )
     }
 
-    private fun navigateToDescription(position: Int) {
+    private fun navigateToEquipmentList(position: Int) {
         val equipmentCategory = viewModel.categorySelected[position]
-        Log.d("equi",equipmentCategory)
-        val action = CategoryFragmentDirections.actionCategoryFragmentToEquipmentListFragment(equipmentCategory)
+        Log.d("equi", equipmentCategory)
+        val action = CategoryFragmentDirections.actionCategoryFragmentToEquipmentListFragment(
+            equipmentCategory
+        )
         findNavController().navigate(action)
     }
 
@@ -65,4 +93,4 @@ class CategoryFragment : Fragment() {
         super.onPause()
         viewModel.exitCategoryMenu = false
     }
-    }
+}

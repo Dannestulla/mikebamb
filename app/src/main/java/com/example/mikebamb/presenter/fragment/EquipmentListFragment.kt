@@ -1,7 +1,6 @@
 package com.example.mikebamb.presenter.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mikebamb.databinding.FragmentEquipmentListBinding
-import com.example.mikebamb.presenter.viewmodel.DescriptionViewModel
 import com.example.mikebamb.presenter.viewmodel.EquipmentListViewModel
 
 class EquipmentListFragment : Fragment() {
@@ -31,16 +29,10 @@ class EquipmentListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.editName.text = args.subCategory
-        viewModel.getListFromDatabase()
+        val equipmentsList = args.equipmentsList
+        binding.editName.text = equipmentsList
         setupRecyclerView()
-        defaultDBStartup()
-    }
-
-    private fun defaultDBStartup() {
-        /*viewModel.addNewItem(DBData().itemOne)
-        viewModel.addNewItem(DBData().itemTwo)
-        viewModel.addNewItem(DBData().itemThree)*/
+        viewModel.getEquipmentsFromDatabase()
     }
 
     private fun setupRecyclerView() {
@@ -58,7 +50,10 @@ class EquipmentListFragment : Fragment() {
 
     private fun navigateToDescription(position: Int) {
         val partNumberClicked = viewModel.recyclerViewItems.value?.get(position)?.partNumber!!
-        val action = EquipmentListFragmentDirections.actionEquipmentListFragmentToDescriptionEquipmentFragment(partNumberClicked)
+        val action =
+            EquipmentListFragmentDirections.actionEquipmentListFragmentToDescriptionEquipmentFragment(
+                partNumberClicked
+            )
         findNavController().navigate(action)
     }
 }

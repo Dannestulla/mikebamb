@@ -19,7 +19,7 @@ class AddEquipmentFragment : Fragment() {
     private var _binding: FragmentEditEquipmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<DescriptionViewModel>()
-
+    private var isEmpty = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,29 +35,81 @@ class AddEquipmentFragment : Fragment() {
 
     private fun addNewItem() {
         val newItem = EquipmentModel(
-            nameModel = binding.editEquipName.text.toString(),
-            manufacturerModel = binding.editManufacturer.text.toString(),
-            modelModel = binding.editModel.text.toString(),
-            partNumberModel = binding.editPartNumber.text.toString(),
-            installDateModel = binding.editInstallDate.text.toString(),
-            fluigModel = binding.editFluig.text.toString(),
-            linkToManualModel = binding.editManuallink.text.toString(),
-            hoursModel = binding.editHours.text.toString(),
-            qrCodeModel = binding.editQrCode.text.toString(),
-            commentsModel = binding.editComments.text.toString(),
-            category1Model = binding.editComments.text.toString(),
-            category2Model = binding.editCategory2.text.toString(),
-            category3Model = binding.editCategory3.text.toString(),
-            observation1Model = binding.observation1.text.toString(),
-            observation2Model = binding.observation2.text.toString(),
-            observation3Model = binding.observation3.text.toString(),
-            observation4Model = binding.observation4.text.toString(),
-            observation5Model = binding.observation5.text.toString(),
-            timestamp = Timestamp(Date().time),
+            binding.editPartNumber.text.toString(),
+            binding.editEquipName.text.toString(),
+            binding.editManufacturer.text.toString(),
+            binding.editModel.text.toString(),
+            binding.editInstallDate.text.toString(),
+            binding.editFluig.text.toString(),
+            binding.editManuallink.text.toString(),
+            binding.editHours.text.toString(),
+            binding.editQrCode.text.toString(),
+            binding.editComments.text.toString(),
+            binding.editCategory1.text.toString(),
+            binding.editCategory2.text.toString(),
+            binding.editCategory3.text.toString(),
+            binding.editObservations1.text.toString(),
+            binding.editObservations2.text.toString(),
+            binding.editObservations3.text.toString(),
+            binding.editObservations4.text.toString(),
+            binding.editObservations5.text.toString(),
+            Timestamp(Date().time),
         )
+        checkForEmpty(newItem)
+        if (!isEmpty) {
+            viewModel.addNewItemLocal(newItem.toEquipmentEntity())
+            viewModel.addNewItemRemote(newItem.toEquipmentEntity())
+            Toast.makeText(context, "New Item Added!", Toast.LENGTH_LONG).show()
+            clearFields()
+        } else {
+            Toast.makeText(context, "Required Fields Are Empty!", Toast.LENGTH_LONG).show()
+        }
+    }
 
-        viewModel.addNewItem(newItem.toEquipmentEntity())
-        Toast.makeText(context, "New Item Added!", Toast.LENGTH_LONG).show()
+    private fun clearFields() {
+        binding.editPartNumber.setText("")
+        binding.editEquipName.setText("")
+        binding.editManufacturer.setText("")
+        binding.editModel.setText("")
+        binding.editInstallDate.setText("")
+        binding.editFluig.setText("")
+        binding.editManuallink.setText("")
+        binding.editHours.setText("")
+        binding.editQrCode.setText("")
+        binding.editComments.setText("")
+        binding.editCategory1.setText("")
+        binding.editCategory2.setText("")
+        binding.editCategory3.setText("")
+        binding.editObservations1.setText("")
+        binding.editObservations2.setText("")
+        binding.editObservations3.setText("")
+        binding.editObservations4.setText("")
+        binding.editObservations5.setText("")
+    }
+
+    private fun checkForEmpty(newItem: EquipmentModel): Boolean {
+        isEmpty = false
+        if (newItem.nameModel.trim().isBlank()) {
+            binding.editEquipName.error = "Must not be empty!"
+            isEmpty = true
+        }
+        if (newItem.partNumberModel.trim().isBlank()) {
+            binding.editPartNumber.error = "Must not be empty!"
+            isEmpty = true
+        }
+        if (newItem.category1Model.trim().isBlank()) {
+            binding.editCategory1.error = "Must not be empty!"
+            isEmpty = true
+        }
+        if (newItem.category2Model.trim().isBlank()) {
+            binding.editCategory2.error = "Must not be empty!"
+            isEmpty = true
+        }
+        if (newItem.category3Model.trim().isBlank()) {
+            binding.editCategory3.error = "Must not be empty!"
+            isEmpty = true
+        }
+        return isEmpty
     }
 }
 

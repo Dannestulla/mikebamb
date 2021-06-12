@@ -57,6 +57,15 @@ class DescriptionEquipmentFragment : Fragment() {
                 editHours.setText(it.hoursEntity)
                 editQrCode.setText(it.qrCodeEntity)
                 editComments.setText(it.commentsEntity)
+                editCategory1.setText(it.category1Entity)
+                editCategory2.setText(it.category2Entity)
+                editCategory3.setText(it.category3Entity)
+                editObservations1.setText(it.observations1Entity)
+                editObservations2.setText(it.observations2Entity)
+                editObservations3.setText(it.observations3Entity)
+                editObservations4.setText(it.observations4Entity)
+                editObservations5.setText(it.observations5Entity)
+
                 saveChanges.setOnClickListener { saveChanges() }
                 scanQrDescription.setOnClickListener { }
                 deleteEquip.setOnClickListener { deleteEquipment() }
@@ -128,7 +137,7 @@ class DescriptionEquipmentFragment : Fragment() {
                 editObservations5.text.toString(),
                 Timestamp(Date().time).toString(),
             )
-            viewModel.addNewItem(newItem)
+            viewModel.addNewItemLocal(newItem)
             Toast.makeText(context, "Saved Changes!", Toast.LENGTH_LONG).show()
         }
     }

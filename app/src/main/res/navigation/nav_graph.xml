@@ -11,7 +11,7 @@
         android:label="fragment_equipment_list"
         tools:layout="@layout/fragment_equipment_list">
         <argument
-            android:name="subCategory"
+            android:name="equipments_list"
             app:argType="string"
             android:defaultValue=""/>
         <action
@@ -75,7 +75,7 @@
             android:id="@+id/action_categoryFragment_to_equipmentListFragment"
             app:destination="@id/equipmentListFragment">
             <argument
-                android:name="subCategory"
+                android:name="equipments_list"
                 app:argType="string"
                 android:defaultValue=""/>
         </action>

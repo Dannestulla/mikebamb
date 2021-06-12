@@ -54,9 +54,9 @@ class DescriptionViewModel @Inject constructor(
         EquipmentEntity("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
     var equipmentUseCase = EquipmentUseCase(repository)
 
-    fun addNewItem(newItem: EquipmentEntity) {
+    fun addNewItemLocal(newItem: EquipmentEntity) {
         CoroutineScope(IO).launch {
-            repository.addNewItem(newItem)
+            repository.addNewItemLocal(newItem)
         }
     }
 
@@ -108,5 +108,9 @@ class DescriptionViewModel @Inject constructor(
 
     fun printAllQrCodes() {
         val allQrCodes = equipmentUseCase.printAllQrCodes()
+    }
+
+    fun addNewItemRemote(toEquipmentEntity: EquipmentEntity) {
+        repository.addNewItemRemote(toEquipmentEntity)
     }
 }
