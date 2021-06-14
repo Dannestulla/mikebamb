@@ -9,6 +9,9 @@
 ### Preview
 
 
+ ![ Alt text](https://github.com/Dannestulla/mikebamb/blob/main/app/src/main/res/drawable/ezgif-2-5d10af149421.gif)
+ ![ Alt text](https://github.com/Dannestulla/mikebamb/blob/main/app/src/main/res/drawable/ezgif-2-19dd9a01f208.gif)
+ ![ Alt text](https://github.com/Dannestulla/mikebamb/blob/main/app/src/main/res/drawable/ezgif-2-adca0a7e688c.gif)
 
 ### Download Apk Link 
 
