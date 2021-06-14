@@ -41,5 +41,4 @@ interface EquipmentDao {
 
     @Query("SELECT timestamp FROM equipment ORDER BY timestamp DESC")
     fun getTimestamp() : List<String>
-
 }

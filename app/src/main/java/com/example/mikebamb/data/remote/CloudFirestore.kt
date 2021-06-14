@@ -12,13 +12,9 @@ import javax.inject.Inject
 class CloudFirestore @Inject constructor(
 ) {
     companion object {
-        var remoteDBdata = MutableLiveData<ArrayList<String>>()
         var documentsLiveData = MutableLiveData<MutableCollection<Any>>()
-
     }
-
     var remoteDatabase = FirebaseFirestore.getInstance()
-
 
     fun initializeRemoteDatabase() {
         remoteDatabase = FirebaseFirestore.getInstance()
@@ -30,7 +26,7 @@ class CloudFirestore @Inject constructor(
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        var documentCollection = mutableListOf<Any>()
+                        val documentCollection = mutableListOf<Any>()
                         for (document in task.result!!) {
                             val result = document.data.values.toString()
                             documentCollection.add(result)
@@ -55,5 +51,4 @@ class CloudFirestore @Inject constructor(
                 }
             }
     }
-
 }

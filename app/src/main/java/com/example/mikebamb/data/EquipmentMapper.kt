@@ -1,6 +1,7 @@
 package com.example.mikebamb.data
 
 import com.example.mikebamb.data.local.EquipmentEntity
+import com.example.mikebamb.data.remote.EquipmentRemote
 import com.example.mikebamb.domain.EquipmentModel
 
 fun EquipmentModel.toEquipmentEntity() = EquipmentEntity(
@@ -24,3 +25,25 @@ fun EquipmentModel.toEquipmentEntity() = EquipmentEntity(
     observation5Model,
     timestamp.toString()
 )
+
+/*fun EquipmentRemote.toEquipmentEntity() = EquipmentEntity(
+    partNumberRemote,
+    guideLinksRemote,
+    commentsRemote,
+    observations4Remote,
+    commentsEntityRemote,
+    observations1Remote,
+    qrCodeRemote,
+    manufacturerRemote,
+    fluigRemote,
+    installDateRemote,
+    modelRemote,
+    timestampRemote,
+    observations2Remote,
+    category1Remote,
+    category2Remote,
+    observations5Remote,
+    hoursRemote,
+
+    )*/
+

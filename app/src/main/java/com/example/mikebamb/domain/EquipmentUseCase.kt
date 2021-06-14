@@ -10,6 +10,9 @@ import com.example.mikebamb.data.local.EquipmentEntity
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.WriterException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
@@ -86,4 +89,67 @@ class EquipmentUseCase @Inject constructor(
     suspend fun addNewItemLocal(newItem : EquipmentEntity) {
         repository.addNewItemLocal(newItem)
     }
-}
+
+    fun compareRemoteAndLocalData(remoteDBdata: MutableCollection<Any>) {
+        val arrayPartNumber = java.util.ArrayList<String>()
+        val arrayTimestamp = java.util.ArrayList<String>()
+        for (items in remoteDBdata) {
+            val splitArray = items.toString().split(",")
+            arrayPartNumber.add(splitArray[15])
+            arrayTimestamp.add(splitArray[7])
+        }
+        Log.e("arrayPartNumber", arrayPartNumber.toString())
+        Log.e("arrayPartNumber", arrayTimestamp.toString())
+        CoroutineScope(Dispatchers.IO).launch {
+            var equipmentEntityPartNumber: EquipmentEntity
+            for (partNumber in arrayPartNumber) {
+                val existsInDB = doesEquipExists(partNumber)
+                if (existsInDB) {
+                    equipmentEntityPartNumber = getEquipmentByPartNumber(partNumber)
+                    val comparison = equipmentEntityPartNumber.timestampEntity.compareTo(partNumber)
+                    if (comparison < 0) {
+                        Log.e(
+                            "overwriting local database",
+                            "equipment from DB: " + equipmentEntityPartNumber.timestampEntity + "Equipment from Remote: " + partNumber
+                        )
+                    } else if (comparison > 0){
+                        Log.e(
+                            "not overwriting",
+                            "equipment from DB: " + equipmentEntityPartNumber.timestampEntity + "Equipment from Remote: " + partNumber
+                        )
+                    }
+                } else {
+                    for (items in remoteDBdata) {
+                        val match = items.toString().contains(partNumber)
+                        if (match) {
+                            val newArray = items.toString().replace("[","").replace("]","").split(",")
+                            val newResult = EquipmentEntity(
+                                newArray[15],
+                                newArray[0],
+                                newArray[4],
+                                newArray[9],
+                                newArray[16],
+                                newArray[9],
+                                newArray[13],
+                                newArray[8],
+                                newArray[3],
+                                newArray[5],
+                                newArray[6],
+                                newArray[0],
+                                newArray[2],
+                                newArray[18],
+                                newArray[14],
+                                newArray[10],
+                                newArray[11],
+                                newArray[17],
+                                newArray[7])
+                            Log.e("newResult", newArray.toString())
+                            addNewItemLocal(newResult)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    }
+

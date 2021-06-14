@@ -164,6 +164,10 @@ class DescriptionEquipmentFragment : Fragment() {
     private fun printAllQrDatabase() {
         viewModel.printAllQrCodes()
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
 
 

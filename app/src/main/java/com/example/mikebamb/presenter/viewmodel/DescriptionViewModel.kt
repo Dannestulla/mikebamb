@@ -23,7 +23,7 @@ class DescriptionViewModel @Inject constructor(
     val app: Application,
     val repository: EquipmentsRepository,
 
-) : AndroidViewModel(app) {
+    ) : AndroidViewModel(app) {
     var qrCodeFromScaner = ""
     lateinit var partNumberClicked: String
     var equipmentDescriptionLiveData = MutableLiveData(

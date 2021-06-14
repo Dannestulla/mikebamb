@@ -17,10 +17,7 @@
         <action
             android:id="@+id/action_equipmentListFragment_to_descriptionEquipmentFragment"
             app:destination="@id/descriptionEquipmentFragment"
-            app:enterAnim="@anim/from_right"
-            app:exitAnim="@anim/to_left"
-            app:popEnterAnim="@anim/from_left"
-            app:popExitAnim="@anim/to_right">
+            >
             <argument
                 android:name="partNumber"
                 app:argType="string"

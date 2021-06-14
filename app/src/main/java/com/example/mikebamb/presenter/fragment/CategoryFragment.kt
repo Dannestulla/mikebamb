@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mikebamb.data.remote.CloudFirestore
@@ -33,7 +34,7 @@ class CategoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.categoryRecyclerview.apply {
             adapter = viewModel.mAdapter
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         }
         defaultValues()
         viewModel.getListFromDatabase()
@@ -50,7 +51,6 @@ class CategoryFragment : Fragment() {
                 navigateToEquipmentList(position)
             }
         }
-
     }
 
     private fun observableRemoteData() {
@@ -92,5 +92,10 @@ class CategoryFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         viewModel.exitCategoryMenu = false
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

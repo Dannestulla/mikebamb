@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class EquipmentListViewModel @Inject constructor(
     val app: Application,
-    val repository: EquipmentsRepository
+    repository: EquipmentsRepository
 ) : AndroidViewModel(app) {
     val equipmentUseCase = EquipmentUseCase(repository)
     var mAdapter = EquipmentAdapter()

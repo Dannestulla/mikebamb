@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presenter.fragment.CategoryFragment">
+
     <TextView
         android:id="@+id/text_category"
+        style="@style/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Categories: "
-        android:textSize="24dp"
-        android:textStyle="bold"
-        android:paddingLeft="30dp"
-        />
+        android:layout_margin="15dp"
+        android:text="@string/categories"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/edit_category"
+        style="@style/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/text_category"
-        android:text="Main Engine"
-        android:textSize="24dp"
         android:layout_centerHorizontal="true"
+        android:layout_margin="15dp"
+        android:layout_toEndOf="@id/text_category"
         android:paddingLeft="20dp"
-        />
+        android:text="@string/main_engine" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/text_category"
         android:id="@+id/category_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/text_category"
         app:spanCount="2"
         tools:listitem="@layout/card_view_category" />
-
 </RelativeLayout>

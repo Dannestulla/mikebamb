@@ -56,4 +56,8 @@ class EquipmentListFragment : Fragment() {
             )
         findNavController().navigate(action)
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

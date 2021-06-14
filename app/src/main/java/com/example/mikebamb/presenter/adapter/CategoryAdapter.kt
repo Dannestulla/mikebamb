@@ -46,6 +46,4 @@ class CategoryAdapter :
             holder.bindView(currentItem)
         }
     }
-
-
 }

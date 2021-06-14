@@ -16,7 +16,6 @@ class EquipmentsRepository @Inject constructor(
         localDB.addNewItemLocal(newItem)
     }
 
-
     fun getEquipmentsFromDatabase(): List<EquipmentEntity> {
         return localDB.getEquipmentsFromDatabase()
     }
@@ -49,10 +48,6 @@ class EquipmentsRepository @Inject constructor(
         return localDB.getSubSubCategory(subSubCategory)
     }
 
-    fun getLocalTimestamp(): List<String> {
-        return localDB.getTimestamp()
-    }
-
     // REMOTE
 
     fun initializeRemoteDatabase() {
@@ -69,6 +64,5 @@ class EquipmentsRepository @Inject constructor(
 
     suspend fun doesEquipExists(partNumber: String): Boolean {
         return localDB.doesEquipExists(partNumber)
-
     }
 }

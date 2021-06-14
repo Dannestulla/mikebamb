@@ -4,215 +4,187 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presenter.fragment.DescriptionEquipmentFragment"
->
+    tools:context=".presenter.fragment.DescriptionEquipmentFragment">
 
     <RelativeLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:fillViewport="true"
-        android:paddingBottom="100dp">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
         <TextView
             android:id="@+id/equip_name"
+            style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="Equipment Name"
-            style="@style/NormalText"/>
+            android:text="@string/equipment_name" />
 
         <EditText
             android:id="@+id/edit_equip_name"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/equip_name"
-            android:padding="8dp"
-            style="@style/NormalText"
-            />
-
+            android:layout_toEndOf="@id/equip_name" />
 
         <TextView
             android:id="@+id/manufacturer"
+            style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_equip_name"
             android:padding="8dp"
-            android:text="@string/manufacturer"
-            style="@style/NormalText" />
+            android:text="@string/manufacturer" />
 
         <EditText
             android:id="@+id/edit_manufacturer"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_equip_name"
-            android:layout_toRightOf="@id/equip_name"
-
-            android:padding="8dp"
-            style="@style/NormalText"/>
+            android:layout_toEndOf="@id/equip_name" />
 
         <TextView
             android:id="@+id/model"
+            style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_manufacturer"
-            android:padding="8dp"
-            android:text="@string/model"
-            style="@style/NormalText"/>
+            android:text="@string/model" />
 
         <EditText
             android:id="@+id/edit_model"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/equip_name"
-
             android:layout_below="@+id/edit_manufacturer"
-            android:padding="8dp"
-            style="@style/NormalText"/>
-
+            android:layout_toEndOf="@id/equip_name" />
 
         <TextView
             android:id="@+id/serial_number"
+            style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/model"
-            android:padding="8dp"
-            android:text="@string/serial_number"
-            style="@style/NormalText"/>
+            android:text="@string/serial_number" />
 
         <EditText
             android:id="@+id/edit_part_number"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_model"
-            android:layout_toRightOf="@id/equip_name"
-            android:padding="8dp"
-            style="@style/NormalText"/>
+            android:layout_toRightOf="@id/equip_name" />
 
         <TextView
             android:id="@+id/install_date"
+            style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/serial_number"
-            android:padding="8dp"
-            android:text="@string/install_date"
-            style="@style/NormalText"/>
+            android:text="@string/install_date" />
 
         <EditText
-            android:inputType="date"
             android:id="@+id/edit_install_date"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_part_number"
-            android:layout_toRightOf="@id/equip_name"
-            android:padding="8dp"
-            style="@style/NormalText"/>
+            android:layout_toEndOf="@id/equip_name"
+            android:inputType="date" />
 
         <TextView
             android:id="@+id/fluig"
+            style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/install_date"
-            android:padding="8dp"
-            android:text="@string/fluig"
-            style="@style/NormalText"/>
+            android:text="@string/fluig" />
 
         <EditText
             android:id="@+id/edit_fluig"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_install_date"
-            android:layout_toRightOf="@id/equip_name"
-            android:padding="8dp"
-            style="@style/NormalText"/>
+            android:layout_toEndOf="@id/equip_name" />
 
         <TextView
             android:id="@+id/manuallink"
+            style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/fluig"
-            android:padding="8dp"
-            android:text="@string/link_to_manual"
-            style="@style/NormalText"/>
+            android:text="@string/link_to_manual" />
 
         <EditText
             android:id="@+id/edit_manuallink"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_fluig"
-            android:layout_toRightOf="@id/equip_name"
-            android:inputType="textWebEditText"
-            android:linksClickable="true"
+            android:layout_toEndOf="@id/equip_name"
             android:autoLink="web|email"
-            android:padding="8dp"
-            style="@style/NormalText"/>
+            android:inputType="textWebEditText"
+            android:linksClickable="true" />
 
         <TextView
             android:id="@+id/hours"
+            style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/manuallink"
-            android:padding="8dp"
-            android:text="@string/hours"
-            style="@style/NormalText"/>
+            android:text="@string/hours" />
 
         <EditText
-            android:inputType="number"
             android:id="@+id/edit_hours"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_manuallink"
-            android:layout_toRightOf="@id/equip_name"
-            android:padding="8dp"
-            style="@style/NormalText"/>
+            android:layout_toEndOf="@id/equip_name"
+            android:inputType="number" />
 
         <TextView
             android:id="@+id/qr_code"
+            style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/hours"
-            android:padding="8dp"
-            android:text="@string/qrcode"
-            style="@style/NormalText"/>
+            android:text="@string/qrcode" />
 
         <ImageView
             android:id="@+id/scan_qr_description"
             android:layout_width="35dp"
             android:layout_height="36dp"
             android:layout_below="@id/edit_hours"
-            android:layout_toRightOf="@+id/qr_code"
-            android:src="@drawable/ic_baseline_qr_code_24"/>
-
+            android:layout_toEndOf="@+id/qr_code"
+            android:src="@drawable/ic_baseline_qr_code_24" />
 
         <EditText
             android:id="@+id/edit_qr_code"
-            style="@style/NormalText"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_hours"
-            android:layout_toRightOf="@id/equip_name"
-
-            android:padding="8dp" />
+            android:layout_toEndOf="@id/equip_name" />
 
         <TextView
             android:id="@+id/comments"
+            style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/qr_code"
-            android:padding="8dp"
-            android:text="@string/comments"
-            style="@style/NormalText"
-            />
+            android:text="@string/comments" />
 
         <EditText
             android:id="@+id/edit_comments"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_qr_code"
-            android:layout_toRightOf="@id/equip_name"
-            android:padding="8dp"
-            style="@style/NormalText"/>
+            android:layout_toEndOf="@id/equip_name" />
+
         <TextView
             android:id="@+id/category1"
             style="@style/NormalText"
@@ -220,15 +192,15 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_comments"
             android:padding="8dp"
-            android:text="Category1" />
+            android:text="@string/category1" />
+
         <EditText
             android:id="@+id/edit_category1"
-            style="@style/NormalText"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_comments"
             android:layout_toEndOf="@id/equip_name"
-            android:ems="10"
             android:inputType="textPersonName" />
 
         <TextView
@@ -238,49 +210,49 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_category1"
             android:padding="8dp"
-            android:text="Category2" />
+            android:text="@string/category2" />
+
         <EditText
             android:id="@+id/edit_category2"
-            style="@style/NormalText"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_category1"
             android:layout_toEndOf="@id/equip_name"
-            android:ems="10"
             android:inputType="textPersonName" />
+
         <TextView
             android:id="@+id/category3"
             style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_category2"
-            android:padding="8dp"
-            android:text="Category3" />
+            android:text="@string/category3" />
+
         <EditText
             android:id="@+id/edit_category3"
-            style="@style/NormalText"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_category2"
             android:layout_toEndOf="@id/equip_name"
-            android:ems="10"
             android:inputType="textPersonName" />
+
         <TextView
             android:id="@+id/observation1"
             style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_category3"
-            android:padding="8dp"
-            android:text="Observations" />
+            android:text="@string/observations" />
+
         <EditText
             android:id="@+id/edit_observations1"
-            style="@style/NormalText"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_category3"
             android:layout_toEndOf="@id/equip_name"
-            android:ems="10"
             android:inputType="textPersonName" />
 
         <TextView
@@ -289,68 +261,66 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_observations1"
-            android:padding="8dp"
-            android:text="Observations2" />
+            android:text="@string/observations2" />
+
         <EditText
             android:id="@+id/edit_observations2"
-            style="@style/NormalText"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_observations1"
             android:layout_toEndOf="@id/equip_name"
-            android:ems="10"
             android:inputType="textPersonName" />
+
         <TextView
             android:id="@+id/observation3"
             style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_observations2"
-            android:padding="8dp"
-            android:text="Observations3" />
+            android:text="@string/observations3" />
+
         <TextView
             android:id="@+id/observation4"
             style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_observations3"
-            android:padding="8dp"
-            android:text="Observations4" />
+            android:text="@string/observations4" />
+
         <TextView
             android:id="@+id/observation5"
             style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_observations4"
-            android:padding="8dp"
-            android:text="Observations5" />
+            android:text="@string/observations5" />
 
         <EditText
             android:id="@+id/edit_observations3"
-            style="@style/NormalText"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_observations2"
             android:layout_toEndOf="@id/equip_name"
-            android:ems="10"
             android:inputType="textPersonName" />
+
         <EditText
             android:id="@+id/edit_observations4"
-            style="@style/NormalText"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_observations3"
             android:layout_toEndOf="@id/equip_name"
-            android:ems="10"
             android:inputType="textPersonName" />
+
         <EditText
             android:id="@+id/edit_observations5"
-            style="@style/NormalText"
+            style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_observations4"
             android:layout_toEndOf="@id/equip_name"
-            android:ems="10"
             android:inputType="textPersonName" />
 
         <Button
@@ -358,11 +328,10 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/delete_equip"
             android:layout_below="@+id/edit_observations5"
             android:layout_alignParentStart="true"
-            android:text="@string/save_changes"
-            />
+            android:layout_toStartOf="@+id/delete_equip"
+            android:text="@string/save_changes" />
 
         <Button
             android:id="@+id/delete_equip"
@@ -381,7 +350,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/save_changes"
             android:layout_centerHorizontal="true"
-            android:text="Generate new QR Code To This Equipment" />
+            android:text="@string/generate_new_qr_code_to_this_equipment" />
 
         <ImageView
             android:id="@+id/generated_qr"
@@ -389,6 +358,6 @@
             android:layout_height="100dp"
             android:layout_below="@id/add_qr_code"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_baseline_qr_code_24"/>
+            android:src="@drawable/ic_baseline_qr_code_24" />
     </RelativeLayout>
 </ScrollView>
