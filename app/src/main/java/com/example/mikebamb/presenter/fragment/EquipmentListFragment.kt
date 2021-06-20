@@ -29,10 +29,14 @@ class EquipmentListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val equipmentsList = args.equipmentsList
-        binding.editName.text = equipmentsList
+        val subSubCategory = args.equipmentsList
         setupRecyclerView()
-        viewModel.getEquipmentsFromDatabase()
+        if (subSubCategory.isBlank()) {
+            viewModel.localGetAllEquipments()
+        } else {
+            binding.editName.text = subSubCategory
+            viewModel.localGetASubSubCategory(subSubCategory)
+        }
     }
 
     private fun setupRecyclerView() {

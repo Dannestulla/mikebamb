@@ -37,7 +37,10 @@ interface EquipmentDao {
     fun localGetSubCategory(subCategory : String) : List<String>
 
     @Query("SELECT category3 FROM equipment WHERE category2=:subSubCategory")
-    fun localGetSubSubCategory(subSubCategory : String) : List<String>
+    suspend fun localGetSubSubCategory(subSubCategory : String) :   List<String>
+
+    @Query("SELECT * FROM equipment WHERE category3=:category3")
+    suspend fun localGetSubSubCategoryList(category3: String): List<EquipmentEntity>
 
     @Query("SELECT timestamp FROM equipment ORDER BY timestamp DESC")
     fun getTimestamp() : List<String>

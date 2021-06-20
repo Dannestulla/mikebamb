@@ -11,14 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.mikebamb.R
-import com.example.mikebamb.databinding.FragmentQRBinding
+import com.example.mikebamb.databinding.FragmentQrBinding
 import com.example.mikebamb.presenter.viewmodel.DescriptionViewModel
 import com.google.zxing.integration.android.IntentIntegrator
 import com.google.zxing.integration.android.IntentResult
 
 
 class QRFragment : Fragment() {
-    private var _binding: FragmentQRBinding? = null
+    private var _binding: FragmentQrBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<DescriptionViewModel>()
 
@@ -26,7 +26,7 @@ class QRFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentQRBinding.inflate(inflater, container, false)
+        _binding = FragmentQrBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -1,5 +1,6 @@
 package com.example.mikebamb.presenter.fragment
 
+import android.content.ContextWrapper
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.mikebamb.data.toEquipmentEntity
-import com.example.mikebamb.databinding.FragmentEditEquipmentBinding
+import com.example.mikebamb.databinding.FragmentAddEquipmentBinding
 import com.example.mikebamb.domain.EquipmentModel
 import com.example.mikebamb.presenter.viewmodel.DescriptionViewModel
 import java.sql.Timestamp
@@ -16,7 +17,7 @@ import java.util.*
 
 
 class AddEquipmentFragment : Fragment() {
-    private var _binding: FragmentEditEquipmentBinding? = null
+    private var _binding: FragmentAddEquipmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<DescriptionViewModel>()
     private var isEmpty = false
@@ -24,7 +25,7 @@ class AddEquipmentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEditEquipmentBinding.inflate(inflater, container, false)
+        _binding = FragmentAddEquipmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -34,6 +35,12 @@ class AddEquipmentFragment : Fragment() {
     }
 
     private fun addNewItem() {
+        val equipmentQRnumber = binding.editPartNumber.text.toString()
+        val equipmentQRname = binding.editEquipName.text.toString()
+        val equipmentQRcode = (equipmentQRnumber + equipmentQRname).replace(" ", "")
+        if (equipmentQRnumber.isNotEmpty() || equipmentQRname.isNotEmpty()) {
+            binding.editQrCode.setText(equipmentQRcode)
+        }
         val newItem = EquipmentModel(
             binding.editPartNumber.text.toString(),
             binding.editEquipName.text.toString(),

@@ -36,8 +36,11 @@ class EquipmentUseCase @Inject constructor(
         return repository.localGetSubCategory(subCategory)
     }
 
-    fun localGetSubSubCategory(subSubCategory: String): List<String> {
+    suspend fun localGetSubSubCategory(subSubCategory: String):  List<String>{
         return repository.localGetSubSubCategory(subSubCategory)
+    }
+    suspend fun localGetSubSubCategoryList(subSubCategory: String): List<EquipmentEntity> {
+        return repository.localGetSubSubCategoryList(subSubCategory)
     }
 
     fun localGetMainCategory(): List<String> {

@@ -44,8 +44,11 @@ class EquipmentsRepository @Inject constructor(
         return localDB.localGetSubCategory(subCategory)
     }
 
-    fun localGetSubSubCategory(subSubCategory: String) : List<String>{
+    suspend fun localGetSubSubCategory(subSubCategory: String)  : List<String> {
         return localDB.localGetSubSubCategory(subSubCategory)
+    }
+    suspend fun localGetSubSubCategoryList(subSubCategory: String) : List<EquipmentEntity> {
+        return localDB.localGetSubSubCategoryList(subSubCategory)
     }
 
     suspend fun localDoesEquipExists(partNumber: String): Boolean {

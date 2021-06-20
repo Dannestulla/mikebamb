@@ -76,5 +76,8 @@
                 app:argType="string"
                 android:defaultValue=""/>
         </action>
+        <action
+            android:id="@+id/action_categoryFragment_to_descriptionEquipmentFragment"
+            app:destination="@id/descriptionEquipmentFragment" />
     </fragment>
 </navigation>

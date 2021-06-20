@@ -24,9 +24,15 @@ class EquipmentListViewModel @Inject constructor(
     var recyclerViewItems = MutableLiveData<List<EquipmentEntity>>()
     var listFromDB = ArrayList<EquipmentEntity>()
 
-    fun getEquipmentsFromDatabase() {
+    fun localGetAllEquipments() {
         CoroutineScope(Dispatchers.IO).launch {
             listFromDB = equipmentUseCase.localGetAllEquipments() as ArrayList<EquipmentEntity>
+            recyclerViewItems.postValue(listFromDB)
+        }
+    }
+    fun localGetASubSubCategory(subSubCategory : String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            listFromDB = equipmentUseCase.localGetSubSubCategoryList(subSubCategory) as ArrayList<EquipmentEntity>
             recyclerViewItems.postValue(listFromDB)
         }
     }
