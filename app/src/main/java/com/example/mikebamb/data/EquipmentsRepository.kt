@@ -12,57 +12,61 @@ class EquipmentsRepository @Inject constructor(
     private val localDB = localDB.equipmentDao()
     private val remoteDB = CloudFirestore()
 
-    suspend fun addNewItemLocal(newItem: EquipmentEntity) {
-        localDB.addNewItemLocal(newItem)
+    suspend fun localAddNewItem(newItem: EquipmentEntity) {
+        localDB.localAddNewItem(newItem)
     }
 
-    fun getEquipmentsFromDatabase(): List<EquipmentEntity> {
-        return localDB.getEquipmentsFromDatabase()
+    fun localGetAllEquipments(): List<EquipmentEntity> {
+        return localDB.localGetAllEquipments()
     }
 
-    suspend fun getEquipmentByPartNumber(partNumber: String): EquipmentEntity {
-        return localDB.getEquipmentByPartNumber(partNumber)
+    suspend fun localGetEquipmentByPartNumber(partNumber: String): EquipmentEntity {
+        return localDB.localGetEquipmentByPartNumber(partNumber)
     }
 
-    suspend fun removeItem(partNumber: String) {
-        localDB.deleteEquipment(partNumber)
+    suspend fun localDeleteEquipment(partNumber: String) {
+        localDB.localDeleteEquipment(partNumber)
     }
 
-    fun getEquipmentByQRCode(qrCode : String) : EquipmentEntity {
-        return localDB.getEquipmentByQRcode(qrCode)
+    fun localGetEquipmentByQRCode(qrCode : String) : EquipmentEntity {
+        return localDB.localGetEquipmentByQRCode(qrCode)
     }
 
-    fun printAllQrCodes(): List<String> {
-        return localDB.printAllQrCodes()
+    fun localPrintAllQrCodes(): List<String> {
+        return localDB.localPrintAllQrCodes()
     }
 
-    fun getMainCategory() : List<String> {
-        return localDB.getMainCategory()
+    fun localGetMainCategory() : List<String> {
+        return localDB.localGetMainCategory()
     }
 
-    fun getSubCategory(subCategory: String): List<String> {
-        return localDB.getSubCategory(subCategory)
+    fun localGetSubCategory(subCategory: String): List<String> {
+        return localDB.localGetSubCategory(subCategory)
     }
 
-    fun getSubSubCategory(subSubCategory: String) : List<String>{
-        return localDB.getSubSubCategory(subSubCategory)
+    fun localGetSubSubCategory(subSubCategory: String) : List<String>{
+        return localDB.localGetSubSubCategory(subSubCategory)
+    }
+
+    suspend fun localDoesEquipExists(partNumber: String): Boolean {
+        return localDB.localDoesEquipExists(partNumber)
     }
 
     // REMOTE
 
-    fun initializeRemoteDatabase() {
-        return remoteDB.initializeRemoteDatabase()
+    fun remoteInitializeDatabase() {
+        return remoteDB.remoteInititalizeDatabase()
     }
 
-    fun getAllRemoteData()  {
-        return remoteDB.getAllRemoteData()
+    fun remoteGetAllData()  {
+        return remoteDB.remoteGetAllData()
     }
 
-    fun addNewItemRemote(toEquipmentEntity: EquipmentEntity) {
-        remoteDB.addNewItemRemote(toEquipmentEntity)
+    fun remoteAddNewItem(toEquipmentEntity: EquipmentEntity) {
+        remoteDB.remoteAddNewItem(toEquipmentEntity)
     }
 
-    suspend fun doesEquipExists(partNumber: String): Boolean {
-        return localDB.doesEquipExists(partNumber)
+    fun remoteDeleteEquipment(partNumber: String) {
+        remoteDB.remoteDeleteEquipment(partNumber)
     }
 }

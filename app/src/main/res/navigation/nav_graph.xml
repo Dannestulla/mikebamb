@@ -38,7 +38,7 @@
         android:id="@+id/addEquipmentFragment"
         android:name="com.example.mikebamb.presenter.fragment.AddEquipmentFragment"
         android:label="fragment_add_equipment"
-        tools:layout="@layout/fragment_edit_equipment" />
+        tools:layout="@layout/fragment_add_equipment" />
     <fragment
         android:id="@+id/descriptionEquipmentFragment"
         android:name="com.example.mikebamb.presenter.fragment.DescriptionEquipmentFragment"
@@ -53,7 +53,7 @@
         android:id="@+id/QRFragment"
         android:name="com.example.mikebamb.presenter.fragment.QRFragment"
         android:label="fragment_q_r"
-        tools:layout="@layout/fragment_q_r">
+        tools:layout="@layout/fragment_qr">
         <action
             android:id="@+id/action_QRFragment_to_descriptionEquipmentFragment"
             app:destination="@id/descriptionEquipmentFragment">

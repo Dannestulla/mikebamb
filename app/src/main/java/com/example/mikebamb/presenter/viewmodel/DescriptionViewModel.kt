@@ -54,36 +54,36 @@ class DescriptionViewModel @Inject constructor(
         EquipmentEntity("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
     var equipmentUseCase = EquipmentUseCase(repository)
 
-    fun addNewItemLocal(newItem: EquipmentEntity) {
+    fun localAddNewItem(newItem: EquipmentEntity) {
         CoroutineScope(IO).launch {
-            repository.addNewItemLocal(newItem)
+            repository.localAddNewItem(newItem)
         }
     }
 
 
-    suspend fun getEquipmentByPartNumber(partNumber: String): EquipmentEntity {
-        return equipmentUseCase.getEquipmentByPartNumber(partNumber)
+    suspend fun localGetEquipmentByPartNumber(partNumber: String): EquipmentEntity {
+        return equipmentUseCase.localGetEquipmentByPartNumber(partNumber)
     }
 
     fun getInDBEquipmentDescription() {
         CoroutineScope(IO).launch {
-            equipmentDescriptionData = getEquipmentByPartNumber(
+            equipmentDescriptionData = localGetEquipmentByPartNumber(
                 partNumberClicked
             )
             equipmentDescriptionLiveData.postValue(equipmentDescriptionData)
         }
     }
 
-    suspend fun deleteEquipment(partNumber: String) {
-        repository.removeItem(partNumber)
+    suspend fun localDeleteEquipment(partNumber: String) {
+        repository.localDeleteEquipment(partNumber)
     }
 
     fun createQR(text: String): Bitmap {
         return equipmentUseCase.createQR(text)
     }
 
-    fun getEquipmentByQrCode(qrCodeFromScaner: String): EquipmentEntity {
-        return repository.getEquipmentByQRCode(qrCodeFromScaner)
+    fun localGetEquipmentByQRCode(qrCodeFromScaner: String): EquipmentEntity {
+        return repository.localGetEquipmentByQRCode(qrCodeFromScaner)
     }
 
     fun createQrImageFile(wrapper: ContextWrapper, qrCreated: Bitmap): Uri? {
@@ -106,11 +106,16 @@ class DescriptionViewModel @Inject constructor(
         return emailIntent
     }
 
-    fun printAllQrCodes() {
-        val allQrCodes = equipmentUseCase.printAllQrCodes()
+    fun localPrintAllQrCodes() {
+        val allQrCodes = equipmentUseCase.localPrintAllQrCodes()
     }
 
-    fun addNewItemRemote(toEquipmentEntity: EquipmentEntity) {
-        repository.addNewItemRemote(toEquipmentEntity)
+    fun remoteAddNewItem(toEquipmentEntity: EquipmentEntity) {
+        repository.remoteAddNewItem(toEquipmentEntity)
+    }
+
+    fun remoteDeleteEquipment(partNumber: String) {
+        repository.remoteDeleteEquipment(partNumber)
+
     }
 }

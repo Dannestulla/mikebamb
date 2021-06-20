@@ -10,34 +10,34 @@ import androidx.room.Query
 interface EquipmentDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addNewItemLocal(newEquip: EquipmentEntity)
+    suspend fun localAddNewItem(newEquip: EquipmentEntity)
 
     @Query("DELETE FROM equipment WHERE part_number =:partNumber")
-    suspend fun deleteEquipment(partNumber: String)
+    suspend fun localDeleteEquipment(partNumber: String)
 
     @Query("SELECT * FROM equipment WHERE part_number=:partNumber")
-    suspend fun getEquipmentByPartNumber(partNumber: String): EquipmentEntity
+    suspend fun localGetEquipmentByPartNumber(partNumber: String): EquipmentEntity
 
     @Query("SELECT EXISTS(SELECT * FROM equipment WHERE part_number=:partNumber)")
-    suspend fun doesEquipExists(partNumber: String): Boolean
+    suspend fun localDoesEquipExists(partNumber: String): Boolean
 
     @Query("SELECT * FROM equipment")
-    fun getEquipmentsFromDatabase() : List<EquipmentEntity>
+    fun localGetAllEquipments() : List<EquipmentEntity>
 
     @Query("SELECT * FROM equipment WHERE qr_code=:qrCode")
-    fun getEquipmentByQRcode(qrCode: String) : EquipmentEntity
+    fun localGetEquipmentByQRCode(qrCode: String) : EquipmentEntity
 
     @Query("SELECT qr_code FROM equipment")
-    fun printAllQrCodes() : List<String>
+    fun localPrintAllQrCodes() : List<String>
 
     @Query("SELECT category1 FROM equipment")
-    fun getMainCategory() : List<String>
+    fun localGetMainCategory() : List<String>
 
     @Query("SELECT category2 FROM equipment WHERE category1=:subCategory")
-    fun getSubCategory(subCategory : String) : List<String>
+    fun localGetSubCategory(subCategory : String) : List<String>
 
-    @Query("SELECT category2 FROM equipment WHERE category2=:subSubCategory")
-    fun getSubSubCategory(subSubCategory : String) : List<String>
+    @Query("SELECT category3 FROM equipment WHERE category2=:subSubCategory")
+    fun localGetSubSubCategory(subSubCategory : String) : List<String>
 
     @Query("SELECT timestamp FROM equipment ORDER BY timestamp DESC")
     fun getTimestamp() : List<String>

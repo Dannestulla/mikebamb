@@ -41,7 +41,6 @@ class DescriptionEquipmentFragment : Fragment() {
         viewModel.partNumberClicked = args.partNumber
         incomingFromScanerOrRecyclerView()
         applyBinding()
-        binding.addQrCode.setOnClickListener { clickOnCreateQR() }
     }
 
     private fun applyBinding() {
@@ -65,11 +64,11 @@ class DescriptionEquipmentFragment : Fragment() {
                 editObservations3.setText(it.observations3Entity)
                 editObservations4.setText(it.observations4Entity)
                 editObservations5.setText(it.observations5Entity)
-
                 saveChanges.setOnClickListener { saveChanges() }
-                scanQrDescription.setOnClickListener { }
                 deleteEquip.setOnClickListener { deleteEquipment() }
-                //printAllQrDatabase.setOnClickListener { printAllQrDatabase() }
+                binding.addQrCode.setOnClickListener { generateNewQRcode() }
+                // scanQrDescription.setOnClickListener { }
+                // printAllQrDatabase.setOnClickListener { printAllQrDatabase() }
             }
         })
     }
@@ -80,7 +79,7 @@ class DescriptionEquipmentFragment : Fragment() {
         } else {
             CoroutineScope(IO).launch {
                 try {
-                    val result = viewModel.getEquipmentByQrCode(viewModel.qrCodeFromScaner)
+                    val result = viewModel.localGetEquipmentByQRCode(viewModel.qrCodeFromScaner)
                     viewModel.equipmentDescriptionLiveData.postValue(result)
                 } catch (ex: Exception) {
                     Toast.makeText(context, "ERROR: $ex", Toast.LENGTH_LONG)
@@ -90,7 +89,7 @@ class DescriptionEquipmentFragment : Fragment() {
         }
     }
 
-    private fun clickOnCreateQR() {
+    private fun generateNewQRcode() {
         val equipmentQRnumber = binding.editPartNumber.text.toString()
         val equipmentQRname = binding.editEquipName.text.toString()
         val equipmentQRcode = (equipmentQRnumber + equipmentQRname).replace(" ", "")
@@ -137,7 +136,8 @@ class DescriptionEquipmentFragment : Fragment() {
                 editObservations5.text.toString(),
                 Timestamp(Date().time).toString(),
             )
-            viewModel.addNewItemLocal(newItem)
+            viewModel.localAddNewItem(newItem)
+            viewModel.remoteAddNewItem(newItem)
             Toast.makeText(context, "Saved Changes!", Toast.LENGTH_LONG).show()
         }
     }
@@ -145,11 +145,14 @@ class DescriptionEquipmentFragment : Fragment() {
     private fun deleteEquipment() {
         val partNumber = binding.editPartNumber.text
         val builder = AlertDialog.Builder(context)
-        builder.setMessage("Are you sure you want to Delete?")
+        builder.setMessage("Are you sure you want to delete $partNumber?")
             .setCancelable(true)
             .setPositiveButton("Yes") { dialog, id ->
-                CoroutineScope(IO).launch { viewModel.deleteEquipment(partNumber.toString()) }
-                Toast.makeText(context, "Item Deleted", Toast.LENGTH_LONG).show()
+                CoroutineScope(IO).launch {
+                    viewModel.localDeleteEquipment(partNumber.toString())
+                    viewModel.remoteDeleteEquipment(partNumber.toString())
+                    }
+                Toast.makeText(context, "Item Deleted.", Toast.LENGTH_LONG).show()
                 viewModel.equipmentDescriptionLiveData.postValue(
                     viewModel.emptyEquipmentEntity
                 )
@@ -162,8 +165,9 @@ class DescriptionEquipmentFragment : Fragment() {
     }
 
     private fun printAllQrDatabase() {
-        viewModel.printAllQrCodes()
+        viewModel.localPrintAllQrCodes()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

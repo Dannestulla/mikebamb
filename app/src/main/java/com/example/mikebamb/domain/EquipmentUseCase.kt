@@ -1,155 +1,133 @@
 package com.example.mikebamb.domain
 
-import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.util.Log
 import com.example.mikebamb.data.EquipmentsRepository
 import com.example.mikebamb.data.local.EquipmentEntity
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.MultiFormatWriter
-import com.google.zxing.WriterException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
-import java.io.FileOutputStream
 import java.util.*
 import javax.inject.Inject
 
 class EquipmentUseCase @Inject constructor(
     private val repository: EquipmentsRepository
 ) {
-
-    fun initializeRemoteDatabase() {
-        repository.initializeRemoteDatabase()
+    val qrCode = QrCode()
+    fun remoteInitializeDatabase() {
+        repository.remoteInitializeDatabase()
     }
 
     fun createQR(text: String): Bitmap {
-        val width = 500
-        val height = 500
-        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-        val codeWriter = MultiFormatWriter()
-        try {
-            val bitMatrix = codeWriter.encode(text, BarcodeFormat.QR_CODE, width, height)
-            for (x in 0 until width) {
-                for (y in 0 until height) {
-                    bitmap.setPixel(x, y, if (bitMatrix[x, y]) Color.BLACK else Color.WHITE)
-                }
-            }
-        } catch (e: WriterException) {
-            Log.d("CreateQR", "${e.message}")
-        }
-        return bitmap
+        return qrCode.createQR(text)
     }
 
     fun createQrImageFile(wrapper: ContextWrapper, qrCreated: Bitmap): File {
-        var file = wrapper.getDir("Images", Context.MODE_PRIVATE)
-        file = File(file, "${UUID.randomUUID()}.png")
-        val stream = FileOutputStream(file)
-        qrCreated.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        stream.flush()
-        stream.close()
-        return file
+        return qrCode.createQrImageFile(wrapper, qrCreated)
     }
 
-    fun printAllQrCodes(): List<String> {
-        return repository.printAllQrCodes()
+    fun localPrintAllQrCodes(): List<String> {
+        return repository.localPrintAllQrCodes()
     }
 
-    fun getSubCategory(subCategory: String): List<String> {
-        return repository.getSubCategory(subCategory)
+    fun localGetSubCategory(subCategory: String): List<String> {
+        return repository.localGetSubCategory(subCategory)
     }
 
-    fun getSubSubCategory(subSubCategory : String) : List<String> {
-        return repository.getSubSubCategory(subSubCategory)
+    fun localGetSubSubCategory(subSubCategory: String): List<String> {
+        return repository.localGetSubSubCategory(subSubCategory)
     }
 
-    fun getMainCategory(): List<String> {
-        return repository.getMainCategory()
+    fun localGetMainCategory(): List<String> {
+        return repository.localGetMainCategory()
     }
 
-    suspend fun getEquipmentByPartNumber(partNumber: String): EquipmentEntity {
-        return repository.getEquipmentByPartNumber(partNumber)
+    suspend fun localGetEquipmentByPartNumber(partNumber: String): EquipmentEntity {
+        return repository.localGetEquipmentByPartNumber(partNumber)
     }
 
-    fun getEquipmentsFromDatabase(): List<EquipmentEntity> {
-        return repository.getEquipmentsFromDatabase()
+    fun localGetAllEquipments(): List<EquipmentEntity> {
+        return repository.localGetAllEquipments()
     }
 
-    fun getAllRemoteData() {
-        repository.getAllRemoteData()
+    fun remoteGetAllData() {
+        repository.remoteGetAllData()
     }
 
-    suspend fun doesEquipExists(partNumber: String): Boolean {
-        return repository.doesEquipExists(partNumber)
+    suspend fun localDoesEquipExists(partNumber: String): Boolean {
+        return repository.localDoesEquipExists(partNumber)
     }
 
-    suspend fun addNewItemLocal(newItem : EquipmentEntity) {
-        repository.addNewItemLocal(newItem)
+    private suspend fun localAddNewItem(newItem: EquipmentEntity) {
+        repository.localAddNewItem(newItem)
     }
 
     fun compareRemoteAndLocalData(remoteDBdata: MutableCollection<Any>) {
-        val arrayPartNumber = java.util.ArrayList<String>()
-        val arrayTimestamp = java.util.ArrayList<String>()
+        val arrayPartNumber = ArrayList<String>()
+        val arrayTimestamp = ArrayList<String>()
         for (items in remoteDBdata) {
             val splitArray = items.toString().split(",")
-            arrayPartNumber.add(splitArray[15])
-            arrayTimestamp.add(splitArray[7])
+            arrayPartNumber.add(splitArray[15].trim())
+            arrayTimestamp.add(splitArray[7].trim())
         }
         Log.e("arrayPartNumber", arrayPartNumber.toString())
-        Log.e("arrayPartNumber", arrayTimestamp.toString())
+        Log.e("arrayTimestamp", arrayTimestamp.toString())
         CoroutineScope(Dispatchers.IO).launch {
             var equipmentEntityPartNumber: EquipmentEntity
-            for (partNumber in arrayPartNumber) {
-                val existsInDB = doesEquipExists(partNumber)
+            var i =0
+            for (item in arrayPartNumber) {
+                val existsInDB = localDoesEquipExists(item)
                 if (existsInDB) {
-                    equipmentEntityPartNumber = getEquipmentByPartNumber(partNumber)
-                    val comparison = equipmentEntityPartNumber.timestampEntity.compareTo(partNumber)
+                    equipmentEntityPartNumber = localGetEquipmentByPartNumber(item)
+                    val comparison = equipmentEntityPartNumber.timestampEntity.compareTo(arrayTimestamp[i])
                     if (comparison < 0) {
                         Log.e(
                             "overwriting local database",
-                            "equipment from DB: " + equipmentEntityPartNumber.timestampEntity + "Equipment from Remote: " + partNumber
+                            "equipment from DB: " + equipmentEntityPartNumber.timestampEntity + "Equipment from Remote: " + remoteDBdata
                         )
-                    } else if (comparison > 0){
+                    } else if (comparison > 0) {
                         Log.e(
                             "not overwriting",
-                            "equipment from DB: " + equipmentEntityPartNumber.timestampEntity + "Equipment from Remote: " + partNumber
+                            "equipment from DB: " + equipmentEntityPartNumber.timestampEntity + "Equipment from Remote: " + item
                         )
                     }
                 } else {
                     for (items in remoteDBdata) {
-                        val match = items.toString().contains(partNumber)
+                        val match = items.toString().trim().contains(item)
                         if (match) {
-                            val newArray = items.toString().replace("[","").replace("]","").split(",")
+                            val newArray =
+                                items.toString().replace("[", "").replace("]", "").split(",")
                             val newResult = EquipmentEntity(
-                                newArray[15],
-                                newArray[0],
-                                newArray[4],
-                                newArray[9],
-                                newArray[16],
-                                newArray[9],
-                                newArray[13],
-                                newArray[8],
-                                newArray[3],
-                                newArray[5],
-                                newArray[6],
-                                newArray[0],
-                                newArray[2],
-                                newArray[18],
-                                newArray[14],
-                                newArray[10],
-                                newArray[11],
-                                newArray[17],
-                                newArray[7])
+                                newArray[15].trim(),
+                                newArray[0].trim(),
+                                newArray[4].trim(),
+                                newArray[9].trim(),
+                                newArray[16].trim(),
+                                newArray[9].trim(),
+                                newArray[13].trim(),
+                                newArray[8].trim(),
+                                newArray[3].trim(),
+                                newArray[5].trim(),
+                                newArray[6].trim(),
+                                newArray[0].trim(),
+                                newArray[2].trim(),
+                                newArray[18].trim(),
+                                newArray[14].trim(),
+                                newArray[10].trim(),
+                                newArray[11].trim(),
+                                newArray[17].trim(),
+                                newArray[7].trim()
+                            )
                             Log.e("newResult", newArray.toString())
-                            addNewItemLocal(newResult)
+                            localAddNewItem(newResult)
                         }
                     }
                 }
+                i++
             }
         }
     }
-    }
+}
 

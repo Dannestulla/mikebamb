@@ -2,12 +2,11 @@ package com.example.mikebamb.presenter.viewmodel
 
 import android.app.Application
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.mikebamb.data.EquipmentsRepository
-import com.example.mikebamb.data.local.EquipmentEntity
 import com.example.mikebamb.domain.EquipmentUseCase
-import com.example.mikebamb.presenter.adapter.CategoryAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -20,64 +19,62 @@ internal class CategoryViewModel @Inject constructor(
     repository: EquipmentsRepository
 
 ) : ViewModel() {
-    var exitCategoryMenu = false
+    var exitSubCategory = false
+    var exitMainCategory = false
     var checkedRemote = false
     lateinit var categorySelected: List<String>
     lateinit var remoteDBdata: MutableCollection<Any>
-    var mAdapter = CategoryAdapter()
-    val equipmentUseCase = EquipmentUseCase(repository)
-    var listFromDB = ArrayList<EquipmentEntity>()
-    var recyclerViewItems = MutableLiveData<List<EquipmentEntity>>()
-    var currentCategory = MutableLiveData<List<String>>()
+    private val equipmentUseCase = EquipmentUseCase(repository)
+    private var _currentCategory = MutableLiveData<List<String>>()
+    var currentCategory = _currentCategory as LiveData<List<String>>
 
-    fun getMainCategory() {
+    fun localGetMainCategory() {
         CoroutineScope(IO).launch {
-            val mainCategoryList = equipmentUseCase.getMainCategory().distinct()
-            if (mainCategoryList.isNullOrEmpty()) {
+            val mainCategoryList = equipmentUseCase.localGetMainCategory()
+            val distinctCategoryList = mainCategoryList.distinct()
+            if (distinctCategoryList.isNullOrEmpty()) {
                 Log.e("Info", "Your Local Database is Empty!")
             } else {
-                currentCategory.postValue(mainCategoryList)
-                categorySelected = mainCategoryList
+                _currentCategory.postValue(distinctCategoryList)
+                categorySelected = distinctCategoryList
             }
         }
     }
 
-    fun getSubCategory(subCategory: String) {
+    fun localGetSubCategory(subCategory: String) {
         CoroutineScope(IO).launch {
-            val search = equipmentUseCase.getSubCategory(subCategory)
-            currentCategory.postValue(search)
+            val search = equipmentUseCase.localGetSubCategory(subCategory).distinct()
+            _currentCategory.postValue(search)
+            categorySelected = search
             postSubCategory(search)
         }
     }
-  /*  fun getSubSubCategory(subSubCategory: String) {
+    fun localGetSubSubCategory(subSubCategory: String) {
         CoroutineScope(IO).launch {
-            val search2 = equipmentUseCase.getSubSubCategory(subSubCategory).distinct()
-            currentCategory.postValue(search2)
+            val search2 = equipmentUseCase.localGetSubSubCategory(subSubCategory).distinct()
+            _currentCategory.postValue(search2)
+            categorySelected = search2
             postSubCategory(search2)
+            exitSubCategory = true
         }
-    }*/
+    }
 
     private fun postSubCategory(subCategoryList: List<String>) {
-        currentCategory.postValue(ArrayList())
-        currentCategory.postValue(subCategoryList)
+        _currentCategory.postValue(ArrayList())
+        _currentCategory.postValue(subCategoryList)
         categorySelected = subCategoryList
-        exitCategoryMenu = true
+        exitMainCategory = true
     }
 
-    fun initializeRemoteDatabase() {
-        equipmentUseCase.initializeRemoteDatabase()
+    fun remoteInitializeDatabase() {
+        equipmentUseCase.remoteInitializeDatabase()
     }
 
-    fun getListFromDatabase() {
+    fun remoteGetAllData() {
         CoroutineScope(IO).launch {
-            listFromDB = equipmentUseCase.getEquipmentsFromDatabase() as ArrayList<EquipmentEntity>
-            recyclerViewItems.postValue(listFromDB)
+            equipmentUseCase.remoteGetAllData()
+            checkedRemote = true
         }
-    }
-
-    fun getAllRemoteData() {
-        equipmentUseCase.getAllRemoteData()
-        checkedRemote = true
     }
 
     fun compareRemoteAndLocalData(remoteDBdata: MutableCollection<Any>) {

@@ -14,41 +14,43 @@ class CloudFirestore @Inject constructor(
     companion object {
         var documentsLiveData = MutableLiveData<MutableCollection<Any>>()
     }
+
     var remoteDatabase = FirebaseFirestore.getInstance()
 
-    fun initializeRemoteDatabase() {
+    fun remoteInititalizeDatabase() {
         remoteDatabase = FirebaseFirestore.getInstance()
     }
 
-    fun getAllRemoteData() {
+    fun remoteGetAllData() {
         CoroutineScope(IO).launch {
             remoteDatabase.collection("Vessel")
                 .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val documentCollection = mutableListOf<Any>()
-                        for (document in task.result!!) {
-                            val result = document.data.values.toString()
-                            documentCollection.add(result)
-                        }
-                        Log.e("getAllRemoteData", documentCollection.toString())
-                        documentsLiveData.postValue(documentCollection)
-                    } else {
-                        Log.e("TAG", "Error getting documents.", task.exception)
+                .addOnSuccessListener { task ->
+                    val documentCollection = mutableListOf<Any>()
+                    for (document in task) {
+                        val result = document.data.values.toString().trim()
+                        result.replace("\\s".toRegex(), "")
+                        documentCollection.add(result.trim())
                     }
+                    Log.e("getAllRemoteData", documentCollection.toString())
+                    documentsLiveData.postValue(documentCollection)
                 }
+                .addOnFailureListener { ex -> Log.e("TAG", "Error getting documents: $ex") }
         }
     }
 
-    fun addNewItemRemote(toEquipmentEntity: EquipmentEntity) {
+    fun remoteAddNewItem(toEquipmentEntity: EquipmentEntity) {
         val docName = toEquipmentEntity.partNumber
         remoteDatabase.collection("Vessel").document(docName).set(toEquipmentEntity)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.e("item added", "DocName: $docName")
-                } else {
-                    Log.e("TAG", "Error saving documents.", task.exception)
-                }
-            }
+            .addOnSuccessListener { Log.e("item added", "DocName: $docName") }
+            .addOnFailureListener { ex -> Log.e("TAG", "Error saving documents: $ex") }
+    }
+
+    fun remoteDeleteEquipment(partNumber: String) {
+        remoteDatabase.collection("Vessel").document(partNumber)
+            .delete()
+            .addOnSuccessListener { Log.e("item deleted", "Doc Name: $partNumber") }
+            .addOnFailureListener { ex -> Log.e("item deleted", "Operation Failed: $ex") }
+
     }
 }

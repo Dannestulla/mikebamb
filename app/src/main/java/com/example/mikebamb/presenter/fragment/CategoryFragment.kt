@@ -9,18 +9,18 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.mikebamb.data.remote.CloudFirestore
-import com.example.mikebamb.data.remote.CloudFirestore.Companion.documentsLiveData
 import com.example.mikebamb.databinding.FragmentCategoryBinding
+import com.example.mikebamb.presenter.adapter.CategoryAdapter
 import com.example.mikebamb.presenter.viewmodel.CategoryViewModel
 
 class CategoryFragment : Fragment() {
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<CategoryViewModel>()
-    var cloudFirestore = CloudFirestore
+    private var cloudFirestore = CloudFirestore
+    private var mAdapter = CategoryAdapter()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,49 +33,53 @@ class CategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.categoryRecyclerview.apply {
-            adapter = viewModel.mAdapter
+            adapter = mAdapter
             layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         }
-        defaultValues()
-        viewModel.getListFromDatabase()
-        initAndCheckRemoteDB()
-        getMainCategory()
-        observableRemoteData()
-        viewModel.mAdapter.onItemClick = { position ->
-            if (!viewModel.exitCategoryMenu) {
-                val subCategory = viewModel.categorySelected[position]
-                viewModel.getSubCategory(subCategory)
-                binding.editCategory.text = subCategory
-                binding.textCategory.text = "Sub Category: "
-            } else {
-                navigateToEquipmentList(position)
-            }
+        //defaultValues()
+        //viewModel.localGetAllEquipments()
+        initializeAndGetRemoteData()
+        getLocalCategoryList()
+        observeRemoteChangesAndCompareRemoteToLocal()
+        mAdapter.onItemClick = { position ->
+            handleItemClick(position)
         }
     }
 
-    private fun observableRemoteData() {
+    private fun handleItemClick(position: Int) {
+        if (!viewModel.exitMainCategory) {
+            val subCategory = viewModel.categorySelected[position]
+            viewModel.localGetSubCategory(subCategory)
+            binding.editCategory.text = subCategory
+            binding.textCategory.text = "Sub Category: "
+        } else if (!viewModel.exitSubCategory) {
+            val subSubCategory = viewModel.categorySelected[position]
+            viewModel.localGetSubSubCategory(subSubCategory)
+            binding.editCategory.text = subSubCategory
+            binding.textCategory.text = "SubSub Category: "
+        } else {
+            navigateToEquipmentList(position)
+        }
+    }
+
+    private fun observeRemoteChangesAndCompareRemoteToLocal() {
         cloudFirestore.documentsLiveData.observe(viewLifecycleOwner, {
             viewModel.remoteDBdata = it
-            Log.e("remote", "$it \n")
             viewModel.compareRemoteAndLocalData(it)
         })
     }
 
-    private fun defaultValues() {
-        binding.editCategory.text = ""
-    }
-
-    private fun initAndCheckRemoteDB() {
+    private fun initializeAndGetRemoteData() {
         if (!viewModel.checkedRemote) {
-            viewModel.initializeRemoteDatabase()
-            viewModel.getAllRemoteData()
+            viewModel.remoteInitializeDatabase()
+            viewModel.remoteGetAllData()
         }
     }
 
-    private fun getMainCategory() {
-        viewModel.getMainCategory()
+    private fun getLocalCategoryList() {
+        viewModel.localGetMainCategory()
         viewModel.currentCategory.observe(viewLifecycleOwner, {
-            viewModel.mAdapter.submitList(it)
+            mAdapter.submitList(it)
         }
         )
     }
@@ -91,7 +95,8 @@ class CategoryFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        viewModel.exitCategoryMenu = false
+        viewModel.exitMainCategory = false
+        viewModel.exitSubCategory = false
     }
 
     override fun onDestroyView() {

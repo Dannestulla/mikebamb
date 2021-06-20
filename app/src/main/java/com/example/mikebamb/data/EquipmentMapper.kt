@@ -45,5 +45,5 @@ fun EquipmentModel.toEquipmentEntity() = EquipmentEntity(
     observations5Remote,
     hoursRemote,
 
-    )*/
+ )*/
 

@@ -21,6 +21,10 @@
     <style name="Title">
         <item name="android:padding">8dp</item>
         <item name="android:text">Equipment: </item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="CardText">
+        <item name="android:padding">6dp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>

@@ -352,6 +352,7 @@
             android:layout_centerHorizontal="true"
             android:text="@string/generate_new_qr_code_to_this_equipment" />
 
+
         <ImageView
             android:id="@+id/generated_qr"
             android:layout_width="100dp"

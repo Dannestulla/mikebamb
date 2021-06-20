@@ -26,7 +26,7 @@ class EquipmentListViewModel @Inject constructor(
 
     fun getEquipmentsFromDatabase() {
         CoroutineScope(Dispatchers.IO).launch {
-            listFromDB = equipmentUseCase.getEquipmentsFromDatabase() as ArrayList<EquipmentEntity>
+            listFromDB = equipmentUseCase.localGetAllEquipments() as ArrayList<EquipmentEntity>
             recyclerViewItems.postValue(listFromDB)
         }
     }

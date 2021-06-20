@@ -57,8 +57,8 @@ class AddEquipmentFragment : Fragment() {
         )
         checkForEmpty(newItem)
         if (!isEmpty) {
-            viewModel.addNewItemLocal(newItem.toEquipmentEntity())
-            viewModel.addNewItemRemote(newItem.toEquipmentEntity())
+            viewModel.localAddNewItem(newItem.toEquipmentEntity())
+            viewModel.remoteAddNewItem(newItem.toEquipmentEntity())
             Toast.makeText(context, "New Item Added!", Toast.LENGTH_LONG).show()
             clearFields()
         } else {
