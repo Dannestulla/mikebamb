@@ -20,7 +20,6 @@ class EquipmentListViewModel @Inject constructor(
     repository: EquipmentsRepository
 ) : AndroidViewModel(app) {
     val equipmentUseCase = EquipmentUseCase(repository)
-    var mAdapter = EquipmentAdapter()
     var recyclerViewItems = MutableLiveData<List<EquipmentEntity>>()
     var listFromDB = ArrayList<EquipmentEntity>()
 
@@ -30,10 +29,12 @@ class EquipmentListViewModel @Inject constructor(
             recyclerViewItems.postValue(listFromDB)
         }
     }
+
     fun localGetASubSubCategory(subSubCategory : String) {
         CoroutineScope(Dispatchers.IO).launch {
-            listFromDB = equipmentUseCase.localGetSubSubCategoryList(subSubCategory) as ArrayList<EquipmentEntity>
+            listFromDB = equipmentUseCase.localGetCaregory3items(subSubCategory) as ArrayList<EquipmentEntity>
             recyclerViewItems.postValue(listFromDB)
         }
     }
+
 }

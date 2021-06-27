@@ -3,17 +3,17 @@ package com.example.mikebamb.presenter.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mikebamb.data.local.EquipmentEntity
 import com.example.mikebamb.databinding.CardViewCategoryBinding
 
 class CategoryAdapter :
-    androidx.recyclerview.widget.ListAdapter<String, CategoryAdapter.AdapterViewHolder>(
+    ListAdapter<String, CategoryAdapter.AdapterViewHolder>(
         CategoryComparator()
     ) {
     var onItemClick: ((Int) -> Unit)? = null
 
-    class CategoryComparator  : DiffUtil.ItemCallback<String>() {
+    class CategoryComparator : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String) =
             oldItem == newItem
 
@@ -29,6 +29,7 @@ class CategoryAdapter :
             CardViewCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return AdapterViewHolder(binding)
     }
+
     inner class AdapterViewHolder(private val binding: CardViewCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
 

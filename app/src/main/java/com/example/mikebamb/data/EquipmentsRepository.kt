@@ -36,19 +36,19 @@ class EquipmentsRepository @Inject constructor(
         return localDB.localPrintAllQrCodes()
     }
 
-    fun localGetMainCategory() : List<String> {
-        return localDB.localGetMainCategory()
+    fun localGetCategory1() : List<String> {
+        return localDB.localGetCategory1()
     }
 
-    fun localGetSubCategory(subCategory: String): List<String> {
-        return localDB.localGetSubCategory(subCategory)
+    fun localGetCategory2(subCategory: String): List<String> {
+        return localDB.localGetCategory2(subCategory)
     }
 
-    suspend fun localGetSubSubCategory(subSubCategory: String)  : List<String> {
-        return localDB.localGetSubSubCategory(subSubCategory)
+    suspend fun localGetCaregory3(subSubCategory: String)  : List<String> {
+        return localDB.localGetCaregory3(subSubCategory)
     }
-    suspend fun localGetSubSubCategoryList(subSubCategory: String) : List<EquipmentEntity> {
-        return localDB.localGetSubSubCategoryList(subSubCategory)
+    suspend fun localGetCaregory3items(subSubCategory: String) : List<EquipmentEntity> {
+        return localDB.localGetCaregory3items(subSubCategory)
     }
 
     suspend fun localDoesEquipExists(partNumber: String): Boolean {

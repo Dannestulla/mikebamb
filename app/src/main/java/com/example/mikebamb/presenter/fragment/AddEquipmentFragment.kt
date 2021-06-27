@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.mikebamb.data.toEquipmentEntity
@@ -32,6 +33,7 @@ class AddEquipmentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.addequipment.setOnClickListener { addNewItem() }
+        hideActionBar()
     }
 
     private fun addNewItem() {
@@ -118,10 +120,16 @@ class AddEquipmentFragment : Fragment() {
         }
         return isEmpty
     }
+
+    fun hideActionBar() {
+        return (activity as AppCompatActivity).supportActionBar!!.hide()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }
 
 

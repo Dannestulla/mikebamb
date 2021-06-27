@@ -7,13 +7,24 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
     <application
-        android:name="com.example.mikebamb.di.EquipmentsApplication"
+        android:name=".di.EquipmentsApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_engineering"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_engineering"
         android:supportsRtl="true"
         android:theme="@style/Theme.MikeBamb">
+        <activity
+            android:name=".presenter.MainActivity2"
+            android:exported="true"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/Theme.MikeBamb.NoActionBar" />
+        <activity
+            android:name=".presenter.fragment.SearchFragment"
+            android:exported="true"
+            android:label="@string/title_activity_search_fragment"
+            android:theme="@style/Theme.MikeBamb.NoActionBar" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.mikebamb.fileprovider"
@@ -23,14 +34,15 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
-
         <activity android:name=".presenter.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -16,6 +16,7 @@ class EquipmentUseCase @Inject constructor(
     private val repository: EquipmentsRepository
 ) {
     val qrCode = QrCode()
+
     fun remoteInitializeDatabase() {
         repository.remoteInitializeDatabase()
     }
@@ -28,23 +29,26 @@ class EquipmentUseCase @Inject constructor(
         return qrCode.createQrImageFile(wrapper, qrCreated)
     }
 
+    private suspend fun localAddNewItem(newItem: EquipmentEntity) {
+        repository.localAddNewItem(newItem)
+    }
+
     fun localPrintAllQrCodes(): List<String> {
         return repository.localPrintAllQrCodes()
     }
-
-    fun localGetSubCategory(subCategory: String): List<String> {
-        return repository.localGetSubCategory(subCategory)
+    fun localGetCategory1(): List<String> {
+        return repository.localGetCategory1()
     }
 
-    suspend fun localGetSubSubCategory(subSubCategory: String):  List<String>{
-        return repository.localGetSubSubCategory(subSubCategory)
-    }
-    suspend fun localGetSubSubCategoryList(subSubCategory: String): List<EquipmentEntity> {
-        return repository.localGetSubSubCategoryList(subSubCategory)
+    fun localGetCategory2(subCategory: String): List<String> {
+        return repository.localGetCategory2(subCategory)
     }
 
-    fun localGetMainCategory(): List<String> {
-        return repository.localGetMainCategory()
+    suspend fun localGetCaregory3(subSubCategory: String):  List<String>{
+        return repository.localGetCaregory3(subSubCategory)
+    }
+    suspend fun localGetCaregory3items(subSubCategory: String): List<EquipmentEntity> {
+        return repository.localGetCaregory3items(subSubCategory)
     }
 
     suspend fun localGetEquipmentByPartNumber(partNumber: String): EquipmentEntity {
@@ -63,9 +67,6 @@ class EquipmentUseCase @Inject constructor(
         return repository.localDoesEquipExists(partNumber)
     }
 
-    private suspend fun localAddNewItem(newItem: EquipmentEntity) {
-        repository.localAddNewItem(newItem)
-    }
 
     fun compareRemoteAndLocalData(remoteDBdata: MutableCollection<Any>) {
         val arrayPartNumber = ArrayList<String>()

@@ -51,6 +51,5 @@ class CloudFirestore @Inject constructor(
             .delete()
             .addOnSuccessListener { Log.e("item deleted", "Doc Name: $partNumber") }
             .addOnFailureListener { ex -> Log.e("item deleted", "Operation Failed: $ex") }
-
     }
 }

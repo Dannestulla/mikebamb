@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -44,6 +45,7 @@ class CategoryFragment : Fragment() {
         mAdapter.onItemClick = { position ->
             handleItemClick(position)
         }
+        hideActionBar()
     }
 
     private fun handleItemClick(position: Int) {
@@ -97,6 +99,10 @@ class CategoryFragment : Fragment() {
         super.onPause()
         viewModel.exitMainCategory = false
         viewModel.exitSubCategory = false
+    }
+
+    fun hideActionBar() {
+        return (activity as AppCompatActivity).supportActionBar!!.hide()
     }
 
     override fun onDestroyView() {

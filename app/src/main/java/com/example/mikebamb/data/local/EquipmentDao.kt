@@ -31,17 +31,15 @@ interface EquipmentDao {
     fun localPrintAllQrCodes() : List<String>
 
     @Query("SELECT category1 FROM equipment")
-    fun localGetMainCategory() : List<String>
+    fun localGetCategory1() : List<String>
 
     @Query("SELECT category2 FROM equipment WHERE category1=:subCategory")
-    fun localGetSubCategory(subCategory : String) : List<String>
+    fun localGetCategory2(subCategory : String) : List<String>
 
     @Query("SELECT category3 FROM equipment WHERE category2=:subSubCategory")
-    suspend fun localGetSubSubCategory(subSubCategory : String) :   List<String>
+    suspend fun localGetCaregory3(subSubCategory : String) : List<String>
 
     @Query("SELECT * FROM equipment WHERE category3=:category3")
-    suspend fun localGetSubSubCategoryList(category3: String): List<EquipmentEntity>
+    suspend fun localGetCaregory3items(category3: String): List<EquipmentEntity>
 
-    @Query("SELECT timestamp FROM equipment ORDER BY timestamp DESC")
-    fun getTimestamp() : List<String>
 }

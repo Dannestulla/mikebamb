@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -33,6 +34,7 @@ class QRFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         scanQr()
+        hideActionBar()
     }
 
     private fun scanQr() {
@@ -56,6 +58,10 @@ class QRFragment : Fragment() {
                     .show()
             }
         }
+    }
+
+    fun hideActionBar() {
+        return (activity as AppCompatActivity).supportActionBar!!.hide()
     }
 
 }

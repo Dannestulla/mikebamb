@@ -38,7 +38,9 @@
         android:id="@+id/addEquipmentFragment"
         android:name="com.example.mikebamb.presenter.fragment.AddEquipmentFragment"
         android:label="fragment_add_equipment"
-        tools:layout="@layout/fragment_add_equipment" />
+        tools:layout="@layout/fragment_add_equipment" >
+
+    </fragment>
     <fragment
         android:id="@+id/descriptionEquipmentFragment"
         android:name="com.example.mikebamb.presenter.fragment.DescriptionEquipmentFragment"
@@ -62,6 +64,7 @@
                 android:defaultValue="empty"
                 app:argType="string" />
         </action>
+
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -79,5 +82,6 @@
         <action
             android:id="@+id/action_categoryFragment_to_descriptionEquipmentFragment"
             app:destination="@id/descriptionEquipmentFragment" />
+
     </fragment>
 </navigation>

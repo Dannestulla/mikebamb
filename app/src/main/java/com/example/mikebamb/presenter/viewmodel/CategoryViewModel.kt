@@ -30,7 +30,7 @@ internal class CategoryViewModel @Inject constructor(
 
     fun localGetMainCategory() {
         CoroutineScope(IO).launch {
-            val mainCategoryList = equipmentUseCase.localGetMainCategory()
+            val mainCategoryList = equipmentUseCase.localGetCategory1()
             val distinctCategoryList = mainCategoryList.distinct()
             if (distinctCategoryList.isNullOrEmpty()) {
                 Log.e("Info", "Your Local Database is Empty!")
@@ -43,7 +43,7 @@ internal class CategoryViewModel @Inject constructor(
 
     fun localGetSubCategory(subCategory: String) {
         CoroutineScope(IO).launch {
-            val search = equipmentUseCase.localGetSubCategory(subCategory).distinct()
+            val search = equipmentUseCase.localGetCategory2(subCategory).distinct()
             _currentCategory.postValue(search)
             categorySelected = search
             postSubCategory(search)
@@ -51,7 +51,7 @@ internal class CategoryViewModel @Inject constructor(
     }
     fun localGetSubSubCategory(subSubCategory: String) {
         CoroutineScope(IO).launch {
-            val search2 = equipmentUseCase.localGetSubSubCategory(subSubCategory).distinct()
+            val search2 = equipmentUseCase.localGetCaregory3(subSubCategory).distinct()
             _currentCategory.postValue(search2)
             categorySelected = search2
             postSubCategory(search2)

@@ -11,22 +11,30 @@
         android:padding="5dp">
 
         <TextView
-            style="@style/CardText"
             android:id="@+id/part_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="700.50"
-            />
-        <TextView
             style="@style/CardText"
-            android:id="@+id/equip_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="120dp"
             android:padding="8dp"
-            android:text="Main Engine 1"
-             />
+            android:text="700.50" />
+
+        <TextView
+            android:id="@+id/equip_name"
+            style="@style/CardText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:padding="8dp"
+            android:text="Main Engine 1" />
+
+        <TextView
+            android:id="@+id/equip_fluig"
+            style="@style/CardText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="250dp"
+            android:padding="8dp"
+            android:text="Fluig" />
 
 
     </RelativeLayout>

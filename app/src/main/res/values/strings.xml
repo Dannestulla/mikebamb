@@ -33,4 +33,6 @@
     <string name="category">Category</string>
     <string name="categories">Categories:</string>
     <string name="main_engine">Main Engine</string>
+    <string name="title_activity_search_fragment">SearchFragment</string>
+    <string name="title_activity_main2">MainActivity2</string>
 </resources>
