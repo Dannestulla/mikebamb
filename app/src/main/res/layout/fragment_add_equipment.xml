@@ -220,12 +220,12 @@
             android:layout_toEndOf="@id/equip_name" />
 
         <TextView
-            android:id="@+id/observation1"
+            android:id="@+id/partNumber"
             style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_category3"
-            android:text="@string/observations1" />
+            android:text="@string/PartNumber" />
 
         <EditText
             android:id="@+id/edit_observations1"
@@ -236,12 +236,12 @@
             android:layout_toEndOf="@id/equip_name" />
 
         <TextView
-            android:id="@+id/observation2"
+            android:id="@+id/observation1"
             style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_observations1"
-            android:text="@string/observations2" />
+            android:text="@string/observations1" />
 
         <EditText
             android:id="@+id/edit_observations2"
@@ -252,7 +252,7 @@
             android:layout_toEndOf="@id/equip_name" />
 
         <TextView
-            android:id="@+id/observation3"
+            android:id="@+id/observation2"
             style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -268,7 +268,7 @@
             android:layout_toEndOf="@id/equip_name" />
 
         <TextView
-            android:id="@+id/observation4"
+            android:id="@+id/observation3"
             style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -284,7 +284,7 @@
             android:layout_toEndOf="@id/equip_name" />
 
         <TextView
-            android:id="@+id/observation5"
+            android:id="@+id/observation4"
             style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -304,7 +304,7 @@
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/observation5"
+            android:layout_below="@+id/observation4"
             android:layout_centerHorizontal="true"
             android:text="@string/add_equipment" />
     </RelativeLayout>

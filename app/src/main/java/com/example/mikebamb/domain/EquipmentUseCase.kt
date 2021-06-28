@@ -73,8 +73,8 @@ class EquipmentUseCase @Inject constructor(
         val arrayTimestamp = ArrayList<String>()
         for (items in remoteDBdata) {
             val splitArray = items.toString().split(",")
-            arrayPartNumber.add(splitArray[15].trim())
-            arrayTimestamp.add(splitArray[7].trim())
+            arrayPartNumber.add(splitArray[16].trim())
+            arrayTimestamp.add(splitArray[18].trim())
         }
         Log.e("arrayPartNumber", arrayPartNumber.toString())
         Log.e("arrayTimestamp", arrayTimestamp.toString())
@@ -103,26 +103,27 @@ class EquipmentUseCase @Inject constructor(
                         if (match) {
                             val newArray =
                                 items.toString().replace("[", "").replace("]", "").split(",")
+                            //newArray.sorted()
                             val newResult = EquipmentEntity(
-                                newArray[15].trim(),
-                                newArray[0].trim(),
-                                newArray[4].trim(),
-                                newArray[9].trim(),
-                                newArray[16].trim(),
-                                newArray[9].trim(),
-                                newArray[13].trim(),
-                                newArray[8].trim(),
-                                newArray[3].trim(),
-                                newArray[5].trim(),
-                                newArray[6].trim(),
-                                newArray[0].trim(),
-                                newArray[2].trim(),
-                                newArray[18].trim(),
-                                newArray[14].trim(),
-                                newArray[10].trim(),
-                                newArray[11].trim(),
-                                newArray[17].trim(),
-                                newArray[7].trim()
+                                newArray[16],
+                                newArray[4],
+                                newArray[10],
+                                newArray[9],
+                                newArray[8],
+                                newArray[5],
+                                newArray[7],
+                                newArray[6],
+                                newArray[17],
+                                newArray[3],
+                                newArray[0],
+                                newArray[1],
+                                newArray[2],
+                                newArray[11],
+                                newArray[12],
+                                newArray[13],
+                                newArray[14],
+                                newArray[15],
+                                newArray[18]
                             )
                             Log.e("newResult", newArray.toString())
                             localAddNewItem(newResult)

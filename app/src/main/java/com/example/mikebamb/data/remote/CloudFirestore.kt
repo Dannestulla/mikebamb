@@ -12,7 +12,7 @@ import javax.inject.Inject
 class CloudFirestore @Inject constructor(
 ) {
     companion object {
-        var documentsLiveData = MutableLiveData<MutableCollection<Any>>()
+        var documentsLiveData = MutableLiveData<ArrayList<Any>>()
     }
 
     var remoteDatabase = FirebaseFirestore.getInstance()
@@ -26,13 +26,14 @@ class CloudFirestore @Inject constructor(
             remoteDatabase.collection("Vessel")
                 .get()
                 .addOnSuccessListener { task ->
-                    val documentCollection = mutableListOf<Any>()
+                    val documentCollection = ArrayList<Any>()
+                    var i = 0
                     for (document in task) {
-                        val result = document.data.values.toString().trim()
-                        result.replace("\\s".toRegex(), "")
-                        documentCollection.add(result.trim())
+                        val result = document.data.toSortedMap()
+                        documentCollection.add(result.values)
+                        //result.replace("\\s".toRegex(), "")
+                        i++
                     }
-                    Log.e("getAllRemoteData", documentCollection.toString())
                     documentsLiveData.postValue(documentCollection)
                 }
                 .addOnFailureListener { ex -> Log.e("TAG", "Error getting documents: $ex") }

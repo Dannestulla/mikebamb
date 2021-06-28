@@ -22,7 +22,6 @@ class CategoryFragment : Fragment() {
     private var cloudFirestore = CloudFirestore
     private var mAdapter = CategoryAdapter()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

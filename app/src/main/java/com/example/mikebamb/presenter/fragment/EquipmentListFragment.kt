@@ -83,7 +83,6 @@ class EquipmentListFragment : Fragment() {
             })
     }
 
-
     private fun navigateToDescription(position: Int) {
         val partNumberClicked = viewModel.recyclerViewItems.value?.get(position)?.partNumber!!
         val action =

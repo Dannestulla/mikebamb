@@ -22,11 +22,11 @@
     <string name="category2">Category2</string>
     <string name="category3">Category3</string>
     <string name="observations">Observations</string>
+    <string name="PartNumber">PartNumber</string>
     <string name="observations1">Observations1</string>
-    <string name="observations2">Observations2</string>
-    <string name="observations3">Observations3</string>
-    <string name="observations4">Observations4</string>
-    <string name="observations5">Observations5</string>
+    <string name="observations3">Observations2</string>
+    <string name="observations4">Observations3</string>
+    <string name="observations5">Observations4</string>
     <string name="generate_new_qr_code_to_this_equipment">Generate new QR Code To This Equipment</string>
     <string name="equipment">Equipment:</string>
     <string name="equip_name">All Equipments</string>
