@@ -92,15 +92,15 @@
             android:layout_toEndOf="@+id/equip_name" />
 
         <TextView
-            android:id="@+id/fluig"
+            android:id="@+id/order_number"
             style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_install_date"
-            android:text="@string/fluig" />
+            android:text="@string/order_number" />
 
         <EditText
-            android:id="@+id/edit_fluig"
+            android:id="@+id/edit_order_number"
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
             style="@style/NormalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/edit_fluig"
+            android:layout_below="@+id/edit_order_number"
             android:text="@string/link_to_manual" />
 
         <EditText
@@ -120,7 +120,7 @@
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/edit_fluig"
+            android:layout_below="@+id/edit_order_number"
             android:layout_toEndOf="@+id/equip_name" />
 
         <TextView

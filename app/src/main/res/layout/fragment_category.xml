@@ -21,10 +21,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_margin="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
         android:layout_toEndOf="@id/text_category"
         android:paddingLeft="20dp"
-        android:text="@string/main_engine" />
+        android:text=" " />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/category_recyclerview"

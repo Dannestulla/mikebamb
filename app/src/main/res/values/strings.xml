@@ -8,7 +8,7 @@
     <string name="model">Model:</string>
     <string name="serial_number">Serial Number:</string>
     <string name="install_date">Install Date:</string>
-    <string name="fluig">Fluig:</string>
+    <string name="order_number">Order Number:</string>
     <string name="link_to_manual">Link to Manual:</string>
     <string name="hours">Hours:</string>
     <string name="qrcode">QrCode:</string>
