@@ -1,9 +1,12 @@
 package com.gohan.mikebamb.presenter.fragment
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -36,24 +39,31 @@ class EquipmentListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val subSubCategory = args.equipmentsList
         setupRecyclerView()
+
         if (subSubCategory.isBlank()) {
             viewModel.localGetAllEquipments()
         } else {
             binding.editName.text = subSubCategory
             viewModel.localGetASubSubCategory(subSubCategory)
         }
+
         setHasOptionsMenu(true)
-        getActionbar()
+        appBarInit()
+
+
     }
 
-    private fun getActionbar() {
-        return (activity as AppCompatActivity).supportActionBar!!.show()
+    private fun appBarInit() {
+        val appBar = (activity as AppCompatActivity)
+        appBar.setSupportActionBar(binding.toolbar)
+        appBar.title = "Search:"
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.main_menu, menu)
-        val item: MenuItem = menu.findItem(R.id.action_search)
+        inflater.inflate(R.menu.toolbar_search_view, menu)
+        val item = menu.findItem(R.id.action_search)
         val searchView = item.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {

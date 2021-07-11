@@ -1,16 +1,17 @@
 package com.gohan.mikebamb.presenter.fragment
 
-import android.content.ContextWrapper
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.gohan.mikebamb.data.toEquipmentEntity
 import com.gohan.mikebamb.databinding.FragmentAddEquipmentBinding
+import com.gohan.mikebamb.domain.EquipmentConstants
 import com.gohan.mikebamb.domain.EquipmentModel
 import com.gohan.mikebamb.presenter.viewmodel.DescriptionViewModel
 import java.sql.Timestamp
@@ -22,6 +23,7 @@ class AddEquipmentFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<DescriptionViewModel>()
     private var isEmpty = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,7 +35,7 @@ class AddEquipmentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.addequipment.setOnClickListener { addNewItem() }
-        hideActionBar()
+        checkIsUser()
     }
 
     private fun addNewItem() {
@@ -121,8 +123,11 @@ class AddEquipmentFragment : Fragment() {
         return isEmpty
     }
 
-    fun hideActionBar() {
-        return (activity as AppCompatActivity).supportActionBar!!.hide()
+    fun checkIsUser() {
+        if (EquipmentConstants.USER) {
+            binding.addequipment.isEnabled = false
+            binding.addequipment.isVisible = false
+        }
     }
 
     override fun onDestroyView() {

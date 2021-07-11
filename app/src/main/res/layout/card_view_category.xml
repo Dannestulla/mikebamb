@@ -3,13 +3,16 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
-    android:elevation="5dp">
+    android:elevation="5dp"
+    android:backgroundTint="@color/new_gray">
 
     <RelativeLayout
+        android:backgroundTint="@color/new_gray"
         android:layout_width="200dp"
         android:layout_height="60dp">
 
         <TextView
+            android:backgroundTint="@color/new_gray"
             android:id="@+id/category1"
             style="@style/CardText"
             android:layout_width="wrap_content"

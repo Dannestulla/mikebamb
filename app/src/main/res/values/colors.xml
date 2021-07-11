@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="gray">#2a3138</color>
-    <color name="gray_light">#535a62</color>
-    <color name="gray_dark">#000812</color>
-    <color name="orange">#ff822e</color>
-    <color name="orange_light">#ffb35e</color>
-    <color name="orange_dark">#c65300</color>
-    <color name="white">#FFFFFF</color>
+    <color name="blue">#005289</color>
+    <color name="dark_blue">#002a5b</color>
+    <color name="light_blue">#497eb9</color>
+
+    <color name="new_gray">#bcbbc0</color>
+    <color name="dark_gray">#8c8b90</color>
+    <color name="light_gray">#eeedf3</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 </resources>

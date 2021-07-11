@@ -9,11 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.gohan.mikebamb.data.local.EquipmentEntity
 import com.gohan.mikebamb.databinding.FragmentDescriptionEquipmentBinding
+import com.gohan.mikebamb.domain.EquipmentConstants
 import com.gohan.mikebamb.presenter.viewmodel.DescriptionViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -43,6 +45,7 @@ class DescriptionEquipmentFragment : Fragment() {
         incomingFromScanerOrRecyclerView()
         applyBinding()
         hideActionBar()
+        checkIsUser()
     }
 
     private fun applyBinding() {
@@ -94,7 +97,7 @@ class DescriptionEquipmentFragment : Fragment() {
     private fun generateNewQRcode() {
         val equipmentQRnumber = binding.editPartNumber.text.toString()
         val equipmentQRname = binding.editEquipName.text.toString()
-        val equipmentQRcode = (equipmentQRnumber + equipmentQRname).replace(" ", "")
+        val equipmentQRcode = (('a'..'z') + ('A'..'Z') + ('0'..'9')).joinToString("")
         if (equipmentQRnumber.isNotEmpty() || equipmentQRname.isNotEmpty()) {
             val qrCreated = viewModel.createQR(equipmentQRcode)
             binding.generatedQr.setImageBitmap(qrCreated)
@@ -172,6 +175,17 @@ class DescriptionEquipmentFragment : Fragment() {
 
     fun hideActionBar() {
         return (activity as AppCompatActivity).supportActionBar!!.hide()
+    }
+
+    fun checkIsUser() {
+        if (EquipmentConstants.USER) {
+            binding.addQrCode.isEnabled = false
+            binding.addQrCode.isVisible = false
+            binding.deleteEquip.isEnabled = false
+            binding.deleteEquip.isVisible = false
+            binding.saveChanges.isEnabled = false
+            binding.saveChanges.isVisible = false
+        }
     }
 
     override fun onDestroyView() {

@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presenter.fragment.DescriptionEquipmentFragment">
+    tools:context=".presenter.fragment.DescriptionEquipmentFragment"
+    android:backgroundTint="@color/new_gray">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relative_layout"
@@ -20,14 +21,15 @@
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@string/equipment_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_equip_name"
+            app:layout_constraintEnd_toStartOf="@+id/edit_equip_name"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/edit_equip_name"
             style="@style/EditText"
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/equip_name"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,12 +37,13 @@
         <TextView
             android:id="@+id/manufacturer"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@string/manufacturer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/equip_name" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_manufacturer"
+            app:layout_constraintEnd_toStartOf="@+id/edit_manufacturer"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/edit_manufacturer"
@@ -50,35 +53,36 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/equip_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/manufacturer"
-            app:layout_constraintTop_toBottomOf="@+id/edit_equip_name" />
+            app:layout_constraintStart_toEndOf="@+id/equip_name"
+            app:layout_constraintTop_toBottomOf="@+id/equip_name" />
 
         <TextView
             android:id="@+id/model"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/model"
+            app:layout_constraintEnd_toStartOf="@+id/edit_model"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_manufacturer" />
+            app:layout_constraintTop_toBottomOf="@+id/manufacturer" />
 
         <EditText
             android:id="@+id/edit_model"
             style="@style/EditText"
             android:layout_width="0dp"
-
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/equip_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/model"
-            app:layout_constraintTop_toBottomOf="@+id/edit_manufacturer" />
+            app:layout_constraintStart_toStartOf="@+id/edit_manufacturer"
+            app:layout_constraintTop_toBottomOf="@+id/manufacturer" />
 
         <TextView
             android:id="@+id/serial_number"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/serial_number"
+            app:layout_constraintEnd_toStartOf="@+id/edit_observations1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/partNumber" />
 
@@ -86,21 +90,21 @@
             android:id="@+id/edit_part_number"
             style="@style/EditText"
             android:layout_width="0dp"
-
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/equip_name"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/partNumber"
+            app:layout_constraintStart_toStartOf="@+id/edit_model"
             app:layout_constraintTop_toBottomOf="@+id/edit_model" />
 
         <TextView
             android:id="@+id/install_date"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/install_date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/serial_number" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_install_date"
+            app:layout_constraintEnd_toStartOf="@+id/edit_install_date"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/edit_install_date"
@@ -110,17 +114,18 @@
             android:layout_toEndOf="@id/equip_name"
             android:inputType="date"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/install_date"
+            app:layout_constraintStart_toStartOf="@+id/edit_observations1"
             app:layout_constraintTop_toBottomOf="@+id/serial_number" />
 
         <TextView
             android:id="@+id/order_number"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/order_number"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/install_date" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_order_number"
+            app:layout_constraintEnd_toStartOf="@+id/edit_order_number"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/edit_order_number"
@@ -129,253 +134,254 @@
 
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/order_number"
-            app:layout_constraintTop_toTopOf="@+id/order_number" />
+            app:layout_constraintStart_toStartOf="@+id/edit_install_date"
+            app:layout_constraintTop_toBottomOf="@+id/edit_install_date" />
 
         <TextView
             android:id="@+id/manuallink"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/link_to_manual"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/order_number" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_manuallink"
+            app:layout_constraintEnd_toStartOf="@+id/edit_manuallink"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:layout_width="0dp"
-
             android:id="@+id/edit_manuallink"
             style="@style/EditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:autoLink="web|email"
             android:inputType="textWebEditText"
             android:linksClickable="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/manuallink"
-            app:layout_constraintTop_toTopOf="@+id/manuallink" />
+            app:layout_constraintStart_toStartOf="@+id/edit_order_number"
+            app:layout_constraintTop_toBottomOf="@+id/edit_order_number" />
 
         <TextView
             android:id="@+id/hours"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/hours"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/manuallink" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_hours"
+            app:layout_constraintEnd_toStartOf="@+id/edit_hours"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:layout_width="0dp"
-
             android:id="@+id/edit_hours"
             style="@style/EditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/equip_name"
             android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/hours"
-            app:layout_constraintTop_toTopOf="@+id/hours" />
+            app:layout_constraintStart_toStartOf="@+id/edit_manuallink"
+            app:layout_constraintTop_toBottomOf="@+id/manuallink" />
 
         <TextView
             android:id="@+id/qr_code"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
             android:text="@string/qrcode"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/hours" />
+            app:layout_constraintBottom_toTopOf="@+id/comments"
+            app:layout_constraintEnd_toStartOf="@+id/scan_qr_description"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/scan_qr_description"
-            android:layout_width="35dp"
+            android:layout_width="46dp"
             android:layout_height="36dp"
             android:src="@drawable/ic_baseline_qr_code_24"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_qr_code"
+            app:layout_constraintEnd_toStartOf="@+id/edit_qr_code"
             app:layout_constraintStart_toEndOf="@+id/qr_code"
             app:layout_constraintTop_toBottomOf="@+id/edit_hours" />
 
         <EditText
-            android:layout_width="0dp"
-
             android:id="@+id/edit_qr_code"
             style="@style/EditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/scan_qr_description"
-            app:layout_constraintTop_toTopOf="@+id/scan_qr_description" />
+            app:layout_constraintStart_toStartOf="@+id/edit_hours"
+            app:layout_constraintTop_toBottomOf="@+id/edit_hours" />
 
         <TextView
             android:id="@+id/comments"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/comments"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/qr_code" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_comments"
+            app:layout_constraintEnd_toStartOf="@+id/edit_comments"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:layout_width="0dp"
-
             android:id="@+id/edit_comments"
             style="@style/EditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/comments"
-            app:layout_constraintTop_toTopOf="@+id/comments" />
+            app:layout_constraintStart_toStartOf="@+id/edit_qr_code"
+            app:layout_constraintTop_toBottomOf="@+id/edit_qr_code" />
 
         <TextView
             android:id="@+id/category1"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             android:text="@string/category1"
+            app:layout_constraintEnd_toStartOf="@+id/edit_category1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/comments" />
 
         <EditText
-            android:layout_width="0dp"
-
             android:id="@+id/edit_category1"
             style="@style/EditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/category1"
-            app:layout_constraintTop_toBottomOf="@+id/edit_comments" />
+            app:layout_constraintStart_toStartOf="@+id/edit_comments"
+            app:layout_constraintTop_toBottomOf="@+id/comments" />
 
         <TextView
             android:id="@+id/category2"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="8dp"
             android:text="@string/category2"
+            app:layout_constraintEnd_toStartOf="@+id/edit_category2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/category1" />
 
         <EditText
-            android:layout_width="0dp"
-
             android:id="@+id/edit_category2"
             style="@style/EditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/category2"
+            app:layout_constraintStart_toStartOf="@+id/edit_category1"
             app:layout_constraintTop_toBottomOf="@+id/edit_category1" />
 
         <TextView
             android:id="@+id/category3"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/category3"
+            app:layout_constraintEnd_toStartOf="@+id/edit_category3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/category2" />
 
         <EditText
-            android:layout_width="0dp"
-
             android:id="@+id/edit_category3"
             style="@style/EditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/observation1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/category3"
-            app:layout_constraintTop_toBottomOf="@+id/edit_category2" />
+            app:layout_constraintStart_toStartOf="@+id/edit_category2" />
 
         <TextView
             android:id="@+id/partNumber"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/PartNumber"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/model" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/edit_part_number"
+            app:layout_constraintEnd_toStartOf="@+id/edit_part_number"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:layout_width="0dp"
-
             android:id="@+id/edit_observations1"
             style="@style/EditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/observation1"
-            app:layout_constraintTop_toBottomOf="@+id/edit_category3" />
+            app:layout_constraintStart_toStartOf="@+id/edit_part_number"
+            app:layout_constraintTop_toBottomOf="@+id/edit_part_number" />
 
         <TextView
             android:id="@+id/observation1"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/observations1"
+            app:layout_constraintEnd_toStartOf="@+id/edit_observations2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/category3" />
 
         <EditText
-            android:layout_width="0dp"
-
             android:id="@+id/edit_observations2"
             style="@style/EditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/observation2"
-            app:layout_constraintTop_toBottomOf="@+id/observation1" />
+            app:layout_constraintStart_toStartOf="@+id/edit_category3"
+            app:layout_constraintTop_toBottomOf="@+id/edit_category3" />
 
         <TextView
             android:id="@+id/observation2"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/observations3"
+            app:layout_constraintEnd_toStartOf="@+id/edit_observations3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/edit_observations2" />
+            app:layout_constraintTop_toBottomOf="@+id/observation1" />
 
         <TextView
             android:id="@+id/observation3"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/observations4"
+            app:layout_constraintEnd_toStartOf="@+id/edit_observations4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/observation2" />
 
         <TextView
             android:id="@+id/observation4"
             style="@style/NormalText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/observations5"
+            app:layout_constraintEnd_toStartOf="@+id/edit_observations5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/observation3" />
 
         <EditText
-            android:layout_width="0dp"
-
             android:id="@+id/edit_observations3"
             style="@style/EditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/observation3"
-            app:layout_constraintTop_toTopOf="@+id/observation3" />
+            app:layout_constraintStart_toStartOf="@+id/edit_observations2"
+            app:layout_constraintTop_toBottomOf="@+id/edit_observations2" />
 
         <EditText
-            android:layout_width="0dp"
-
             android:id="@+id/edit_observations4"
             style="@style/EditText"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/equip_name"
             android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/edit_observations5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/observation4"
-            app:layout_constraintTop_toTopOf="@+id/observation4" />
+            app:layout_constraintStart_toEndOf="@+id/observation3"
+            app:layout_constraintStart_toStartOf="@+id/edit_observations3" />
 
         <EditText
-
             android:id="@+id/edit_observations5"
             style="@style/EditText"
             android:layout_width="0dp"
@@ -383,8 +389,9 @@
             android:layout_toEndOf="@id/equip_name"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/serial_number"
-            app:layout_constraintTop_toTopOf="@+id/serial_number" />
+            app:layout_constraintStart_toEndOf="@+id/observation4"
+            app:layout_constraintStart_toStartOf="@+id/edit_observations4"
+            app:layout_constraintTop_toTopOf="@+id/observation4" />
 
         <Button
             android:id="@+id/save_changes"
@@ -394,9 +401,9 @@
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/delete_equip"
             android:text="@string/save_changes"
-            app:layout_constraintEnd_toEndOf="@+id/edit_observations5"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/observation4" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_observations5" />
 
         <Button
             android:id="@+id/delete_equip"

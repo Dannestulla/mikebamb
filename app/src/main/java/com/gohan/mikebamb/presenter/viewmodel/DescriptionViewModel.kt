@@ -1,6 +1,7 @@
 package com.gohan.mikebamb.presenter.viewmodel
 
 import android.app.Application
+import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
@@ -10,6 +11,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.gohan.mikebamb.data.EquipmentsRepository
 import com.gohan.mikebamb.data.local.EquipmentEntity
+import com.gohan.mikebamb.domain.EquipmentConstants
 import com.gohan.mikebamb.domain.EquipmentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -22,36 +24,16 @@ import javax.inject.Inject
 class DescriptionViewModel @Inject constructor(
     val app: Application,
     val repository: EquipmentsRepository,
+) : AndroidViewModel(app) {
 
-    ) : AndroidViewModel(app) {
     var qrCodeFromScaner = ""
     lateinit var partNumberClicked: String
-    var equipmentDescriptionLiveData = MutableLiveData(
-        EquipmentEntity(
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            ""
-        )
-    )
     lateinit var equipmentDescriptionData: EquipmentEntity
+    var equipmentDescriptionLiveData = MutableLiveData(
+        EquipmentConstants.EMPTY_EQUIPMENT_ENTITY
+    )
     var emptyEquipmentEntity =
-        EquipmentEntity("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "")
+        EquipmentConstants.EMPTY_EQUIPMENT_ENTITY
     var equipmentUseCase = EquipmentUseCase(repository)
 
     fun localAddNewItem(newItem: EquipmentEntity) {
@@ -59,7 +41,6 @@ class DescriptionViewModel @Inject constructor(
             repository.localAddNewItem(newItem)
         }
     }
-
 
     suspend fun localGetEquipmentByPartNumber(partNumber: String): EquipmentEntity {
         return equipmentUseCase.localGetEquipmentByPartNumber(partNumber)
@@ -116,6 +97,6 @@ class DescriptionViewModel @Inject constructor(
 
     fun remoteDeleteEquipment(partNumber: String) {
         repository.remoteDeleteEquipment(partNumber)
-
     }
+
 }

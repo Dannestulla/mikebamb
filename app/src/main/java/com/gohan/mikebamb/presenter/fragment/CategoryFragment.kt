@@ -49,7 +49,7 @@ class CategoryFragment : Fragment() {
         mAdapter.onItemClick = { position ->
             handleItemClick(position)
         }
-        hideActionBar()
+        //hideActionBar()
         initializeAndGetRemoteData()
         onBackPressed()
     }

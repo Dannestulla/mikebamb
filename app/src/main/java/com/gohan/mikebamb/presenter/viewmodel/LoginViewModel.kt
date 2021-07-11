@@ -2,10 +2,12 @@ package com.gohan.mikebamb.presenter.viewmodel
 
 import android.app.Application
 import android.content.Context
-import android.text.Editable
+import android.provider.Telephony.Carriers.PASSWORD
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gohan.mikebamb.domain.EquipmentConstants
+import com.gohan.mikebamb.domain.EquipmentConstants.myConstants.SHARED_PREF
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -16,9 +18,6 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel() {
     var loginOK = MutableLiveData(false)
     lateinit var auth: FirebaseAuth
-    var SHARED_PREF = "SharedPref"
-    var EMAIL = "email"
-    var PASSWORD = "password"
 
     fun createAccount(email: String, password: String, confpassword: String) {
         if (validadeRegistration(email, password, confpassword)) {
@@ -54,6 +53,11 @@ class LoginViewModel @Inject constructor(
                         Toast.makeText(app, "SignIn Failed : $ex", Toast.LENGTH_LONG).show()
                     }
                 }
+        checkIsUser(email)
+    }
+
+    private fun checkIsUser(email: String) {
+        EquipmentConstants.USER = !EquipmentConstants.ADMIN_LIST.contains(email)
     }
 
     private fun sendEmailVerification() {
@@ -88,15 +92,15 @@ class LoginViewModel @Inject constructor(
         val sharedPref = app.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
         var answer = ""
         when (query) {
-            "Email" -> answer = sharedPref.getString(EMAIL, "").toString()
-            "Password" -> answer = sharedPref.getString(PASSWORD, "").toString()
+            "Email" -> answer = sharedPref.getString(EquipmentConstants.EMAIL, "").toString()
+            "Password" -> answer = sharedPref.getString(EquipmentConstants.PASSWORD, "").toString()
         }
         return answer
     }
 
     private fun savePref(email: String, password: String) {
         val sharedPref = app.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
-        sharedPref.edit().putString(EMAIL, email).apply()
+        sharedPref.edit().putString(EquipmentConstants.EMAIL, email).apply()
         sharedPref.edit().putString(PASSWORD, password).apply()
     }
 

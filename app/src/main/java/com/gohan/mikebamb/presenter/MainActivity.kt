@@ -19,6 +19,11 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         val navController = findNavController(R.id.fragment)
         setupBottomNavMenu(navController)
+        checkIfNormalUser()
+    }
+
+    private fun checkIfNormalUser() {
+
     }
 
     private fun setupBottomNavMenu(navController: NavController) {

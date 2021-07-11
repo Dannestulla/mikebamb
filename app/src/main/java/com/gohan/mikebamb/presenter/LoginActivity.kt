@@ -1,15 +1,10 @@
 package com.gohan.mikebamb.presenter
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.gohan.mikebamb.R
 import com.gohan.mikebamb.databinding.ActivityLoginBinding
-import com.gohan.mikebamb.presenter.fragment.CategoryFragment
 import com.gohan.mikebamb.presenter.viewmodel.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
