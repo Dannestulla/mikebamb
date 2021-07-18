@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presenter.fragment.EquipmentListFragment"
+    tools:context=".main_app.presenter.fragment.EquipmentListFragment"
     android:background="@color/light_gray">
 
     <androidx.appcompat.widget.Toolbar
@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@id/equip_name"
-        style="@style/Title"
+        style="@style/SubTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -35,7 +35,7 @@
 
     <TextView
         android:id="@+id/edit_name"
-        style="@style/Title"
+        style="@style/SubTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"

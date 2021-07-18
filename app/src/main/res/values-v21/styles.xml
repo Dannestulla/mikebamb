@@ -19,7 +19,7 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:backgroundTint">@color/black</item>
     </style>
-    <style name="Title">
+    <style name="SubTitle">
         <item name="android:padding">8dp</item>
         <item name="android:text">Equipment: </item>
         <item name="android:textSize">16sp</item>

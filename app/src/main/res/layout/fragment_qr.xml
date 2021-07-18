@@ -3,5 +3,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presenter.fragment.QRFragment">
+    tools:context=".main_app.presenter.fragment.QRFragment">
 </RelativeLayout>

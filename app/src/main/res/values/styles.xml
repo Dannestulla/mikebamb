@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="NormalText">
         <item name="android:textSize">@dimen/font_normal</item>
         <item name="android:maxLines">1</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">8dp</item>
     </style>
-    <style name="Button">
-    </style>
+
     <style name="EditText">
         <item name="android:layout_width">0dp</item>
         <item name="android:textSize">17sp</item>
@@ -17,13 +17,23 @@
         <item name="android:padding">8dp</item>
         <item name="android:ems">10</item>
     </style>
-    <style name="Title">
+
+    <style name="SubTitle">
         <item name="android:padding">8dp</item>
-        <item name="android:text">Equipment: </item>
+        <item name="android:text">Equipment:</item>
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="CardText">
         <item name="android:padding">6dp</item>
         <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="LoginText">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="MainTitle">
+        <item name="android:textSize">30sp</item>
     </style>
 </resources>
