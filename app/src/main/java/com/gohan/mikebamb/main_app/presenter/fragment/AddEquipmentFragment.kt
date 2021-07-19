@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import com.gohan.mikebamb.main_app.data.toEquipmentEntity
 import com.gohan.mikebamb.databinding.FragmentAddEquipmentBinding
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants
+import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.USER
 import com.gohan.mikebamb.main_app.domain.EquipmentModel
 import com.gohan.mikebamb.main_app.presenter.viewmodel.DescriptionViewModel
 import java.sql.Timestamp
@@ -40,7 +41,7 @@ class AddEquipmentFragment : Fragment() {
     private fun addNewItem() {
         val equipmentQRnumber = binding.editPartNumber.text.toString()
         val equipmentQRname = binding.editEquipName.text.toString()
-        val equipmentQRcode = (equipmentQRnumber + equipmentQRname).replace(" ", "")
+        val equipmentQRcode = getRandomString(8)
         if (equipmentQRnumber.isNotEmpty() || equipmentQRname.isNotEmpty()) {
             binding.editQrCode.setText(equipmentQRcode)
         }
@@ -123,7 +124,7 @@ class AddEquipmentFragment : Fragment() {
     }
 
     fun checkIsUser() {
-        if (EquipmentConstants.USER) {
+        if (USER) {
             binding.addequipment.isEnabled = false
             binding.addequipment.isVisible = false
         }
@@ -132,6 +133,13 @@ class AddEquipmentFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun getRandomString(length: Int) : String {
+        val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
     }
 
 }

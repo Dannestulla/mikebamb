@@ -43,6 +43,7 @@ internal class CategoryViewModel @Inject constructor(
             } else {
                 _currentCategory.postValue(distinctCategoryList)
                 categorySelected = distinctCategoryList
+                Log.e("localGetMainCategory()","Completed")
             }
         }
     }
@@ -92,7 +93,12 @@ internal class CategoryViewModel @Inject constructor(
 
     private fun getShipId(): String {
         val sharedPref = app.getSharedPreferences(EquipmentConstants.SHARED_PREF, Context.MODE_PRIVATE)
-        return sharedPref?.getString(EquipmentConstants.SHIP_ID, "Empty")!!
+        val shipId = sharedPref?.getString(EquipmentConstants.SHIP_ID, "Empty")!!
+        return shipId
+    }
+
+    fun localDeleteAllData() {
+        equipmentUseCase.localDeleteAllData()
     }
 }
 

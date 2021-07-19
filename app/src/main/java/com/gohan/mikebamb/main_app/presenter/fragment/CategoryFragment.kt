@@ -1,6 +1,8 @@
 package com.gohan.mikebamb.main_app.presenter.fragment
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +11,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.gohan.mikebamb.main_app.data.remote.CloudFirestore
 import com.gohan.mikebamb.databinding.FragmentCategoryBinding
+import com.gohan.mikebamb.main_app.data.remote.CloudFirestore
+import com.gohan.mikebamb.main_app.domain.EquipmentConstants
+import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.NEW_SHIP_ACCOUNT
+import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHIP_ID
 import com.gohan.mikebamb.main_app.presenter.adapter.CategoryAdapter
 import com.gohan.mikebamb.main_app.presenter.viewmodel.CategoryViewModel
 import kotlin.properties.Delegates
@@ -41,14 +46,25 @@ class CategoryFragment : Fragment() {
             adapter = mAdapter
             layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
         }
-        initializeAndGetRemoteData()
-        getLocalCategoryList()
+        loadSharedPref()
+        viewModel.remoteInitializeDatabase()
         observeRemoteChangesAndCompareRemoteToLocal()
         mAdapter.onItemClick = { position ->
             handleItemClick(position)
         }
-        initializeAndGetRemoteData()
         onBackPressed()
+        viewModel.remoteGetAllData()
+        localGetMainCategory()
+    }
+
+    private fun loadSharedPref() {
+        val sharedPref =
+            context?.getSharedPreferences(EquipmentConstants.SHARED_PREF, Context.MODE_PRIVATE)
+        binding.account.text = sharedPref?.getString(SHIP_ID, "")
+        if (sharedPref!!.getBoolean(NEW_SHIP_ACCOUNT, false)) {
+            viewModel.localDeleteAllData()
+            sharedPref.edit().remove(NEW_SHIP_ACCOUNT).apply()
+        }
     }
 
     private fun onBackPressed() {
@@ -69,7 +85,7 @@ class CategoryFragment : Fragment() {
                     }
 
                     if (viewModel.exitToMainCategory) {
-                        getLocalCategoryList()
+                        localGetMainCategory()
                         viewModel.exitToMainCategory = false
                         binding.textCategory.text = "Categories:"
                         binding.editCategory.text = ""
@@ -89,10 +105,11 @@ class CategoryFragment : Fragment() {
         }
     }
 
-    private fun getLocalCategoryList() {
+    private fun localGetMainCategory() {
         viewModel.localGetMainCategory()
         viewModel.currentCategory.observe(viewLifecycleOwner, {
             mAdapter.submitList(it)
+            Log.e("localGetMainCategory()", "Completed")
         }
         )
     }
@@ -130,12 +147,8 @@ class CategoryFragment : Fragment() {
         cloudFirestore.documentsLiveData.observe(viewLifecycleOwner, {
             viewModel.remoteDBdata = it
             viewModel.compareRemoteAndLocalData(it)
+            Log.e("observeRemoteChangesAndCompareRemoteToLocal()", "Completed")
         })
-    }
-
-    private fun initializeAndGetRemoteData() {
-        viewModel.remoteInitializeDatabase()
-        viewModel.remoteGetAllData()
     }
 
     private fun navigateToEquipmentList(position: Int) {

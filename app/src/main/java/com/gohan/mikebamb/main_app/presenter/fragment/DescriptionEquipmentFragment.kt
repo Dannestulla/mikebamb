@@ -13,8 +13,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
-import com.gohan.mikebamb.main_app.data.local.EquipmentEntity
 import com.gohan.mikebamb.databinding.FragmentDescriptionEquipmentBinding
+import com.gohan.mikebamb.main_app.data.local.EquipmentEntity
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants
 import com.gohan.mikebamb.main_app.presenter.viewmodel.DescriptionViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -97,10 +97,9 @@ class DescriptionEquipmentFragment : Fragment() {
     private fun generateNewQRcode() {
         val equipmentQRnumber = binding.editPartNumber.text.toString()
         val equipmentQRname = binding.editEquipName.text.toString()
-        val equipmentQRcode = (('a'..'z') + ('A'..'Z') + ('0'..'9')).joinToString("")
+        val equipmentQRcode = getRandomString(8)
         if (equipmentQRnumber.isNotEmpty() || equipmentQRname.isNotEmpty()) {
             val qrCreated = viewModel.createQR(equipmentQRcode)
-            binding.generatedQr.setImageBitmap(qrCreated)
             val wrapper = ContextWrapper(context)
             val image_uri = viewModel.createQrImageFile(wrapper, qrCreated)
             binding.editQrCode.setText(equipmentQRcode)
@@ -111,6 +110,13 @@ class DescriptionEquipmentFragment : Fragment() {
             Toast.makeText(context, "Must have valid equipment name and number!", Toast.LENGTH_LONG)
                 .show()
         }
+    }
+
+    private fun getRandomString(length: Int) : String {
+            val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+            return (1..length)
+                .map { allowedChars.random() }
+                .joinToString("")
     }
 
     private fun sendToEmail(image_uri: Uri?, equipmentQRcode: String) {

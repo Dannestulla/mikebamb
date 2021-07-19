@@ -5,8 +5,10 @@ import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gohan.mikebamb.main_app.domain.EquipmentConstants
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.ADMIN_LIST
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.EMAIL
+import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.NEW_SHIP_ACCOUNT
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.PASSWORD
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHARED_PREF
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHIP_ID
@@ -20,10 +22,13 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     val app: Application
 ) : ViewModel() {
-    var loginOK = MutableLiveData(false)
     lateinit var auth: FirebaseAuth
     var toastReceiver = MutableLiveData<String>()
     var remoteDatabase = FirebaseFirestore.getInstance()
+    var shipLoginOk = MutableLiveData(false)
+    var loginOK = MutableLiveData(false)
+    var loadingBar = MutableLiveData(false)
+    val sharedPref = app.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
 
     fun createAccount(email: String, password: String, confpassword: String) {
         if (validadeRegistration(email, password, confpassword)) {
@@ -46,17 +51,18 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun signIn(email: String, password: String, shipId: String) {
+    fun signIn(email: String, password: String) {
         if (validadeRegistration(email, password, password)) {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        saveSharedPref(email, password, shipId)
+                        saveEmailAndPassword(email, password)
                         checkIfUserOrAdmin(email)
-                        remoteCheckShipId(shipId)
+                        loginOK.postValue(true)
                     } else {
                         val ex = task.exception.toString()
                         toastReceiver.postValue("SignIn Failed : $ex")
+                        loginOK.postValue(false)
                     }
                 }
         }
@@ -93,36 +99,51 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun loadSavedPref(query: String): String {
+    fun loadStoredValues(query: String): String {
         val sharedPref = app.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
         var answer = ""
         when (query) {
-            "Email" -> answer = sharedPref.getString(EMAIL, "").toString()
-            "Password" -> answer = sharedPref.getString(PASSWORD, "").toString()
+            "email" -> answer = sharedPref.getString(EMAIL, "").toString()
+            "password" -> answer = sharedPref.getString(PASSWORD, "").toString()
+            "ShipId" -> answer = sharedPref.getString(SHIP_ID, "").toString()
         }
         return answer
     }
 
-    private fun saveSharedPref(email: String, password: String, shipId: String) {
-        val sharedPref = app.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+    private fun saveEmailAndPassword(email: String, password: String) {
         sharedPref.edit().putString(EMAIL, email).apply()
         sharedPref.edit().putString(PASSWORD, password).apply()
-        sharedPref.edit().putString(SHIP_ID, shipId).apply()
     }
 
-    private fun remoteCheckShipId(shipId: String) {
+    fun checkShipId(shipId: String) {
+        if (shipId.isNotEmpty()){
         remoteDatabase.collection(shipId).get()
             .addOnSuccessListener {
                 if (it.documents.isNotEmpty()) {
-                    loginOK.postValue(true)
                     toastReceiver.postValue("Login Successfull")
+                    compareOldIdWithNewLogin(shipId)
+                    shipLoginOk.postValue(true)
+                    saveShipID(shipId)
                 } else {
+                    shipLoginOk.postValue(false)
                     toastReceiver.postValue("ShipId $shipId Not Found!")
                 }
             }
             .addOnFailureListener {
                 toastReceiver.postValue("Error fetching ShipID: $it")
             }
+    }}
+
+    private fun compareOldIdWithNewLogin(shipId: String) {
+        //Used to clean local DB in case of login in a new ship account
+        val savedId = sharedPref.getString(SHIP_ID, "")
+        if (savedId != shipId) {
+            sharedPref.edit().putBoolean(NEW_SHIP_ACCOUNT, true).apply()
+        }
+    }
+
+    private fun saveShipID(shipId: String) {
+        sharedPref.edit().putString(SHIP_ID, shipId).apply()
     }
 
     private fun validadeRegistration(
@@ -136,19 +157,30 @@ class LoginViewModel @Inject constructor(
         return true
     }
 
-    fun registerNewShip(newShipId : String) {
-        remoteDatabase.collection(newShipId).get()
-            .addOnSuccessListener {
-                if (it.documents.isNotEmpty()) {
-                    toastReceiver.postValue("ShipID Already Exists")
-                } else {
-                    toastReceiver.postValue("ShipID Created Successfully")
-                    remoteDatabase.collection(newShipId)
+    fun registerNewShip(newShipId: String) {
+        loadingBar.postValue(true)
+        if (newShipId.trim().length > 5) {
+            remoteDatabase.collection(newShipId).get()
+                .addOnSuccessListener {
+                    if (it.documents.isNotEmpty()) {
+                        toastReceiver.postValue("ShipID Already Exists")
+                    } else {
+                        toastReceiver.postValue("ShipID Created Successfully")
+                        val emptydata = EquipmentConstants.EMPTY_EQUIPMENT_ENTITY
+                        remoteDatabase.collection(newShipId).document("AccountSettings")
+                            .set(emptydata)
+
+                        loginOK.postValue(true)
+                    }
                 }
-            }
-            .addOnFailureListener {
-                toastReceiver.postValue("Error fetching ShipID: $it")
-            }
+                .addOnFailureListener {
+                    toastReceiver.postValue("Error fetching ShipID: $it")
+                }
+        } else {
+            toastReceiver.postValue("ShipId must have at least 5 letters")
+        }
+        loadingBar.postValue(false)
+
     }
 }
 

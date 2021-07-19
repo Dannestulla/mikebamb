@@ -187,18 +187,8 @@
             android:layout_height="wrap_content"
             android:text="@string/qrcode"
             app:layout_constraintBottom_toTopOf="@+id/comments"
-            app:layout_constraintEnd_toStartOf="@+id/scan_qr_description"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <ImageView
-            android:id="@+id/scan_qr_description"
-            android:layout_width="46dp"
-            android:layout_height="36dp"
-            android:src="@drawable/ic_baseline_qr_code_24"
-            app:layout_constraintBottom_toBottomOf="@+id/edit_qr_code"
             app:layout_constraintEnd_toStartOf="@+id/edit_qr_code"
-            app:layout_constraintStart_toEndOf="@+id/qr_code"
-            app:layout_constraintTop_toBottomOf="@+id/edit_hours" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/edit_qr_code"
@@ -399,9 +389,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
+            android:layout_marginTop="1dp"
             android:layout_toStartOf="@+id/delete_equip"
             android:text="@string/save_changes"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/delete_equip"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_observations5" />
 
@@ -415,8 +407,9 @@
             android:layout_centerHorizontal="true"
             android:text="@string/delete_equipment"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/save_changes" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/save_changes"
+            app:layout_constraintTop_toTopOf="@+id/save_changes" />
 
         <Button
             android:id="@+id/add_qr_code"
@@ -425,21 +418,11 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/save_changes"
             android:layout_centerHorizontal="true"
-            android:text="@string/generate_new_qr_code_to_this_equipment"
+            android:text="@string/generate_new_qr_code"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/delete_equip" />
 
-
-        <ImageView
-            android:id="@+id/generated_qr"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_below="@id/add_qr_code"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_baseline_qr_code_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_qr_code" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

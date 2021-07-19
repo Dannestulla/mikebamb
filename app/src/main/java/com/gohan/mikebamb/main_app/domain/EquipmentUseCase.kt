@@ -15,7 +15,7 @@ import javax.inject.Inject
 class EquipmentUseCase @Inject constructor(
     private val repository: EquipmentsRepository
 ) {
-    val qrCode = QrCode()
+    private val qrCode = QrCode()
 
     fun remoteInitializeDatabase(shipId: String) {
         repository.remoteInitializeDatabase(shipId)
@@ -81,11 +81,12 @@ class EquipmentUseCase @Inject constructor(
             for (item in arrayPartNumber) {
                 val existsInDB = localDoesEquipExists(item)
                 if (existsInDB) {
+                    // Item already exists in database: Overwrite it or not
                     equipmentEntityPartNumber = localGetEquipmentByPartNumber(item)
                     val comparison = equipmentEntityPartNumber.timestampEntity.compareTo(arrayTimestamp[i])
                     if (comparison < 0) {
                         Log.e(
-                            "overwriting local database",
+                            "writing/overwriting local database",
                             "equipment from DB: " + equipmentEntityPartNumber.timestampEntity)
                             //TODO("opção de sobrescrever")
 
@@ -95,6 +96,7 @@ class EquipmentUseCase @Inject constructor(
                             "equipment from DB: " + equipmentEntityPartNumber.timestampEntity)
                     }
                 } else {
+                    //Item not found in DB, convert from remote to add locally
                     for (items in remoteDBdata) {
                         val match = items.toString().trim().contains(item)
                         if (match) {
@@ -121,13 +123,21 @@ class EquipmentUseCase @Inject constructor(
                                 newArray[15].trim(),
                                 newArray[18].trim()
                             )
-                            Log.e("newResult", newArray.toString())
                             localAddNewItem(newResult)
+                            Log.e("Data Added Localy", "Completed")
+
                         }
                     }
                 }
                 i++
             }
+        }
+    }
+
+    fun localDeleteAllData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.localDeleteAllData()
+            Log.e("localDeleteAllData()","Completed")
         }
     }
 }

@@ -1,19 +1,15 @@
 package com.gohan.mikebamb.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.gohan.mikebamb.R
-import com.gohan.mikebamb.databinding.FragmentCategoryBinding
 import com.gohan.mikebamb.databinding.FragmentLoginBinding
-import com.gohan.mikebamb.main_app.MainActivity
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -40,38 +36,32 @@ class LoginFragment : Fragment() {
     }
 
     private fun applyBinding() {
-        binding.apply{
-            editEmailAddress.setText(viewModel.loadSavedPref(EquipmentConstants.EMAIL))
-            editPassword.setText(viewModel.loadSavedPref(EquipmentConstants.PASSWORD))
-            shipId.setText(viewModel.loadSavedPref(EquipmentConstants.SHIP_ID))
+        binding.apply {
+            editEmailAddress.setText(viewModel.loadStoredValues(EquipmentConstants.EMAIL))
+            editPassword.setText(viewModel.loadStoredValues(EquipmentConstants.PASSWORD))
             loginButton.setOnClickListener {
+                binding.progressBar.isVisible = true
                 val password = editPassword.text.toString()
                 val email = editEmailAddress.text.toString()
-                val shipId = shipId.text.toString()
-                viewModel.signIn(email, password, shipId)
+                viewModel.signIn(email, password)
             }
-            registerNewShip.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment_to_registerShipFragment)
+            registerButton.setOnClickListener {
+            }
         }
-    }}
-
+    }
 
     private fun setObservers() {
         viewModel.loginOK.observe(viewLifecycleOwner, {
-            val intent = Intent(context, MainActivity::class.java)
-            startActivity(intent)
-        })
-        viewModel.toastReceiver.observe(viewLifecycleOwner, {
-            toasterMaker(it)
+            if (it) {
+                findNavController().navigate(R.id.action_loginFragment_to_registerShipFragment)
+            } else {
+                binding.progressBar.isVisible = false
+            }
         })
     }
 
     private fun firebaseInit() {
         viewModel.auth = FirebaseAuth.getInstance()
         viewModel.auth = Firebase.auth
-    }
-
-    private fun toasterMaker(toastMessage : String) {
-        Toast.makeText(context, toastMessage, Toast.LENGTH_LONG).show()
     }
 }

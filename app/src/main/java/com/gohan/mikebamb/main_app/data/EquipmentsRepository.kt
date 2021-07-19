@@ -55,6 +55,10 @@ class EquipmentsRepository @Inject constructor(
         return localDB.localDoesEquipExists(partNumber)
     }
 
+    suspend fun localDeleteAllData() {
+        localDB.localDeleteAllEquipment()
+    }
+
     // REMOTE
 
     fun remoteInitializeDatabase(shipId: String) {
@@ -72,4 +76,5 @@ class EquipmentsRepository @Inject constructor(
     fun remoteDeleteEquipment(partNumber: String) {
         remoteDB.remoteDeleteEquipment(partNumber)
     }
+
 }

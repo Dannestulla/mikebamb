@@ -42,4 +42,7 @@ interface EquipmentDao {
     @Query("SELECT * FROM equipment WHERE category3=:category3")
     suspend fun localGetCaregory3items(category3: String): List<EquipmentEntity>
 
+    @Query("DELETE FROM equipment")
+    suspend fun localDeleteAllEquipment()
+
 }

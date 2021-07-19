@@ -3,6 +3,8 @@ package com.gohan.mikebamb.main_app.data.remote
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.gohan.mikebamb.main_app.data.local.EquipmentEntity
+import com.gohan.mikebamb.main_app.domain.EquipmentConstants
+import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.COLLECTION_NAME
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -16,16 +18,15 @@ class CloudFirestore @Inject constructor(
     }
 
     private var remoteDatabase = FirebaseFirestore.getInstance()
-    private lateinit var collectionName : String
 
     fun remoteInititalizeDatabase(shipId: String) {
         remoteDatabase = FirebaseFirestore.getInstance()
-        collectionName = shipId
+        COLLECTION_NAME = shipId
     }
 
     fun remoteGetAllData() {
         CoroutineScope(IO).launch {
-            remoteDatabase.collection(collectionName)
+            remoteDatabase.collection(COLLECTION_NAME)
                 .get()
                 .addOnSuccessListener { task ->
                     val documentCollection = ArrayList<Any>()
@@ -36,6 +37,8 @@ class CloudFirestore @Inject constructor(
                         i++
                     }
                     documentsLiveData.postValue(documentCollection)
+                    Log.e("remoteGetAllData()","Completed")
+
                 }
                 .addOnFailureListener { ex -> Log.e("TAG", "Error getting documents: $ex") }
         }
@@ -43,13 +46,13 @@ class CloudFirestore @Inject constructor(
 
     fun remoteAddNewItem(toEquipmentEntity: EquipmentEntity) {
         val docName = toEquipmentEntity.partNumber
-        remoteDatabase.collection(collectionName).document(docName).set(toEquipmentEntity)
+        remoteDatabase.collection(COLLECTION_NAME).document(docName).set(toEquipmentEntity)
             .addOnSuccessListener { Log.e("item added", "DocName: $docName") }
             .addOnFailureListener { ex -> Log.e("TAG", "Error saving documents: $ex") }
     }
 
     fun remoteDeleteEquipment(partNumber: String) {
-        remoteDatabase.collection(collectionName).document(partNumber)
+        remoteDatabase.collection(COLLECTION_NAME).document(partNumber)
             .delete()
             .addOnSuccessListener { Log.e("item deleted", "Doc Name: $partNumber") }
             .addOnFailureListener { ex -> Log.e("item deleted", "Operation Failed: $ex") }
