@@ -1,6 +1,7 @@
 package com.gohan.mikebamb.main_app.presenter.fragment
 
-import android.R.attr
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -21,32 +23,6 @@ import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHIP_ID
 import com.gohan.mikebamb.main_app.presenter.adapter.CategoryAdapter
 import com.gohan.mikebamb.main_app.presenter.viewmodel.CategoryViewModel
 import kotlin.properties.Delegates
-import android.R.attr.text
-
-import android.R.attr.label
-
-import android.content.ClipData
-import android.content.ClipboardManager
-import androidx.core.content.ContextCompat
-
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.getSystemService
-import android.R.attr.text
-
-import android.R.attr.label
-
-
-
-
-
-
-
-
-
-
-
-
 
 class CategoryFragment : Fragment() {
     private var _binding: FragmentCategoryBinding? = null
@@ -158,7 +134,6 @@ class CategoryFragment : Fragment() {
         viewModel.localGetMainCategory()
         viewModel.currentCategory.observe(viewLifecycleOwner, {
             mAdapter.submitList(it)
-            Log.e("localGetMainCategory()", "Completed")
         }
         )
     }
@@ -196,7 +171,6 @@ class CategoryFragment : Fragment() {
         cloudFirestore.documentsLiveData.observe(viewLifecycleOwner, {
             viewModel.remoteDBdata = it
             viewModel.compareRemoteAndLocalData(it)
-            Log.e("observeRemoteChangesAndCompareRemoteToLocal()", "Completed")
         })
     }
 

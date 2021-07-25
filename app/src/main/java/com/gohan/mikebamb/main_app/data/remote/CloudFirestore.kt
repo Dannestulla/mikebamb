@@ -37,7 +37,6 @@ class CloudFirestore @Inject constructor(
                         i++
                     }
                     documentsLiveData.postValue(documentCollection)
-                    Log.e("remoteGetAllData()","Completed")
 
                 }
                 .addOnFailureListener { ex -> Log.e("TAG", "Error getting documents: $ex") }

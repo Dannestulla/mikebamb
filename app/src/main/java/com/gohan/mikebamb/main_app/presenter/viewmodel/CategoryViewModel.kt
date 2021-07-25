@@ -39,11 +39,9 @@ internal class CategoryViewModel @Inject constructor(
             val mainCategoryList = equipmentUseCase.localGetCategory1()
             val distinctCategoryList = mainCategoryList.distinct()
             if (distinctCategoryList.isNullOrEmpty()) {
-                Log.e("Info", "Your Local Database is Empty!")
             } else {
                 _currentCategory.postValue(distinctCategoryList)
                 categorySelected = distinctCategoryList
-                Log.e("localGetMainCategory()","Completed")
             }
         }
     }

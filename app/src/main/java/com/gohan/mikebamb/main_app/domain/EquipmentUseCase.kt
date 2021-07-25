@@ -69,6 +69,12 @@ class EquipmentUseCase @Inject constructor(
         return repository.localDoesEquipExists(partNumber)
     }
 
+    fun localDeleteAllData() {
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.localDeleteAllData()
+        }
+    }
+
     fun compareRemoteAndLocalData(remoteDBdata: MutableCollection<Any>) {
         val arrayPartNumber = ArrayList<String>()
         val arrayTimestamp = ArrayList<String>()
@@ -82,92 +88,65 @@ class EquipmentUseCase @Inject constructor(
             remoteEntity.add(each)
         }
         CoroutineScope(Dispatchers.IO).launch {
-            var equipmentEntityPartNumber: EquipmentEntity
+            var localEquipmentEntity: EquipmentEntity
             var i = 0
-            for (item in arrayPartNumber) {
-                if (localDoesEquipExists(item)) {
-                    // Item already exists in database: Overwrite it or not
-                    equipmentEntityPartNumber = localGetEquipmentByPartNumber(item)
+            for (items in remoteDBdata) {
+                if (localDoesEquipExists(arrayPartNumber[i])) {
+                    localEquipmentEntity = localGetEquipmentByPartNumber(arrayPartNumber[i])
                     val comparison =
-                        equipmentEntityPartNumber.timestampEntity.compareTo(arrayTimestamp[i])
+                        localEquipmentEntity.timestampEntity.compareTo(arrayTimestamp[i])
                     if (comparison < 0) {
-                        //overwriting local database
-                        repository.localDeleteEquipment(equipmentEntityPartNumber.partNumber)
-                        for (items in remoteDBdata) {
-                            val match = items.toString().trim().contains(item)
-                            if (match) {
-                                val newArray =
-                                    items.toString().replace("[", "").replace("]", "").split(",")
-                                val newResult = EquipmentEntity(
-                                    newArray[16].trim(),
-                                    newArray[4].trim(),
-                                    newArray[10].trim(),
-                                    newArray[9].trim(),
-                                    newArray[8].trim(),
-                                    newArray[5].trim(),
-                                    newArray[7].trim(),
-                                    newArray[6].trim(),
-                                    newArray[17].trim(),
-                                    newArray[3].trim(),
-                                    newArray[0].trim(),
-                                    newArray[1].trim(),
-                                    newArray[2].trim(),
-                                    newArray[11].trim(),
-                                    newArray[12].trim(),
-                                    newArray[13].trim(),
-                                    newArray[14].trim(),
-                                    newArray[15].trim(),
-                                    newArray[18].trim()
-                                )
-                                localAddNewItem(newResult)
-                                Log.e("Data Added Localy", "Completed")
-                            }
-                        }
-                    } else {
-                        //Item not found in DB, convert from remote to add locally
-                        for (items in remoteDBdata) {
-                            val match = items.toString().trim().contains(item)
-                            if (match) {
-                                val newArray =
-                                    items.toString().replace("[", "").replace("]", "").split(",")
-                                val newResult = EquipmentEntity(
-                                    newArray[16].trim(),
-                                    newArray[4].trim(),
-                                    newArray[10].trim(),
-                                    newArray[9].trim(),
-                                    newArray[8].trim(),
-                                    newArray[5].trim(),
-                                    newArray[7].trim(),
-                                    newArray[6].trim(),
-                                    newArray[17].trim(),
-                                    newArray[3].trim(),
-                                    newArray[0].trim(),
-                                    newArray[1].trim(),
-                                    newArray[2].trim(),
-                                    newArray[11].trim(),
-                                    newArray[12].trim(),
-                                    newArray[13].trim(),
-                                    newArray[14].trim(),
-                                    newArray[15].trim(),
-                                    newArray[18].trim()
-                                )
-                                localAddNewItem(newResult)
-                                Log.e("Data Added Localy", "Completed")
-
-                            }
-                        }
+                        // Overwriting local database
+                        repository.localDeleteEquipment(localEquipmentEntity.partNumber)
+                        localAddNewItem(mapNewItem(items))
+                        Log.e(
+                            "compareRemoteAndLocalData",
+                            "Local Overwriting. Item: ${localEquipmentEntity.partNumber}"
+                        )
                     }
-                    i++
+                    if (comparison > 0) {
+                        // Writing in remote database
+                        Log.e(
+                            "compareRemoteAndLocalData",
+                            "Remote Writing. Item: ${localEquipmentEntity.partNumber}"
+                        )
+                    }
+                } else {
+                    //Item not found in localDB, convert from remote to add locally
+                    localAddNewItem(mapNewItem(items))
+                    Log.e("compareRemoteAndLocalData", "Local Adding new Equip. Item: $items")
+
                 }
             }
-        }
-    }
-
-    fun localDeleteAllData() {
-        CoroutineScope(Dispatchers.IO).launch {
-            repository.localDeleteAllData()
-            Log.e("localDeleteAllData()", "Completed")
+            i++
         }
     }
 }
+
+private fun mapNewItem(items: Any): EquipmentEntity {
+    val newArray =
+        items.toString().replace("[", "").replace("]", "").split(",")
+    return EquipmentEntity(
+        newArray[16].trim(),
+        newArray[4].trim(),
+        newArray[10].trim(),
+        newArray[9].trim(),
+        newArray[8].trim(),
+        newArray[5].trim(),
+        newArray[7].trim(),
+        newArray[6].trim(),
+        newArray[17].trim(),
+        newArray[3].trim(),
+        newArray[0].trim(),
+        newArray[1].trim(),
+        newArray[2].trim(),
+        newArray[11].trim(),
+        newArray[12].trim(),
+        newArray[13].trim(),
+        newArray[14].trim(),
+        newArray[15].trim(),
+        newArray[18].trim()
+    )
+}
+
 
