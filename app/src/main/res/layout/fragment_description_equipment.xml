@@ -400,7 +400,7 @@
         <Button
             android:id="@+id/delete_equip"
             style="@style/Button"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_observations5"
             android:layout_alignParentEnd="true"
@@ -414,14 +414,27 @@
         <Button
             android:id="@+id/add_qr_code"
             style="@style/Button"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/save_changes"
             android:layout_centerHorizontal="true"
             android:text="@string/generate_new_qr_code"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintEnd_toStartOf="@+id/shareThisQr"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/save_changes" />
+
+        <Button
+            android:id="@+id/shareThisQr"
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/save_changes"
+            android:layout_centerHorizontal="true"
+            android:text="Share This QR"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/add_qr_code"
             app:layout_constraintTop_toBottomOf="@+id/delete_equip" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

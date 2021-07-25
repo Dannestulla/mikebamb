@@ -76,11 +76,11 @@ class DescriptionViewModel @Inject constructor(
         return imageUri
     }
 
-    fun shareQrCode(image_uri: Uri?, equipmentQRcode: String): Intent {
+    fun shareQrCode(image_uri: Uri?, equipmentQRcode: String, equipmentName : String): Intent {
         val emailIntent = Intent(Intent.ACTION_SEND)
         emailIntent.type = "application/image"
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "New Qr Code for $equipmentQRcode")
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "New Qr Code for $equipmentQRcode")
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "New Qr Code for $equipmentName")
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "New Qr Code ($equipmentQRcode) for $equipmentName")
         emailIntent.putExtra(Intent.EXTRA_STREAM, image_uri)
         emailIntent.type = "*/*"
         return emailIntent

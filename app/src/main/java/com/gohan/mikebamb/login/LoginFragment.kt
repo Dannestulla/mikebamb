@@ -46,6 +46,13 @@ class LoginFragment : Fragment() {
                 viewModel.signIn(email, password)
             }
             registerButton.setOnClickListener {
+                val password = editPassword.text.toString()
+                val email = editEmailAddress.text.toString()
+                viewModel.createAccount(email, password)
+            }
+            resetPassword.setOnClickListener {
+                val email = editEmailAddress.text.toString()
+                viewModel.passwordReset(email)
             }
         }
     }

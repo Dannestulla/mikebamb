@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import com.gohan.mikebamb.R
 import com.gohan.mikebamb.databinding.FragmentDescriptionEquipmentBinding
 import com.gohan.mikebamb.main_app.data.local.EquipmentEntity
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants
@@ -22,6 +23,12 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import java.sql.Timestamp
 import java.util.*
+import android.content.DialogInterface
+
+import android.content.DialogInterface.OnShowListener
+
+
+
 
 
 class DescriptionEquipmentFragment : Fragment() {
@@ -72,14 +79,27 @@ class DescriptionEquipmentFragment : Fragment() {
                 saveChanges.setOnClickListener { saveChanges() }
                 deleteEquip.setOnClickListener { deleteEquipment() }
                 binding.addQrCode.setOnClickListener { generateNewQRcode() }
-                // scanQrDescription.setOnClickListener { }
-                // printAllQrDatabase.setOnClickListener { printAllQrDatabase() }
+                binding.shareThisQr.setOnClickListener { shareThisQrCode() }
             }
         })
     }
 
+    private fun shareThisQrCode() {
+        val equipmentQRcode = binding.editQrCode.text.toString()
+        val equipmentName = binding.editEquipName.text.toString()
+        if (equipmentQRcode.isNotEmpty()) {
+            val qrCreated = viewModel.createQR(equipmentQRcode)
+            val wrapper = ContextWrapper(context)
+            val imageUri = viewModel.createQrImageFile(wrapper, qrCreated)
+            sendToEmail(imageUri, equipmentQRcode, equipmentName)
+        } else {
+            Toast.makeText(context, "Qr Code Field Must Have a Code!", Toast.LENGTH_LONG)
+                .show()
+        }
+    }
+
     private fun incomingFromScanerOrRecyclerView() {
-        if (viewModel.qrCodeFromScaner.isNullOrEmpty()) {
+        if (viewModel.qrCodeFromScaner.isEmpty()) {
             viewModel.getInDBEquipmentDescription()
         } else {
             CoroutineScope(IO).launch {
@@ -105,7 +125,7 @@ class DescriptionEquipmentFragment : Fragment() {
             binding.editQrCode.setText(equipmentQRcode)
             saveChanges()
             Toast.makeText(context, "QR for $equipmentQRcode Created!", Toast.LENGTH_LONG).show()
-            sendToEmail(image_uri, equipmentQRcode)
+            sendToEmail(image_uri, equipmentQRcode, equipmentQRname)
         } else {
             Toast.makeText(context, "Must have valid equipment name and number!", Toast.LENGTH_LONG)
                 .show()
@@ -119,8 +139,8 @@ class DescriptionEquipmentFragment : Fragment() {
                 .joinToString("")
     }
 
-    private fun sendToEmail(image_uri: Uri?, equipmentQRcode: String) {
-        val emailIntent = viewModel.shareQrCode(image_uri, equipmentQRcode)
+    private fun sendToEmail(image_uri: Uri?, equipmentQRcode: String, equipmentName : String) {
+        val emailIntent = viewModel.shareQrCode(image_uri, equipmentQRcode, equipmentName)
         startActivity(emailIntent)
     }
 
@@ -155,12 +175,13 @@ class DescriptionEquipmentFragment : Fragment() {
 
     private fun deleteEquipment() {
         val partNumber = binding.editPartNumber.text
+        val equipmentName = binding.editEquipName.text
         val builder = AlertDialog.Builder(context)
-        builder.setMessage("Are you sure you want to delete $partNumber?")
+        builder.setMessage("Are you sure you want to delete $equipmentName?")
             .setCancelable(true)
             .setPositiveButton("Yes") { dialog, id ->
                 CoroutineScope(IO).launch {
-                    viewModel.localDeleteEquipment(partNumber.toString().trim())
+                    viewModel.localDeleteEquipment(partNumber.toString())
                     viewModel.remoteDeleteEquipment(partNumber.toString().trim())
                     }
                 Toast.makeText(context, "Item Deleted.", Toast.LENGTH_LONG).show()
@@ -172,6 +193,10 @@ class DescriptionEquipmentFragment : Fragment() {
                 dialog.dismiss()
             }
         val alert = builder.create()
+        alert.setOnShowListener {
+            alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.white))
+            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.white))
+        }
         alert.show()
     }
 

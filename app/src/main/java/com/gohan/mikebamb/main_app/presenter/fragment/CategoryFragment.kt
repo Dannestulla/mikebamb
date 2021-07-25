@@ -1,11 +1,13 @@
 package com.gohan.mikebamb.main_app.presenter.fragment
 
+import android.R.attr
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -19,6 +21,32 @@ import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHIP_ID
 import com.gohan.mikebamb.main_app.presenter.adapter.CategoryAdapter
 import com.gohan.mikebamb.main_app.presenter.viewmodel.CategoryViewModel
 import kotlin.properties.Delegates
+import android.R.attr.text
+
+import android.R.attr.label
+
+import android.content.ClipData
+import android.content.ClipboardManager
+import androidx.core.content.ContextCompat
+
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.ContextCompat.getSystemService
+import android.R.attr.text
+
+import android.R.attr.label
+
+
+
+
+
+
+
+
+
+
+
+
 
 class CategoryFragment : Fragment() {
     private var _binding: FragmentCategoryBinding? = null
@@ -42,19 +70,40 @@ class CategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.categoryRecyclerview.apply {
-            adapter = mAdapter
-            layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-        }
+        applyBinding()
         loadSharedPref()
         viewModel.remoteInitializeDatabase()
+        viewModel.remoteGetAllData()
         observeRemoteChangesAndCompareRemoteToLocal()
         mAdapter.onItemClick = { position ->
             handleItemClick(position)
         }
         onBackPressed()
-        viewModel.remoteGetAllData()
         localGetMainCategory()
+
+    }
+
+    private fun applyBinding() {
+        binding.apply {
+            categoryRecyclerview.apply {
+                adapter = mAdapter
+                layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+            }
+            account.setOnClickListener {
+                copyToClipBoard(binding.account.text)
+                Toast.makeText(context,"Ship Code Copied to Clipboard!", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun copyToClipBoard(accountId: CharSequence?) {
+        accountId
+        val clipboard = getSystemService(
+            requireContext(),
+            ClipboardManager::class.java
+        )
+        val clip = ClipData.newPlainText("ShipAccount:", accountId)
+        clipboard?.setPrimaryClip(clip)
     }
 
     private fun loadSharedPref() {

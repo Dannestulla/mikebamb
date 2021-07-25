@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="15dp"
-        android:text="Vessel Name: "
+        android:text="Vessel Code: "
         app:layout_constraintBottom_toBottomOf="@+id/editVesselName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/editVesselName"

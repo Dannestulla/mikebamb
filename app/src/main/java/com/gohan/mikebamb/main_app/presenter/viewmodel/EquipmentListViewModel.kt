@@ -35,5 +35,4 @@ class EquipmentListViewModel @Inject constructor(
             recyclerViewItems.postValue(listFromDB)
         }
     }
-
 }

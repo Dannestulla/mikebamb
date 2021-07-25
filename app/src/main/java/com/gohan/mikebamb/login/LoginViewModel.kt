@@ -2,6 +2,7 @@ package com.gohan.mikebamb.login
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,15 +29,18 @@ class LoginViewModel @Inject constructor(
     var shipLoginOk = MutableLiveData(false)
     var loginOK = MutableLiveData(false)
     var loadingBar = MutableLiveData(false)
-    val sharedPref = app.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+    private val sharedPref: SharedPreferences =
+        app.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+    lateinit var userEmail: String
+    lateinit var shipIdCode : String
 
-    fun createAccount(email: String, password: String, confpassword: String) {
-        if (validadeRegistration(email, password, confpassword)) {
+    fun createAccount(email: String, password: String) {
+        if (validadeRegistration(email, password)) {
             auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     toastReceiver.postValue("Registration Complete")
                     sendEmailVerification()
-                    //loginOK.postValue("registerToCuisine")
+
                 } else {
                     val ex = task.exception.toString()
                     toastReceiver.postValue("Create Account Failed, $ex")
@@ -52,12 +56,13 @@ class LoginViewModel @Inject constructor(
     }
 
     fun signIn(email: String, password: String) {
-        if (validadeRegistration(email, password, password)) {
+        if (validadeRegistration(email, password)) {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         saveEmailAndPassword(email, password)
                         checkIfUserOrAdmin(email)
+                        userEmail = email
                         loginOK.postValue(true)
                     } else {
                         val ex = task.exception.toString()
@@ -116,23 +121,24 @@ class LoginViewModel @Inject constructor(
     }
 
     fun checkShipId(shipId: String) {
-        if (shipId.isNotEmpty()){
-        remoteDatabase.collection(shipId).get()
-            .addOnSuccessListener {
-                if (it.documents.isNotEmpty()) {
-                    toastReceiver.postValue("Login Successfull")
-                    compareOldIdWithNewLogin(shipId)
-                    shipLoginOk.postValue(true)
-                    saveShipID(shipId)
-                } else {
-                    shipLoginOk.postValue(false)
-                    toastReceiver.postValue("ShipId $shipId Not Found!")
+        if (shipId.isNotEmpty()) {
+            remoteDatabase.collection(shipId).get()
+                .addOnSuccessListener {
+                    if (it.documents.isNotEmpty()) {
+                        toastReceiver.postValue("Login Successfull")
+                        compareOldIdWithNewLogin(shipId)
+                        shipLoginOk.postValue(true)
+                        saveShipID(shipId)
+                    } else {
+                        shipLoginOk.postValue(false)
+                        toastReceiver.postValue("ShipId $shipId Not Found!")
+                    }
                 }
-            }
-            .addOnFailureListener {
-                toastReceiver.postValue("Error fetching ShipID: $it")
-            }
-    }}
+                .addOnFailureListener {
+                    toastReceiver.postValue("Error fetching ShipID: $it")
+                }
+        }
+    }
 
     private fun compareOldIdWithNewLogin(shipId: String) {
         //Used to clean local DB in case of login in a new ship account
@@ -149,39 +155,71 @@ class LoginViewModel @Inject constructor(
     private fun validadeRegistration(
         validEmail: String,
         validPassword: String,
-        validConfirmedPassword: String
     ): Boolean {
-        if (validEmail.isEmpty() || validPassword.isEmpty() || validConfirmedPassword.isEmpty()) return false
+        if (validEmail.isEmpty() || validPassword.isEmpty()) return false
         if (validPassword.length <= 4) return false
-        if (validPassword != validConfirmedPassword) return false
         return true
     }
 
+    // 2 vessel account per user
     fun registerNewShip(newShipId: String) {
         loadingBar.postValue(true)
-        if (newShipId.trim().length > 5) {
-            remoteDatabase.collection(newShipId).get()
-                .addOnSuccessListener {
-                    if (it.documents.isNotEmpty()) {
-                        toastReceiver.postValue("ShipID Already Exists")
-                    } else {
-                        toastReceiver.postValue("ShipID Created Successfully")
-                        val emptydata = EquipmentConstants.EMPTY_EQUIPMENT_ENTITY
-                        remoteDatabase.collection(newShipId).document("AccountSettings")
-                            .set(emptydata)
-
-                        loginOK.postValue(true)
-                    }
-                }
-                .addOnFailureListener {
-                    toastReceiver.postValue("Error fetching ShipID: $it")
-                }
-        } else {
-            toastReceiver.postValue("ShipId must have at least 5 letters")
+        if (sharedPref.getInt("VesselAccounts", 0) > 2) {
+            toastReceiver.postValue("Only a maximum of 2 vessel accounts per email is allowed")
+            return
         }
+        if (newShipId.trim().length < 5) {
+            toastReceiver.postValue("ShipId must have at least 5 letters")
+            return
+        }
+        createVesselAccount(newShipId)
+        registerUserInformation(userEmail,newShipId)
+        saveShipID(newShipId)
         loadingBar.postValue(false)
+    }
 
+    private fun registerUserInformation(userEmail: String, newShipId: String) {
+        val userSettings = hashMapOf(
+            userEmail to "userEmail",
+            "Admin" to true,
+            "ShipIdCode" to newShipId
+        )
+        remoteDatabase.collection("UsersInfo").document(userEmail).set(userSettings)
+            .addOnSuccessListener {
+            }
+            .addOnFailureListener {
+                toastReceiver.postValue("Failed To Register user")
+            }
+    }
+
+    private fun createVesselAccount(newShipId: String) {
+        remoteDatabase.collection(newShipId).get()
+            .addOnSuccessListener {
+                if (it.documents.isNotEmpty()) {
+                    toastReceiver.postValue("ShipID Already Exists")
+                } else {
+                    val accountNumbers = sharedPref.getInt("VesselAccounts", 0)
+                    toastReceiver.postValue("ShipID Created Successfully")
+                    val emptydata = EquipmentConstants.EMPTY_EQUIPMENT_ENTITY
+                    emptydata.partNumber = "first entry"
+                    remoteDatabase.collection(newShipId).document("first entry")
+                        .set(emptydata)
+                    remoteDatabase.collection("UserSettings").document(userEmail)
+                    sharedPref.edit().putInt("VesselAccounts", accountNumbers + 1).apply()
+                }
+            }
+            .addOnFailureListener {
+                toastReceiver.postValue("Error fetching ShipID: $it")
+            }
+    }
+
+    fun getRandomString(length: Int): String {
+        val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
     }
 }
+
 
 

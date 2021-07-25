@@ -41,7 +41,11 @@ class RegisterShipFragment : Fragment() {
     private fun applyBinding() {
         binding.buttonRegister.setOnClickListener {
             binding.progressBar.isVisible = true
-            viewModel.registerNewShip(binding.editVesselName.text.toString())
+            viewModel.shipIdCode = viewModel.getRandomString(6)
+            val shipId = binding.editVesselName.text.toString() +"-"+ viewModel.shipIdCode
+            viewModel.registerNewShip(shipId)
+            viewModel.loadingBar.postValue(false)
+            binding.editVesselName.setText(shipId)
         }
         binding.buttonLogShip.setOnClickListener {
             binding.progressBar.isVisible = true
