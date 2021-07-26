@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DescriptionViewModel @Inject constructor(
     val app: Application,
-    val repository: EquipmentsRepository,
+    private val repository: EquipmentsRepository,
 ) : AndroidViewModel(app) {
 
     var qrCodeFromScaner = ""
@@ -34,6 +34,7 @@ class DescriptionViewModel @Inject constructor(
     var emptyEquipmentEntity =
         EquipmentConstants.EMPTY_EQUIPMENT_ENTITY
     var equipmentUseCase = EquipmentUseCase(repository)
+    var toastReceiver = MutableLiveData<String>()
 
     fun localAddNewItem(newItem: EquipmentEntity) {
         CoroutineScope(IO).launch {
@@ -41,7 +42,7 @@ class DescriptionViewModel @Inject constructor(
         }
     }
 
-    suspend fun localGetEquipmentByPartNumber(partNumber: String): EquipmentEntity {
+    private suspend fun localGetEquipmentByPartNumber(partNumber: String): EquipmentEntity {
         return equipmentUseCase.localGetEquipmentByPartNumber(partNumber)
     }
 
@@ -98,4 +99,7 @@ class DescriptionViewModel @Inject constructor(
         repository.remoteDeleteEquipment(partNumber)
     }
 
+    fun getAllEquipments() : List<EquipmentEntity> {
+        return repository.localGetAllEquipments()
+    }
 }

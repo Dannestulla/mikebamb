@@ -106,6 +106,7 @@ class EquipmentUseCase @Inject constructor(
                     }
                     if (comparison > 0) {
                         // Writing in remote database
+                        repository.remoteAddNewItem(localEquipmentEntity)
                         Log.e(
                             "compareRemoteAndLocalData",
                             "Remote Writing. Item: ${localEquipmentEntity.partNumber}"
@@ -115,38 +116,37 @@ class EquipmentUseCase @Inject constructor(
                     //Item not found in localDB, convert from remote to add locally
                     localAddNewItem(mapNewItem(items))
                     Log.e("compareRemoteAndLocalData", "Local Adding new Equip. Item: $items")
-
                 }
+                i++
             }
-            i++
         }
     }
-}
 
-private fun mapNewItem(items: Any): EquipmentEntity {
-    val newArray =
-        items.toString().replace("[", "").replace("]", "").split(",")
-    return EquipmentEntity(
-        newArray[16].trim(),
-        newArray[4].trim(),
-        newArray[10].trim(),
-        newArray[9].trim(),
-        newArray[8].trim(),
-        newArray[5].trim(),
-        newArray[7].trim(),
-        newArray[6].trim(),
-        newArray[17].trim(),
-        newArray[3].trim(),
-        newArray[0].trim(),
-        newArray[1].trim(),
-        newArray[2].trim(),
-        newArray[11].trim(),
-        newArray[12].trim(),
-        newArray[13].trim(),
-        newArray[14].trim(),
-        newArray[15].trim(),
-        newArray[18].trim()
-    )
-}
 
+    private fun mapNewItem(items: Any): EquipmentEntity {
+        val newArray =
+            items.toString().replace("[", "").replace("]", "").split(",")
+        return EquipmentEntity(
+            newArray[16].trim(),
+            newArray[4].trim(),
+            newArray[10].trim(),
+            newArray[9].trim(),
+            newArray[8].trim(),
+            newArray[5].trim(),
+            newArray[7].trim(),
+            newArray[6].trim(),
+            newArray[17].trim(),
+            newArray[3].trim(),
+            newArray[0].trim(),
+            newArray[1].trim(),
+            newArray[2].trim(),
+            newArray[11].trim(),
+            newArray[12].trim(),
+            newArray[13].trim(),
+            newArray[14].trim(),
+            newArray[15].trim(),
+            newArray[18].trim()
+        )
+    }
+}
 

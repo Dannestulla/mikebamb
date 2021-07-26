@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.navArgs
 import com.gohan.mikebamb.R
 import com.gohan.mikebamb.databinding.FragmentDescriptionEquipmentBinding
@@ -23,20 +24,12 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import java.sql.Timestamp
 import java.util.*
-import android.content.DialogInterface
-
-import android.content.DialogInterface.OnShowListener
-
-
-
-
 
 class DescriptionEquipmentFragment : Fragment() {
     private var _binding: FragmentDescriptionEquipmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<DescriptionViewModel>()
     private val args: DescriptionEquipmentFragmentArgs by navArgs()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,6 +75,9 @@ class DescriptionEquipmentFragment : Fragment() {
                 binding.shareThisQr.setOnClickListener { shareThisQrCode() }
             }
         })
+        viewModel.toastReceiver.observe(viewLifecycleOwner, {
+            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+        })
     }
 
     private fun shareThisQrCode() {
@@ -93,8 +89,7 @@ class DescriptionEquipmentFragment : Fragment() {
             val imageUri = viewModel.createQrImageFile(wrapper, qrCreated)
             sendToEmail(imageUri, equipmentQRcode, equipmentName)
         } else {
-            Toast.makeText(context, "Qr Code Field Must Have a Code!", Toast.LENGTH_LONG)
-                .show()
+            viewModel.toastReceiver.postValue("Qr Code Field Must Have a Code!")
         }
     }
 
@@ -107,8 +102,8 @@ class DescriptionEquipmentFragment : Fragment() {
                     val result = viewModel.localGetEquipmentByQRCode(viewModel.qrCodeFromScaner)
                     viewModel.equipmentDescriptionLiveData.postValue(result)
                 } catch (ex: Exception) {
-                    Toast.makeText(context, "ERROR: $ex", Toast.LENGTH_LONG)
-                        .show()
+                    viewModel.toastReceiver.postValue(ex.toString())
+
                 }
             }
         }
@@ -124,22 +119,21 @@ class DescriptionEquipmentFragment : Fragment() {
             val image_uri = viewModel.createQrImageFile(wrapper, qrCreated)
             binding.editQrCode.setText(equipmentQRcode)
             saveChanges()
-            Toast.makeText(context, "QR for $equipmentQRcode Created!", Toast.LENGTH_LONG).show()
+            viewModel.toastReceiver.postValue("QR for $equipmentQRcode Created!")
             sendToEmail(image_uri, equipmentQRcode, equipmentQRname)
         } else {
-            Toast.makeText(context, "Must have valid equipment name and number!", Toast.LENGTH_LONG)
-                .show()
+            viewModel.toastReceiver.postValue("Must have valid equipment name and number!")
         }
     }
 
-    private fun getRandomString(length: Int) : String {
-            val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
-            return (1..length)
-                .map { allowedChars.random() }
-                .joinToString("")
+    private fun getRandomString(length: Int): String {
+        val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
+        return (1..length)
+            .map { allowedChars.random() }
+            .joinToString("")
     }
 
-    private fun sendToEmail(image_uri: Uri?, equipmentQRcode: String, equipmentName : String) {
+    private fun sendToEmail(image_uri: Uri?, equipmentQRcode: String, equipmentName: String) {
         val emailIntent = viewModel.shareQrCode(image_uri, equipmentQRcode, equipmentName)
         startActivity(emailIntent)
     }
@@ -169,7 +163,7 @@ class DescriptionEquipmentFragment : Fragment() {
             )
             viewModel.localAddNewItem(newItem)
             viewModel.remoteAddNewItem(newItem)
-            Toast.makeText(context, "Saved Changes!", Toast.LENGTH_LONG).show()
+            viewModel.toastReceiver.postValue("Saved Changes!")
         }
     }
 
@@ -181,10 +175,14 @@ class DescriptionEquipmentFragment : Fragment() {
             .setCancelable(true)
             .setPositiveButton("Yes") { dialog, id ->
                 CoroutineScope(IO).launch {
-                    viewModel.localDeleteEquipment(partNumber.toString())
-                    viewModel.remoteDeleteEquipment(partNumber.toString().trim())
+                    if (viewModel.getAllEquipments().size <= 1) {
+                        viewModel.toastReceiver.postValue("You should have at least one item in database.")
+                        return@launch
                     }
-                Toast.makeText(context, "Item Deleted.", Toast.LENGTH_LONG).show()
+                    viewModel.remoteDeleteEquipment(partNumber.toString().trim())
+                    viewModel.localDeleteEquipment(partNumber.toString())
+                    viewModel.toastReceiver.postValue("Item Deleted.")
+                }
                 viewModel.equipmentDescriptionLiveData.postValue(
                     viewModel.emptyEquipmentEntity
                 )
@@ -194,8 +192,10 @@ class DescriptionEquipmentFragment : Fragment() {
             }
         val alert = builder.create()
         alert.setOnShowListener {
-            alert.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.white))
-            alert.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.white))
+            alert.getButton(AlertDialog.BUTTON_NEGATIVE)
+                .setTextColor(resources.getColor(R.color.white))
+            alert.getButton(AlertDialog.BUTTON_POSITIVE)
+                .setTextColor(resources.getColor(R.color.white))
         }
         alert.show()
     }
@@ -220,8 +220,9 @@ class DescriptionEquipmentFragment : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        viewModel.toastReceiver = MutableLiveData<String>()
+        super.onDestroyView()
     }
 }
 

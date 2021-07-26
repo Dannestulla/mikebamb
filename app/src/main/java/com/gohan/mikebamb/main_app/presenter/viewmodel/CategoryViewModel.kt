@@ -20,6 +20,7 @@ internal class CategoryViewModel @Inject constructor(
     val app: Application,
     repository: EquipmentsRepository
 ) : ViewModel() {
+    var firstStart = true
     var exitToSubSubCategory= false
     lateinit var categorySelected: List<String>
     lateinit var secondCategorySelected: List<String>
@@ -27,12 +28,12 @@ internal class CategoryViewModel @Inject constructor(
     var exitToSubCategory = false
     var exitToMainCategory = false
     var checkedRemote = false
-    lateinit var remoteDBdata: MutableCollection<Any>
     private val equipmentUseCase = EquipmentUseCase(repository)
     private var _currentCategory = MutableLiveData<List<String>>()
     var currentCategory = _currentCategory as LiveData<List<String>>
     var subCategory = " "
     var subSubCategory = " "
+    var isObserverStarted = false
 
     fun localGetMainCategory() {
         CoroutineScope(IO).launch {
@@ -52,10 +53,10 @@ internal class CategoryViewModel @Inject constructor(
             _currentCategory.postValue(search)
             secondCategorySelected = search
             postSubCategory(search)
-
         }
         this.subCategory = subCategory
     }
+
     fun localGetSubSubCategory(subSubCategory: String) {
         CoroutineScope(IO).launch {
             val search2 = equipmentUseCase.localGetCaregory3(subSubCategory).distinct()

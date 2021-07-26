@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gohan.mikebamb.databinding.FragmentCategoryBinding
-import com.gohan.mikebamb.main_app.data.remote.CloudFirestore
+import com.gohan.mikebamb.main_app.data.remote.CloudFirestore.Companion.documentsLiveData
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.NEW_SHIP_ACCOUNT
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHIP_ID
@@ -28,7 +27,6 @@ class CategoryFragment : Fragment() {
     private var _binding: FragmentCategoryBinding? = null
     private val binding get() = _binding!!
     private val viewModel by activityViewModels<CategoryViewModel>()
-    private var cloudFirestore = CloudFirestore
     private var mAdapter = CategoryAdapter()
     private var positionMain by Delegates.notNull<Int>()
     private var positionSubSub by Delegates.notNull<Int>()
@@ -41,22 +39,28 @@ class CategoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCategoryBinding.inflate(inflater, container, false)
+        applyBinding()
+        viewModel.remoteInitializeDatabase()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        applyBinding()
         loadSharedPref()
-        viewModel.remoteInitializeDatabase()
-        viewModel.remoteGetAllData()
-        observeRemoteChangesAndCompareRemoteToLocal()
+        getOnlineDataOnce()
         mAdapter.onItemClick = { position ->
             handleItemClick(position)
         }
-        onBackPressed()
         localGetMainCategory()
+        onBackPressed()
+    }
 
+    private fun getOnlineDataOnce() {
+        if (viewModel.firstStart) {
+            viewModel.remoteGetAllData()
+            observeRemoteChangesAndCompareRemoteToLocal()
+            viewModel.firstStart = false
+        }
     }
 
     private fun applyBinding() {
@@ -67,13 +71,12 @@ class CategoryFragment : Fragment() {
             }
             account.setOnClickListener {
                 copyToClipBoard(binding.account.text)
-                Toast.makeText(context,"Ship Code Copied to Clipboard!", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, "Ship Code Copied to Clipboard!", Toast.LENGTH_LONG).show()
             }
         }
     }
 
     private fun copyToClipBoard(accountId: CharSequence?) {
-        accountId
         val clipboard = getSystemService(
             requireContext(),
             ClipboardManager::class.java
@@ -108,7 +111,6 @@ class CategoryFragment : Fragment() {
                         viewModel.exitToSubCategory = false
                         viewModel.exitToMainCategory = false
                     }
-
                     if (viewModel.exitToMainCategory) {
                         localGetMainCategory()
                         viewModel.exitToMainCategory = false
@@ -168,11 +170,11 @@ class CategoryFragment : Fragment() {
     }
 
     private fun observeRemoteChangesAndCompareRemoteToLocal() {
-        cloudFirestore.documentsLiveData.observe(viewLifecycleOwner, {
-            viewModel.remoteDBdata = it
+        documentsLiveData.observe(viewLifecycleOwner, {
             viewModel.compareRemoteAndLocalData(it)
         })
     }
+
 
     private fun navigateToEquipmentList(position: Int) {
         val equipmentCategory = viewModel.categorySelected[position]
