@@ -46,13 +46,23 @@ class CategoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.currentCategory.observe(viewLifecycleOwner, {
+            mAdapter.submitList(it)
+        })
         loadSharedPref()
+        localGetMainCategory()
         getOnlineDataOnce()
         mAdapter.onItemClick = { position ->
             handleItemClick(position)
         }
-        localGetMainCategory()
+        writeOfflineItemsInCache()
         onBackPressed()
+    }
+
+    private fun writeOfflineItemsInCache() {
+        if (viewModel.firstStart) {
+            viewModel.writeOfflineItemsInCache()
+        }
     }
 
     private fun getOnlineDataOnce() {
@@ -134,10 +144,6 @@ class CategoryFragment : Fragment() {
 
     private fun localGetMainCategory() {
         viewModel.localGetMainCategory()
-        viewModel.currentCategory.observe(viewLifecycleOwner, {
-            mAdapter.submitList(it)
-        }
-        )
     }
 
     private fun getSecondCategory(position: Int) {

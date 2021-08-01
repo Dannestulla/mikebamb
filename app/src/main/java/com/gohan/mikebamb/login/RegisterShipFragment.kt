@@ -13,6 +13,7 @@ import com.gohan.mikebamb.main_app.MainActivity
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.NEW_SHIP_ACCOUNT
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHIP_ID
+import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHIP_PASSWORD
 
 class RegisterShipFragment : Fragment() {
     private var _binding: FragmentRegisterShipBinding? = null
@@ -36,20 +37,31 @@ class RegisterShipFragment : Fragment() {
 
     private fun loadSavedShipId() {
         binding.editVesselName.setText(viewModel.loadStoredValues(SHIP_ID))
+        binding.editVesselPassword.setText(viewModel.loadStoredValues(SHIP_PASSWORD))
     }
 
     private fun applyBinding() {
         binding.buttonRegister.setOnClickListener {
             binding.progressBar.isVisible = true
-            viewModel.shipIdCode = viewModel.getRandomString(6)
-            val shipId = binding.editVesselName.text.toString() +"-"+ viewModel.shipIdCode
-            viewModel.registerNewShip(shipId)
+            val vesselEmail = binding.editVesselName.text.toString()
+            val vesselPassword =  binding.editVesselPassword.text.toString()
+            viewModel.createAccount(vesselEmail, vesselPassword)
+            viewModel.registerNewShip(vesselEmail)
             viewModel.loadingBar.postValue(false)
-            binding.editVesselName.setText(shipId)
         }
         binding.buttonLogShip.setOnClickListener {
             binding.progressBar.isVisible = true
-            viewModel.checkShipId(binding.editVesselName.text.toString())
+            val vesselEmail = binding.editVesselName.text.toString()
+            val vesselPassword =  binding.editVesselPassword.text.toString()
+            viewModel.checkShipId(vesselEmail)
+            viewModel.saveShipEmailAndPassword(vesselEmail, vesselPassword)
+            viewModel.signIn(vesselEmail, vesselPassword)
+            viewModel.loadingBar.postValue(false)
+        }
+        binding.resetVesselPassword.setOnClickListener {
+            binding.progressBar.isVisible = true
+            viewModel.passwordReset(binding.editVesselName.text.toString())
+            viewModel.loadingBar.postValue(false)
         }
     }
 

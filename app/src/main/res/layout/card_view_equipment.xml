@@ -1,42 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
-    android:elevation="5dp"
-    android:backgroundTint="@color/light_gray">
+    android:backgroundTint="@color/light_gray"
+    android:elevation="5dp">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="5dp">
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/CardText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Equipment:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/CardText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Part Num:"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/CardText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Num:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
             android:id="@+id/part_number"
             style="@style/CardText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="700.50" />
+            android:padding="6dp"
+            android:text="700.50"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/equip_name" />
 
         <TextView
             android:id="@+id/equip_name"
             style="@style/CardText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:padding="8dp"
-            android:text="Main Engine 1" />
+            android:padding="6dp"
+            android:text="Main Engine 1"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/equip_fluig"
             style="@style/CardText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="250dp"
-            android:padding="8dp"
-            android:text="Fluig" />
+            android:padding="6dp"
+            android:text="Order Number"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/part_number" />
 
-
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -18,6 +18,7 @@ import com.gohan.mikebamb.R
 import com.gohan.mikebamb.databinding.FragmentDescriptionEquipmentBinding
 import com.gohan.mikebamb.main_app.data.local.EquipmentEntity
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants
+import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.USER
 import com.gohan.mikebamb.main_app.presenter.viewmodel.DescriptionViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -209,7 +210,7 @@ class DescriptionEquipmentFragment : Fragment() {
     }
 
     fun checkIsUser() {
-        if (EquipmentConstants.USER) {
+        if (USER) {
             binding.addQrCode.isEnabled = false
             binding.addQrCode.isVisible = false
             binding.deleteEquip.isEnabled = false

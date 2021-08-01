@@ -11,6 +11,7 @@ import com.gohan.mikebamb.main_app.domain.EquipmentConstants
 import com.gohan.mikebamb.main_app.domain.EquipmentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -87,7 +88,9 @@ internal class CategoryViewModel @Inject constructor(
     }
 
     fun compareRemoteAndLocalData(remoteDBdata: MutableCollection<Any>) {
+        CoroutineScope(IO).launch {
         equipmentUseCase.compareRemoteAndLocalData(remoteDBdata)
+        localGetMainCategory()}
     }
 
     private fun getShipId(): String {
@@ -98,6 +101,10 @@ internal class CategoryViewModel @Inject constructor(
 
     fun localDeleteAllData() {
         equipmentUseCase.localDeleteAllData()
+    }
+
+    fun writeOfflineItemsInCache() {
+        equipmentUseCase.writeOfflineItemsInCache()
     }
 }
 

@@ -7,6 +7,7 @@ import com.gohan.mikebamb.main_app.data.EquipmentsRepository
 import com.gohan.mikebamb.main_app.data.local.EquipmentEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import java.io.File
 import java.util.*
@@ -75,7 +76,7 @@ class EquipmentUseCase @Inject constructor(
         }
     }
 
-    fun compareRemoteAndLocalData(remoteDBdata: MutableCollection<Any>) {
+    suspend fun compareRemoteAndLocalData(remoteDBdata: MutableCollection<Any>) {
         val arrayPartNumber = ArrayList<String>()
         val arrayTimestamp = ArrayList<String>()
         var remoteEntity = ArrayList<Any>()
@@ -87,39 +88,39 @@ class EquipmentUseCase @Inject constructor(
         for (each in remoteDBdata) {
             remoteEntity.add(each)
         }
-        CoroutineScope(Dispatchers.IO).launch {
-            var localEquipmentEntity: EquipmentEntity
-            var i = 0
-            for (items in remoteDBdata) {
-                if (localDoesEquipExists(arrayPartNumber[i])) {
-                    localEquipmentEntity = localGetEquipmentByPartNumber(arrayPartNumber[i])
-                    val comparison =
-                        localEquipmentEntity.timestampEntity.compareTo(arrayTimestamp[i])
-                    if (comparison < 0) {
-                        // Overwriting local database
-                        repository.localDeleteEquipment(localEquipmentEntity.partNumber)
-                        localAddNewItem(mapNewItem(items))
-                        Log.e(
-                            "compareRemoteAndLocalData",
-                            "Local Overwriting. Item: ${localEquipmentEntity.partNumber}"
-                        )
-                    }
-                    if (comparison > 0) {
-                        // Writing in remote database
-                        repository.remoteAddNewItem(localEquipmentEntity)
-                        Log.e(
-                            "compareRemoteAndLocalData",
-                            "Remote Writing. Item: ${localEquipmentEntity.partNumber}"
-                        )
-                    }
-                } else {
-                    //Item not found in localDB, convert from remote to add locally
+
+        var localEquipmentEntity: EquipmentEntity
+        var i = 0
+        for (items in remoteDBdata) {
+            if (localDoesEquipExists(arrayPartNumber[i])) {
+                localEquipmentEntity = localGetEquipmentByPartNumber(arrayPartNumber[i])
+                val comparison =
+                    localEquipmentEntity.timestampEntity.compareTo(arrayTimestamp[i])
+                if (comparison < 0) {
+                    // Overwriting local database
+                    repository.localDeleteEquipment(localEquipmentEntity.partNumber)
                     localAddNewItem(mapNewItem(items))
-                    Log.e("compareRemoteAndLocalData", "Local Adding new Equip. Item: $items")
+                    Log.e(
+                        "compareRemoteAndLocalData",
+                        "Local Overwriting. Item: ${localEquipmentEntity.partNumber}"
+                    )
                 }
-                i++
+                if (comparison > 0) {
+                    // Writing in remote database
+                    repository.remoteAddNewItem(localEquipmentEntity)
+                    Log.e(
+                        "compareRemoteAndLocalData",
+                        "Remote Writing. Item: ${localEquipmentEntity.partNumber}"
+                    )
+                }
+            } else {
+                //Item not found in localDB, convert from remote to add locally
+                localAddNewItem(mapNewItem(items))
+                Log.e("compareRemoteAndLocalData", "Local Adding new Equip. Item: $items")
             }
+            i++
         }
+
     }
 
 
@@ -147,6 +148,14 @@ class EquipmentUseCase @Inject constructor(
             newArray[15].trim(),
             newArray[18].trim()
         )
+    }
+
+    fun writeOfflineItemsInCache() {
+        CoroutineScope(IO).launch {
+            for (item in repository.localGetAllEquipments()) {
+                repository.remoteAddNewItem(item)
+            }
+        }
     }
 }
 

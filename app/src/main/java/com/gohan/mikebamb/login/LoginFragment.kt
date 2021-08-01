@@ -44,7 +44,9 @@ class LoginFragment : Fragment() {
                 val password = editPassword.text.toString()
                 val email = editEmailAddress.text.toString()
                 viewModel.signIn(email, password)
+                viewModel.saveEmailAndPassword(email, password)
             }
+
             registerButton.setOnClickListener {
                 val password = editPassword.text.toString()
                 val email = editEmailAddress.text.toString()

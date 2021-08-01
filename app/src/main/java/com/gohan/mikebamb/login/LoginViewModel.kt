@@ -12,7 +12,9 @@ import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.EMAIL
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.NEW_SHIP_ACCOUNT
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.PASSWORD
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHARED_PREF
+import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHIP_EMAIL
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHIP_ID
+import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHIP_PASSWORD
 import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.USER
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -60,16 +62,25 @@ class LoginViewModel @Inject constructor(
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        saveEmailAndPassword(email, password)
-                        checkIfUserOrAdmin(email)
+                        //checkIfUserOrAdmin(email)
                         userEmail = email
+                        if (loginOK.value == true) {
+                            shipLoginOk.postValue(true)
+                        }
                         loginOK.postValue(true)
+
                     } else {
                         val ex = task.exception.toString()
                         toastReceiver.postValue("SignIn Failed : $ex")
                         loginOK.postValue(false)
                     }
                 }
+                .addOnFailureListener {
+
+                }
+        } else {
+            toastReceiver.postValue("Must Enter Valid Email and Password")
+            loadingBar.postValue(false)
         }
     }
 
@@ -94,7 +105,7 @@ class LoginViewModel @Inject constructor(
                     if (task.isSuccessful || task.isComplete) {
                         Toast.makeText(
                             app,
-                            "Reset Instructions sent to your Email",
+                            "Reset Instructions sent to $email",
                             Toast.LENGTH_LONG
                         ).show()
                     } else {
@@ -111,13 +122,19 @@ class LoginViewModel @Inject constructor(
             "email" -> answer = sharedPref.getString(EMAIL, "").toString()
             "password" -> answer = sharedPref.getString(PASSWORD, "").toString()
             "ShipId" -> answer = sharedPref.getString(SHIP_ID, "").toString()
+            "VesselPassword" -> answer =  sharedPref.getString(SHIP_PASSWORD, "").toString()
         }
         return answer
     }
 
-    private fun saveEmailAndPassword(email: String, password: String) {
+    fun saveEmailAndPassword(email: String, password: String) {
         sharedPref.edit().putString(EMAIL, email).apply()
         sharedPref.edit().putString(PASSWORD, password).apply()
+    }
+
+    fun saveShipEmailAndPassword(email: String, password: String) {
+        sharedPref.edit().putString(SHIP_EMAIL, email).apply()
+        sharedPref.edit().putString(SHIP_PASSWORD, password).apply()
     }
 
     fun checkShipId(shipId: String) {
@@ -125,12 +142,11 @@ class LoginViewModel @Inject constructor(
             remoteDatabase.collection(shipId).get()
                 .addOnSuccessListener {
                     if (it.documents.isNotEmpty()) {
-                        toastReceiver.postValue("Login Successfull")
                         compareOldIdWithNewLogin(shipId)
-                        shipLoginOk.postValue(true)
+                        //shipLoginOk.postValue(true)
                         saveShipID(shipId)
                     } else {
-                        shipLoginOk.postValue(false)
+                        //shipLoginOk.postValue(false)
                         toastReceiver.postValue("ShipId $shipId Not Found!")
                     }
                 }
@@ -162,19 +178,19 @@ class LoginViewModel @Inject constructor(
     }
 
     // 2 vessel account per user
-    fun registerNewShip(newShipId: String) {
+    fun registerNewShip(newShipEmail: String) {
         loadingBar.postValue(true)
         if (sharedPref.getInt("VesselAccounts", 0) > 2) {
             toastReceiver.postValue("Only a maximum of 2 vessel accounts per email is allowed")
             return
         }
-        if (newShipId.trim().length < 5) {
+        /*if (newShipId.trim().length < 5) {
             toastReceiver.postValue("ShipId must have at least 5 letters")
             return
-        }
-        createVesselAccount(newShipId)
-        registerUserInformation(userEmail,newShipId)
-        saveShipID(newShipId)
+        }*/
+        createVesselAccount(newShipEmail)
+        registerUserInformation(userEmail,newShipEmail)
+        saveShipID(newShipEmail)
         loadingBar.postValue(false)
     }
 
