@@ -55,7 +55,7 @@ hilt {
 
 dependencies {
 
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.20'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.21'
 
     //Dagger Hilt
     implementation 'com.google.dagger:hilt-android:2.38'
