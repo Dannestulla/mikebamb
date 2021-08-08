@@ -1,8 +1,7 @@
 package com.gohan.mikebamb.main_app.presenter.fragment
 
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
+import android.app.AlertDialog
+import android.content.*
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +13,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.gohan.mikebamb.R
 import com.gohan.mikebamb.databinding.FragmentCategoryBinding
 import com.gohan.mikebamb.main_app.data.remote.CloudFirestore.Companion.documentsLiveData
+import com.gohan.mikebamb.main_app.domain.myConstants.EMAIL
 import com.gohan.mikebamb.main_app.domain.myConstants.NEW_SHIP_ACCOUNT
 import com.gohan.mikebamb.main_app.domain.myConstants.SHARED_PREF
+import com.gohan.mikebamb.main_app.domain.myConstants.USER
 import com.gohan.mikebamb.main_app.domain.myConstants.VESSEL_ID
 import com.gohan.mikebamb.main_app.presenter.adapter.CategoryAdapter
 import com.gohan.mikebamb.main_app.presenter.viewmodel.CategoryViewModel
@@ -33,6 +35,7 @@ class CategoryFragment : Fragment() {
     private var positionSub by Delegates.notNull<Int>()
     private var subCategory = " "
     private var subSubCategory = " "
+    private lateinit var sharedPref : SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,11 +82,26 @@ class CategoryFragment : Fragment() {
                 adapter = mAdapter
                 layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             }
-            account.setOnClickListener {
+            accountInfo.setOnClickListener {
+                accountInfoDialogBox()
+            }
+            /*account.setOnClickListener {
                 copyToClipBoard(binding.account.text)
                 Toast.makeText(context, "Ship Code Copied to Clipboard!", Toast.LENGTH_LONG).show()
-            }
+            }*/
         }
+    }
+
+    private fun accountInfoDialogBox() {
+        val vesselEmail = sharedPref?.getString(VESSEL_ID, "")
+        val userEmail =  sharedPref?.getString(EMAIL, "")
+        val builder = AlertDialog.Builder(context)
+        builder.setMessage("Vessel Email: $vesselEmail \n User Email: $userEmail")
+            .setPositiveButton("Ok") { _, _ -> }
+        val alert = builder.create()
+        alert.getButton(AlertDialog.BUTTON_POSITIVE)
+            .setTextColor(resources.getColor(R.color.white))
+        alert.show()
     }
 
     private fun copyToClipBoard(accountId: CharSequence?) {
@@ -96,10 +114,9 @@ class CategoryFragment : Fragment() {
     }
 
     private fun loadSharedPref() {
-        val sharedPref =
-            context?.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
-        binding.account.text = sharedPref?.getString(VESSEL_ID, "")
-        if (sharedPref!!.getBoolean(NEW_SHIP_ACCOUNT, false)) {
+        sharedPref =
+            context?.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)!!
+        if (sharedPref.getBoolean(NEW_SHIP_ACCOUNT, false)) {
             viewModel.localDeleteAllData()
             sharedPref.edit().remove(NEW_SHIP_ACCOUNT).apply()
         }
@@ -180,7 +197,6 @@ class CategoryFragment : Fragment() {
             viewModel.compareRemoteAndLocalData(it)
         })
     }
-
 
     private fun navigateToEquipmentList(position: Int) {
         val equipmentCategory = viewModel.categorySelected[position]

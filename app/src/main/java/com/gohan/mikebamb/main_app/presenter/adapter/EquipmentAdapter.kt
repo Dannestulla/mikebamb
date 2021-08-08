@@ -60,7 +60,7 @@ class EquipmentAdapter(var allEquipmentList: MutableList<EquipmentEntity>) :
         //Automatic on background thread
         override fun performFiltering(charSequence: CharSequence): FilterResults {
             val filteredList: MutableList<EquipmentEntity> = ArrayList()
-            if (charSequence == null || charSequence.isEmpty()) {
+            if (charSequence.isEmpty()) {
                 filteredList.addAll(allEquipmentList)
             } else {
                 for (equipment in allEquipmentList) {

@@ -7,9 +7,8 @@
     android:backgroundTint="@color/new_gray"
     tools:context=".main_app.presenter.fragment.CategoryFragment">
 
-
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/accountInfo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:src="@drawable/user2"
@@ -29,17 +28,6 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/account"
-        style="@style/SubTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:text="Account" />
 
     <TextView
         android:id="@+id/edit_category"
