@@ -1,4 +1,4 @@
-package com.gohan.mikebamb.login
+package com.gohan.mikebamb.login.presenter
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,10 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.gohan.mikebamb.databinding.FragmentRegisterShipBinding
 import com.gohan.mikebamb.main_app.MainActivity
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.NEW_SHIP_ACCOUNT
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHIP_ID
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHIP_PASSWORD
+import com.gohan.mikebamb.main_app.domain.myConstants.VESSEL_ID
+import com.gohan.mikebamb.main_app.domain.myConstants.VESSEL_PASSWORD
 
 class RegisterShipFragment : Fragment() {
     private var _binding: FragmentRegisterShipBinding? = null
@@ -36,8 +34,8 @@ class RegisterShipFragment : Fragment() {
     }
 
     private fun loadSavedShipId() {
-        binding.editVesselName.setText(viewModel.loadStoredValues(SHIP_ID))
-        binding.editVesselPassword.setText(viewModel.loadStoredValues(SHIP_PASSWORD))
+        binding.editVesselName.setText(viewModel.loadStoredValues(VESSEL_ID))
+        binding.editVesselPassword.setText(viewModel.loadStoredValues(VESSEL_PASSWORD))
     }
 
     private fun applyBinding() {
@@ -54,8 +52,7 @@ class RegisterShipFragment : Fragment() {
             val vesselEmail = binding.editVesselName.text.toString()
             val vesselPassword =  binding.editVesselPassword.text.toString()
             viewModel.checkShipId(vesselEmail)
-            viewModel.saveShipEmailAndPassword(vesselEmail, vesselPassword)
-            viewModel.signIn(vesselEmail, vesselPassword)
+            viewModel.signInForUserAndVessel(vesselEmail, vesselPassword)
             viewModel.loadingBar.postValue(false)
         }
         binding.resetVesselPassword.setOnClickListener {

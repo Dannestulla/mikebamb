@@ -1,4 +1,4 @@
-package com.gohan.mikebamb.login
+package com.gohan.mikebamb.login.presenter
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gohan.mikebamb.R
 import com.gohan.mikebamb.databinding.FragmentLoginBinding
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants
+import com.gohan.mikebamb.main_app.domain.myConstants.EMAIL
+import com.gohan.mikebamb.main_app.domain.myConstants.PASSWORD
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -19,6 +20,7 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     val viewModel by activityViewModels<LoginViewModel>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,13 +39,14 @@ class LoginFragment : Fragment() {
 
     private fun applyBinding() {
         binding.apply {
-            editEmailAddress.setText(viewModel.loadStoredValues(EquipmentConstants.EMAIL))
-            editPassword.setText(viewModel.loadStoredValues(EquipmentConstants.PASSWORD))
+            editEmailAddress.setText(viewModel.loadStoredValues(EMAIL))
+            editPassword.setText(viewModel.loadStoredValues(PASSWORD))
             loginButton.setOnClickListener {
                 binding.progressBar.isVisible = true
                 val password = editPassword.text.toString()
                 val email = editEmailAddress.text.toString()
-                viewModel.signIn(email, password)
+                viewModel.userEmail = email
+                viewModel.signInForUserAndVessel(email, password)
                 viewModel.saveEmailAndPassword(email, password)
             }
 

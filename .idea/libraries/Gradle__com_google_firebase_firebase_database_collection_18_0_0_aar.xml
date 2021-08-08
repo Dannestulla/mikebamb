@@ -1,12 +1,15 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.firebase:firebase-database-collection:18.0.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f6f964b8a7eb974a4bd68ab48d3eb993/transformed/firebase-database-collection-18.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6fb5085ab39a88d9c1232e864b857d9e/transformed/firebase-database-collection-18.0.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/6fb5085ab39a88d9c1232e864b857d9e/transformed/firebase-database-collection-18.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6fb5085ab39a88d9c1232e864b857d9e/transformed/firebase-database-collection-18.0.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/f6f964b8a7eb974a4bd68ab48d3eb993/transformed/firebase-database-collection-18.0.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/f6f964b8a7eb974a4bd68ab48d3eb993/transformed/firebase-database-collection-18.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/253f644734966661ead54c08f27372f7/transformed/firebase-database-collection-18.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/224e0bf62838f0bcfb4bca660df5e476/transformed/firebase-database-collection-18.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8d8a08065524c3b4b86676afd99d5849/transformed/firebase-database-collection-18.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7aa8c8543b0d1f226eb48da6289161b8/transformed/firebase-database-collection-18.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/dfe8bfe1b6de79585b9af1722beb7bd1/transformed/firebase-database-collection-18.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/621a94c1f308c524f9400a814ebeffd5/transformed/firebase-database-collection-18.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/afffffe14e4ed8934c6a6e3b6dbad2e9/transformed/firebase-database-collection-18.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/afffffe14e4ed8934c6a6e3b6dbad2e9/transformed/firebase-database-collection-18.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/afffffe14e4ed8934c6a6e3b6dbad2e9/transformed/firebase-database-collection-18.0.0/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-database-collection/18.0.0/356b17279173563a32e5043c9ead29ca888f8813/firebase-database-collection-18.0.0-javadoc.jar!/" />

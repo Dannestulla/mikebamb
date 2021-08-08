@@ -2,16 +2,15 @@ package com.gohan.mikebamb.main_app.presenter.viewmodel
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gohan.mikebamb.main_app.data.EquipmentsRepository
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants
 import com.gohan.mikebamb.main_app.domain.EquipmentUseCase
+import com.gohan.mikebamb.main_app.domain.myConstants.SHARED_PREF
+import com.gohan.mikebamb.main_app.domain.myConstants.VESSEL_ID
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -94,8 +93,8 @@ internal class CategoryViewModel @Inject constructor(
     }
 
     private fun getShipId(): String {
-        val sharedPref = app.getSharedPreferences(EquipmentConstants.SHARED_PREF, Context.MODE_PRIVATE)
-        val shipId = sharedPref?.getString(EquipmentConstants.SHIP_ID, "Empty")!!
+        val sharedPref = app.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        val shipId = sharedPref?.getString(VESSEL_ID, "Empty")!!
         return shipId
     }
 

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.gohan.mikebamb.login.LoginFragment"
+        android:name="com.gohan.mikebamb.login.presenter.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/registerShipFragment"
-        android:name="com.gohan.mikebamb.login.RegisterShipFragment"
+        android:name="com.gohan.mikebamb.login.presenter.RegisterShipFragment"
         android:label="fragment_register_ship"
         tools:layout="@layout/fragment_register_ship">
         <action

@@ -17,8 +17,7 @@ import androidx.navigation.fragment.navArgs
 import com.gohan.mikebamb.R
 import com.gohan.mikebamb.databinding.FragmentDescriptionEquipmentBinding
 import com.gohan.mikebamb.main_app.data.local.EquipmentEntity
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.USER
+import com.gohan.mikebamb.main_app.domain.myConstants.USER
 import com.gohan.mikebamb.main_app.presenter.viewmodel.DescriptionViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -50,7 +49,7 @@ class DescriptionEquipmentFragment : Fragment() {
     }
 
     private fun applyBinding() {
-        viewModel.equipmentDescriptionLiveData.observe(viewLifecycleOwner, {
+        viewModel.equipmentDescriptionLiveData.observe(viewLifecycleOwner) {
             binding.apply {
                 editEquipName.setText(it.equipNameEntity)
                 editManufacturer.setText(it.manufacturerEntity)
@@ -75,7 +74,7 @@ class DescriptionEquipmentFragment : Fragment() {
                 binding.addQrCode.setOnClickListener { generateNewQRcode() }
                 binding.shareThisQr.setOnClickListener { shareThisQrCode() }
             }
-        })
+        }
         viewModel.toastReceiver.observe(viewLifecycleOwner, {
             Toast.makeText(context, it, Toast.LENGTH_LONG).show()
         })

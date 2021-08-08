@@ -5,7 +5,7 @@
     android:id="@+id/registerVesselScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.RegisterShipFragment">
+    tools:context=".login.presenter.RegisterShipFragment">
 
     <ImageView
         android:id="@+id/imageView5"
@@ -73,7 +73,7 @@
     <EditText
         android:id="@+id/editVesselName"
         style="@style/EditTextLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Vessel Email"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
@@ -84,10 +84,10 @@
     <EditText
         android:id="@+id/editVesselPassword"
         style="@style/EditTextLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Vessel Password"
-        android:inputType="textVisiblePassword"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.522"

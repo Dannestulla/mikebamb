@@ -4,14 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.navArgs
 import androidx.navigation.ui.setupWithNavController
 import com.gohan.mikebamb.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import android.content.Intent
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.NEW_SHIP_ACCOUNT
+import com.google.firebase.ktx.Firebase
 
 
 @AndroidEntryPoint

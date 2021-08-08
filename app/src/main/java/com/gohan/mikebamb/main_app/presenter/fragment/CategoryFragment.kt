@@ -16,9 +16,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gohan.mikebamb.databinding.FragmentCategoryBinding
 import com.gohan.mikebamb.main_app.data.remote.CloudFirestore.Companion.documentsLiveData
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.NEW_SHIP_ACCOUNT
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.SHIP_ID
+import com.gohan.mikebamb.main_app.domain.myConstants.NEW_SHIP_ACCOUNT
+import com.gohan.mikebamb.main_app.domain.myConstants.SHARED_PREF
+import com.gohan.mikebamb.main_app.domain.myConstants.VESSEL_ID
 import com.gohan.mikebamb.main_app.presenter.adapter.CategoryAdapter
 import com.gohan.mikebamb.main_app.presenter.viewmodel.CategoryViewModel
 import kotlin.properties.Delegates
@@ -97,8 +97,8 @@ class CategoryFragment : Fragment() {
 
     private fun loadSharedPref() {
         val sharedPref =
-            context?.getSharedPreferences(EquipmentConstants.SHARED_PREF, Context.MODE_PRIVATE)
-        binding.account.text = sharedPref?.getString(SHIP_ID, "")
+            context?.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
+        binding.account.text = sharedPref?.getString(VESSEL_ID, "")
         if (sharedPref!!.getBoolean(NEW_SHIP_ACCOUNT, false)) {
             viewModel.localDeleteAllData()
             sharedPref.edit().remove(NEW_SHIP_ACCOUNT).apply()

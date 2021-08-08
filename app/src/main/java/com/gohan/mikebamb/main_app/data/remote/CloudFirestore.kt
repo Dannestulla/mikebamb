@@ -3,7 +3,7 @@ package com.gohan.mikebamb.main_app.data.remote
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.gohan.mikebamb.main_app.data.local.EquipmentEntity
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.COLLECTION_NAME
+import com.gohan.mikebamb.main_app.domain.myConstants.COLLECTION_NAME
 import com.google.firebase.firestore.FirebaseFirestore
 
 class CloudFirestore {

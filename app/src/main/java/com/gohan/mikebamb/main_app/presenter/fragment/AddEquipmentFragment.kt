@@ -10,8 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.gohan.mikebamb.main_app.data.toEquipmentEntity
 import com.gohan.mikebamb.databinding.FragmentAddEquipmentBinding
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants.myConstants.USER
+import com.gohan.mikebamb.main_app.domain.myConstants.USER
 import com.gohan.mikebamb.main_app.domain.EquipmentModel
 import com.gohan.mikebamb.main_app.presenter.viewmodel.DescriptionViewModel
 import java.sql.Timestamp

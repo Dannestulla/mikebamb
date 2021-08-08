@@ -10,8 +10,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.gohan.mikebamb.main_app.data.EquipmentsRepository
 import com.gohan.mikebamb.main_app.data.local.EquipmentEntity
-import com.gohan.mikebamb.main_app.domain.EquipmentConstants
 import com.gohan.mikebamb.main_app.domain.EquipmentUseCase
+import com.gohan.mikebamb.main_app.domain.myConstants.EMPTY_EQUIPMENT_ENTITY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -29,10 +29,10 @@ class DescriptionViewModel @Inject constructor(
     lateinit var partNumberClicked: String
     lateinit var equipmentDescriptionData: EquipmentEntity
     var equipmentDescriptionLiveData = MutableLiveData(
-        EquipmentConstants.EMPTY_EQUIPMENT_ENTITY
+        EMPTY_EQUIPMENT_ENTITY
     )
     var emptyEquipmentEntity =
-        EquipmentConstants.EMPTY_EQUIPMENT_ENTITY
+        EMPTY_EQUIPMENT_ENTITY
     var equipmentUseCase = EquipmentUseCase(repository)
     var toastReceiver = MutableLiveData<String>()
 
