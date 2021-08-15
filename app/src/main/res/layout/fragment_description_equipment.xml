@@ -393,7 +393,6 @@
             android:layout_toStartOf="@+id/delete_equip"
             android:text="@string/save_changes"
             app:layout_constraintEnd_toStartOf="@+id/delete_equip"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/edit_observations5" />
 
@@ -407,7 +406,6 @@
             android:layout_centerHorizontal="true"
             android:text="@string/delete_equipment"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/save_changes"
             app:layout_constraintTop_toTopOf="@+id/save_changes" />
 
@@ -420,7 +418,6 @@
             android:layout_centerHorizontal="true"
             android:text="@string/generate_new_qr_code"
             app:layout_constraintEnd_toStartOf="@+id/shareThisQr"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/save_changes" />
 
@@ -433,7 +430,6 @@
             android:layout_centerHorizontal="true"
             android:text="Share This QR"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/add_qr_code"
             app:layout_constraintTop_toBottomOf="@+id/delete_equip" />
 
