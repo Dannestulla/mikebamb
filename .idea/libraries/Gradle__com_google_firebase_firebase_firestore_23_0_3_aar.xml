@@ -1,15 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.firebase:firebase-firestore:23.0.3@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b28fd203b37f03d770877cf64462a01e/transformed/firebase-firestore-23.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/16fd99d33706e7163cd4037e520216a8/transformed/firebase-firestore-23.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/780e29d4d6d20f2cc6be1e0ef06e084d/transformed/firebase-firestore-23.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/36c1313f719941cd69f6fca95e6d00d8/transformed/firebase-firestore-23.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b6e42d2b466901ba86f04e5e2bdad061/transformed/firebase-firestore-23.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/259edfeb851b57ef51d19e28416a2232/transformed/firebase-firestore-23.0.3/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/e7a6cea3f20b159bf56a1af9b6af9d73/transformed/firebase-firestore-23.0.3/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e7a6cea3f20b159bf56a1af9b6af9d73/transformed/firebase-firestore-23.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e7a6cea3f20b159bf56a1af9b6af9d73/transformed/firebase-firestore-23.0.3/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/73cc4ae31bc1d346fd67717392b8f337/transformed/firebase-firestore-23.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/73cc4ae31bc1d346fd67717392b8f337/transformed/firebase-firestore-23.0.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/73cc4ae31bc1d346fd67717392b8f337/transformed/firebase-firestore-23.0.3/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-firestore/23.0.3/e0a35744124e1ac4a50f470d32e8cc5b19b78209/firebase-firestore-23.0.3-javadoc.jar!/" />

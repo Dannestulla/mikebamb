@@ -15,6 +15,7 @@ import com.gohan.mikebamb.main_app.domain.myConstants.VESSEL_EMAIL
 import com.gohan.mikebamb.main_app.domain.myConstants.VESSEL_ID
 import com.gohan.mikebamb.main_app.domain.myConstants.VESSEL_PASSWORD
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -25,7 +26,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     val app: Application
 ) : ViewModel() {
-    lateinit var auth: FirebaseAuth
+    var auth = Firebase.auth
     var toastReceiver = MutableLiveData<String>()
     var remoteDatabase = Firebase.firestore
     var shipLoginOk = MutableLiveData(false)
@@ -146,8 +147,6 @@ class LoginViewModel @Inject constructor(
                     if (it.documents.isNotEmpty()) {
                         compareOldIdWithNewLogin(shipId)
                         saveShipID(shipId)
-                    } else {
-                        toastReceiver.postValue("ShipId $shipId Not Found!")
                     }
                 }
                 .addOnFailureListener {

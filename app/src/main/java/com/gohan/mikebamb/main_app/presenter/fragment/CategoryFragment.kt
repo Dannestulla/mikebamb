@@ -82,9 +82,9 @@ class CategoryFragment : Fragment() {
                 adapter = mAdapter
                 layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
             }
-            accountInfo.setOnClickListener {
+            /*accountInfo.setOnClickListener {
                 accountInfoDialogBox()
-            }
+            }*/
             /*account.setOnClickListener {
                 copyToClipBoard(binding.account.text)
                 Toast.makeText(context, "Ship Code Copied to Clipboard!", Toast.LENGTH_LONG).show()
@@ -93,8 +93,8 @@ class CategoryFragment : Fragment() {
     }
 
     private fun accountInfoDialogBox() {
-        val vesselEmail = sharedPref?.getString(VESSEL_ID, "")
-        val userEmail =  sharedPref?.getString(EMAIL, "")
+        val vesselEmail = sharedPref.getString(VESSEL_ID, "")
+        val userEmail = sharedPref.getString(EMAIL, "")
         val builder = AlertDialog.Builder(context)
         builder.setMessage("Vessel Email: $vesselEmail \n User Email: $userEmail")
             .setPositiveButton("Ok") { _, _ -> }

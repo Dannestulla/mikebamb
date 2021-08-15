@@ -1,15 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.firebase:firebase-firestore-ktx:23.0.3@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0bed892640ce431dc6d27898e36b6662/transformed/firebase-firestore-ktx-23.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1ed03d05644c43e5d7f6107323a648fc/transformed/firebase-firestore-ktx-23.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/21d593105b82271f46b62ec95291ec84/transformed/firebase-firestore-ktx-23.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/151e5f1a79b60d63106cf84882b2e891/transformed/firebase-firestore-ktx-23.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9510ac84add287aa5d39c92d67745737/transformed/firebase-firestore-ktx-23.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/611af0f41ca3ef2e2b6efa2fd9decdc8/transformed/firebase-firestore-ktx-23.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0776658f91b1b7a42fde86f0af7d888d/transformed/firebase-firestore-ktx-23.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0776658f91b1b7a42fde86f0af7d888d/transformed/firebase-firestore-ktx-23.0.3/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0776658f91b1b7a42fde86f0af7d888d/transformed/firebase-firestore-ktx-23.0.3/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/71ca5ebb68490e2b89d172a9d9d8211a/transformed/firebase-firestore-ktx-23.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/71ca5ebb68490e2b89d172a9d9d8211a/transformed/firebase-firestore-ktx-23.0.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/71ca5ebb68490e2b89d172a9d9d8211a/transformed/firebase-firestore-ktx-23.0.3/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-firestore-ktx/23.0.3/edd04f9b56895fd2cc487c235c8325d25f3359f9/firebase-firestore-ktx-23.0.3-javadoc.jar!/" />

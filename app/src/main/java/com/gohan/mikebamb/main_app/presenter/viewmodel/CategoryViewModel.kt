@@ -33,7 +33,6 @@ internal class CategoryViewModel @Inject constructor(
     var currentCategory = _currentCategory as LiveData<List<String>>
     var subCategory = " "
     var subSubCategory = " "
-    var isObserverStarted = false
 
     fun localGetMainCategory() {
         CoroutineScope(IO).launch {

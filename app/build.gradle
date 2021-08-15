@@ -20,8 +20,8 @@ android {
         applicationId "com.gohan.mikebamb"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -56,7 +56,6 @@ hilt {
 
 dependencies {
 
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.5.21'
 
     //Dagger Hilt
     implementation 'com.google.dagger:hilt-android:2.38'
