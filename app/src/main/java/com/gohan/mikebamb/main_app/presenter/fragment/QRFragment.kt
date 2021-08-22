@@ -60,7 +60,7 @@ class QRFragment : Fragment() {
         }
     }
 
-    private fun hideActionBar() {
-        return (activity as AppCompatActivity).supportActionBar!!.hide()
+    private fun hideActionBar(): Unit? {
+        return (activity as AppCompatActivity).supportActionBar?.hide()
     }
 }

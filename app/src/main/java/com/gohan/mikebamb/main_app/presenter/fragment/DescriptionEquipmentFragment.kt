@@ -191,12 +191,6 @@ class DescriptionEquipmentFragment : Fragment() {
                 dialog.dismiss()
             }
         val alert = builder.create()
-        alert.setOnShowListener {
-            alert.getButton(AlertDialog.BUTTON_NEGATIVE)
-                .setTextColor(resources.getColor(R.color.white))
-            alert.getButton(AlertDialog.BUTTON_POSITIVE)
-                .setTextColor(resources.getColor(R.color.white))
-        }
         alert.show()
     }
 

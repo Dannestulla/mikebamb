@@ -7,18 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1064445777855:android:305db97d07b594fc67f30a",
+        "mobilesdk_app_id": "1:1064445777855:android:78e0a5bded45703a67f30a",
         "android_client_info": {
           "package_name": "com.gohan.mikebamb"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1064445777855-qtjchlhnpd1gbrjuilr29frp0ejq2c0k.apps.googleusercontent.com",
+          "client_id": "1064445777855-mks2vvmoesv5cd5ng0anunvmt90ilb0n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.gohan.mikebamb",
-            "certificate_hash": "d31e6aae0eeaab88d30328d34f26b57e1e029bc7"
+            "certificate_hash": "5b4b1e367458703810b4545a89152eeb125e6025"
           }
         },
         {

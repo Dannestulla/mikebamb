@@ -34,7 +34,7 @@ class LoginViewModel @Inject constructor(
     var loadingBar = MutableLiveData(false)
     private val sharedPref: SharedPreferences =
         app.getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE)
-    lateinit var userEmail: String
+    var userEmail = ""
 
     fun createAccount(email: String, password: String) {
         if (validadeRegistration(email, password)) {

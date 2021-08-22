@@ -9,6 +9,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\Dann\\keystore')
+            storePassword 'Welcometopunch5'
+            keyAlias 'qrmyship'
+            keyPassword 'Welcometopunch5'
+        }
+        release {
+            storeFile file('C:\\Users\\Dann\\keystore')
+            storePassword 'Welcometopunch5'
+            keyAlias 'qrmyship'
+            keyPassword 'Welcometopunch5'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
     buildFeatures {
@@ -21,8 +35,9 @@ android {
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 3
-        versionName "1.0"
+        versionName "1.01"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
