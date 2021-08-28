@@ -1,4 +1,4 @@
-package com.gohan.mikebamb.login.presenter
+package com.gohan.mikebamb.login.userlogin
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,15 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gohan.mikebamb.R
-import com.gohan.mikebamb.databinding.FragmentLoginBinding
+import com.gohan.mikebamb.databinding.FragmentUserLoginBinding
+import com.gohan.mikebamb.login.LoginViewModel
 import com.gohan.mikebamb.main_app.domain.myConstants.EMAIL
 import com.gohan.mikebamb.main_app.domain.myConstants.PASSWORD
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class LoginFragment : Fragment() {
-    private var _binding: FragmentLoginBinding? = null
+class UserLogin : Fragment() {
+    private var _binding: FragmentUserLoginBinding? = null
     private val binding get() = _binding!!
     val viewModel by activityViewModels<LoginViewModel>()
 
@@ -26,7 +27,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentUserLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -49,23 +50,26 @@ class LoginFragment : Fragment() {
                 viewModel.signInForUserAndVessel(email, password)
                 viewModel.saveEmailAndPassword(email, password)
             }
-
-            registerButton.setOnClickListener {
-                val password = editPassword.text.toString()
-                val email = editEmailAddress.text.toString()
-                viewModel.createAccount(email, password)
+            registerNewUser.setOnClickListener {
+                findNavController().navigate(R.id.action_loginFragment_to_userRegister)
             }
+
             resetPassword.setOnClickListener {
                 val email = editEmailAddress.text.toString()
                 viewModel.passwordReset(email)
             }
+
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setObservers() {
         viewModel.loginOK.observe(viewLifecycleOwner, {
             if (it) {
-                findNavController().navigate(R.id.action_loginFragment_to_registerShipFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_vesselLogin)
             } else {
                 binding.progressBar.isVisible = false
             }

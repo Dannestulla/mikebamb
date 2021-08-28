@@ -7,22 +7,46 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.gohan.mikebamb.login.presenter.LoginFragment"
+        android:name="com.gohan.mikebamb.login.userlogin.UserLogin"
         android:label="LoginFragment"
-        tools:layout="@layout/fragment_login">
+        tools:layout="@layout/fragment_user_login">
         <action
-            android:id="@+id/action_loginFragment_to_registerShipFragment"
-            app:destination="@id/registerShipFragment" />
+            android:id="@+id/action_loginFragment_to_userRegister"
+            app:destination="@id/userRegister"
+            />
+        <action
+            android:id="@+id/action_loginFragment_to_vesselLogin"
+            app:destination="@id/vesselLogin"
+       />
+
     </fragment>
 
     <fragment
-        android:id="@+id/registerShipFragment"
-        android:name="com.gohan.mikebamb.login.presenter.RegisterShipFragment"
-        android:label="fragment_register_ship"
-        tools:layout="@layout/fragment_register_ship">
+        android:id="@+id/userRegister"
+        android:name="com.gohan.mikebamb.login.userlogin.UserRegister"
+        android:label="fragment_vessel_register"
+        tools:layout="@layout/fragment_vessel_register" >
         <action
-            android:id="@+id/action_registerShipFragment_to_loginFragment"
+            android:id="@+id/action_userRegister_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/vesselLogin"
+        android:name="com.gohan.mikebamb.login.vessellogin.VesselLogin"
+        android:label="fragment_vessel_login"
+        tools:layout="@layout/fragment_vessel_login" >
+        <action
+            android:id="@+id/action_vesselLogin_to_vesselRegister"
+
+            app:destination="@id/vesselRegister" />
+    </fragment>
+    <fragment
+        android:id="@+id/vesselRegister"
+        android:name="com.gohan.mikebamb.login.vessellogin.VesselRegister"
+        android:label="VesselRegister" >
+        <action
+            android:id="@+id/action_vesselRegister_to_vesselLogin"
+            app:destination="@id/vesselLogin" />
     </fragment>
 
 </navigation>

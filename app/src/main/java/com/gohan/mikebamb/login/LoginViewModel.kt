@@ -1,4 +1,4 @@
-package com.gohan.mikebamb.login.presenter
+package com.gohan.mikebamb.login
 
 import android.app.Application
 import android.content.Context
