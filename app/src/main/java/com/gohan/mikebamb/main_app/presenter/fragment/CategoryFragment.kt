@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
@@ -19,7 +18,6 @@ import com.gohan.mikebamb.main_app.data.remote.CloudFirestore.Companion.document
 import com.gohan.mikebamb.main_app.domain.myConstants.EMAIL
 import com.gohan.mikebamb.main_app.domain.myConstants.NEW_SHIP_ACCOUNT
 import com.gohan.mikebamb.main_app.domain.myConstants.SHARED_PREF
-import com.gohan.mikebamb.main_app.domain.myConstants.USER
 import com.gohan.mikebamb.main_app.domain.myConstants.VESSEL_ID
 import com.gohan.mikebamb.main_app.presenter.adapter.CategoryAdapter
 import com.gohan.mikebamb.main_app.presenter.viewmodel.CategoryViewModel
@@ -53,6 +51,7 @@ class CategoryFragment : Fragment() {
             mAdapter.submitList(it)
         })
         loadSharedPref()
+        deleteAllDataIfDifferentVesselAccount()
         localGetMainCategory()
         getOnlineDataOnce()
         mAdapter.onItemClick = { position ->
@@ -60,6 +59,13 @@ class CategoryFragment : Fragment() {
         }
         writeOfflineItemsInCache()
         onBackPressed()
+    }
+
+    private fun deleteAllDataIfDifferentVesselAccount() {
+
+        if (sharedPref.getBoolean("New_Ship_Account", false)) {
+            viewModel.localDeleteAllData()
+        }
     }
 
     private fun writeOfflineItemsInCache() {

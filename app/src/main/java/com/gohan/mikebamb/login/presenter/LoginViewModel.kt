@@ -14,7 +14,6 @@ import com.gohan.mikebamb.main_app.domain.myConstants.SHARED_PREF
 import com.gohan.mikebamb.main_app.domain.myConstants.VESSEL_EMAIL
 import com.gohan.mikebamb.main_app.domain.myConstants.VESSEL_ID
 import com.gohan.mikebamb.main_app.domain.myConstants.VESSEL_PASSWORD
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore

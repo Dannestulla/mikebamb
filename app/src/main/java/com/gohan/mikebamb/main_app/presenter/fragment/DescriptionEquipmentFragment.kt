@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.navArgs
-import com.gohan.mikebamb.R
 import com.gohan.mikebamb.databinding.FragmentDescriptionEquipmentBinding
 import com.gohan.mikebamb.main_app.data.local.EquipmentEntity
 import com.gohan.mikebamb.main_app.domain.myConstants.USER

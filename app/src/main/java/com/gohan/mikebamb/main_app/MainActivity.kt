@@ -8,7 +8,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.gohan.mikebamb.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
-import com.google.firebase.ktx.Firebase
 
 
 @AndroidEntryPoint

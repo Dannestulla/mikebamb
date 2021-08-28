@@ -11,16 +11,16 @@ plugins {
 android {
     signingConfigs {
         debug {
-            storeFile file('C:\\Users\\Dann\\keystore')
-            storePassword 'Welcometopunch5'
-            keyAlias 'qrmyship'
-            keyPassword 'Welcometopunch5'
+            storeFile file('C:\\Users\\Dann\\Keys and Certificates\\qrmyship.jks')
+            storePassword ANDROID_STORE_PASSWORD
+            keyAlias 'upload'
+            keyPassword ANDROID_KEY_PASSWORD
         }
         release {
-            storeFile file('C:\\Users\\Dann\\keystore')
-            storePassword 'Welcometopunch5'
-            keyAlias 'qrmyship'
-            keyPassword 'Welcometopunch5'
+            storeFile file('C:\\Users\\Dann\\Keys and Certificates\\qrmyship.jks')
+            storePassword ANDROID_STORE_PASSWORD
+            keyAlias 'upload'
+            keyPassword ANDROID_KEY_PASSWORD
         }
     }
     compileSdkVersion 30

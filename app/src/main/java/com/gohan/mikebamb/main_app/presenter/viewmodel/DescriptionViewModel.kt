@@ -71,7 +71,7 @@ class DescriptionViewModel @Inject constructor(
         val file = equipmentUseCase.createQrImageFile(wrapper, qrCreated)
         val imageUri = FileProvider.getUriForFile(
             app.applicationContext,
-            "com.gohan.mikebamb.fileprovider",
+            "com.gohan.qrmyship.fileprovider",
             file
         )
         return imageUri
