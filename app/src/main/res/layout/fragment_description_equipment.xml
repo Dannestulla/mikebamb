@@ -5,433 +5,349 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_app.presenter.fragment.DescriptionEquipmentFragment"
-    android:backgroundTint="@color/new_gray">
+    android:background="@color/white"
+    tools:context=".main_app.presenter.fragment.DescriptionEquipmentFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:fillViewport="true">
 
         <TextView
-            android:id="@+id/equip_name"
-            style="@style/NormalText"
+            android:id="@+id/name_equip"
+            style="@style/SubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/equipment_name"
-            app:layout_constraintBaseline_toBaselineOf="@+id/edit_equip_name"
-            app:layout_constraintEnd_toStartOf="@+id/edit_equip_name"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
-            android:id="@+id/edit_equip_name"
-            style="@style/EditText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:elevation="5dp"
+            android:text="Equipment"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/equip_name"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/manufacturer"
-            style="@style/NormalText"
-            android:layout_width="0dp"
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/manufacturer"
-            app:layout_constraintBaseline_toBaselineOf="@+id/edit_manufacturer"
-            app:layout_constraintEnd_toStartOf="@+id/edit_manufacturer"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:background="@drawable/ic_group_97"
+            android:backgroundTint="@color/blue_ident"
+            android:elevation="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:subtitleTextColor="@color/white"
+            app:titleTextAppearance="@color/white"
+            app:titleTextColor="@color/white"/>
+        <EditText
+
+
+            android:id="@+id/edit_equip_name"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Equipment Name"
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_manufacturer"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_manufacturer"
             style="@style/EditText"
-            android:layout_width="0dp"
-
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/equip_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/equip_name"
-            app:layout_constraintTop_toBottomOf="@+id/equip_name" />
-
-        <TextView
-            android:id="@+id/model"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/model"
-            app:layout_constraintEnd_toStartOf="@+id/edit_model"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/manufacturer" />
+            android:hint="Manufacturer"
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_model"
+            app:layout_constraintTop_toBottomOf="@+id/edit_equip_name"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_model"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/equip_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_manufacturer"
-            app:layout_constraintTop_toBottomOf="@+id/manufacturer" />
-
-        <TextView
-            android:id="@+id/serial_number"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/serial_number"
-            app:layout_constraintEnd_toStartOf="@+id/edit_observations1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/partNumber" />
+            android:hint="Model"
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_part_number"
+            app:layout_constraintTop_toBottomOf="@+id/edit_manufacturer"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_part_number"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/equip_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_model"
-            app:layout_constraintTop_toBottomOf="@+id/edit_model" />
-
-        <TextView
-            android:id="@+id/install_date"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/install_date"
-            app:layout_constraintBaseline_toBaselineOf="@+id/edit_install_date"
-            app:layout_constraintEnd_toStartOf="@+id/edit_install_date"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:hint="Part Number"
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_observations1"
+            app:layout_constraintTop_toBottomOf="@+id/edit_model"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_install_date"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/equip_name"
+            android:hint="Install Date"
             android:inputType="date"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_observations1"
-            app:layout_constraintTop_toBottomOf="@+id/serial_number" />
-
-        <TextView
-            android:id="@+id/order_number"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/order_number"
-            app:layout_constraintBaseline_toBaselineOf="@+id/edit_order_number"
-            app:layout_constraintEnd_toStartOf="@+id/edit_order_number"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_order_number"
+            app:layout_constraintTop_toBottomOf="@+id/edit_observations1"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_order_number"
             style="@style/EditText"
-            android:layout_width="0dp"
-
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_install_date"
-            app:layout_constraintTop_toBottomOf="@+id/edit_install_date" />
-
-        <TextView
-            android:id="@+id/manuallink"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/link_to_manual"
-            app:layout_constraintBaseline_toBaselineOf="@+id/edit_manuallink"
-            app:layout_constraintEnd_toStartOf="@+id/edit_manuallink"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:hint="Order Number"
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_manuallink"
+            app:layout_constraintTop_toBottomOf="@+id/edit_install_date"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_manuallink"
+
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:autoLink="web|email"
+            android:hint="Link to Manual"
             android:inputType="textWebEditText"
             android:linksClickable="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_order_number"
-            app:layout_constraintTop_toBottomOf="@+id/edit_order_number" />
-
-        <TextView
-            android:id="@+id/hours"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/hours"
-            app:layout_constraintBaseline_toBaselineOf="@+id/edit_hours"
-            app:layout_constraintEnd_toStartOf="@+id/edit_hours"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_hours"
+            app:layout_constraintTop_toBottomOf="@+id/edit_order_number"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_hours"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/equip_name"
+            android:hint="Hours"
             android:inputType="number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_manuallink"
-            app:layout_constraintTop_toBottomOf="@+id/manuallink" />
-
-        <TextView
-            android:id="@+id/qr_code"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/qrcode"
-            app:layout_constraintBottom_toTopOf="@+id/comments"
-            app:layout_constraintEnd_toStartOf="@+id/edit_qr_code"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_qr_code"
+            app:layout_constraintTop_toBottomOf="@+id/edit_manuallink"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+            android:editable="false"
             android:id="@+id/edit_qr_code"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:inputType="none"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_hours"
-            app:layout_constraintTop_toBottomOf="@+id/edit_hours" />
-
-        <TextView
-            android:id="@+id/comments"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/comments"
-            app:layout_constraintBaseline_toBaselineOf="@+id/edit_comments"
-            app:layout_constraintEnd_toStartOf="@+id/edit_comments"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:hint="Qr Code"
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_comments"
+            app:layout_constraintTop_toBottomOf="@+id/edit_hours"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_comments"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_qr_code"
-            app:layout_constraintTop_toBottomOf="@+id/edit_qr_code" />
-
-        <TextView
-            android:id="@+id/category1"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/category1"
-            app:layout_constraintEnd_toStartOf="@+id/edit_category1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/comments" />
+            android:hint="Comments"
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_category1"
+            app:layout_constraintTop_toBottomOf="@+id/edit_qr_code"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_category1"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Category 1"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_comments"
-            app:layout_constraintTop_toBottomOf="@+id/comments" />
-
-        <TextView
-            android:id="@+id/category2"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="@string/category2"
-            app:layout_constraintEnd_toStartOf="@+id/edit_category2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/category1" />
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_category2"
+            app:layout_constraintTop_toBottomOf="@+id/edit_comments"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_category2"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Category 2"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_category1"
-            app:layout_constraintTop_toBottomOf="@+id/edit_category1" />
-
-        <TextView
-            android:id="@+id/category3"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/category3"
-            app:layout_constraintEnd_toStartOf="@+id/edit_category3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/category2" />
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_category3"
+            app:layout_constraintTop_toBottomOf="@+id/edit_category1"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_category3"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Category 3"
             android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/observation1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_category2" />
-
-        <TextView
-            android:id="@+id/partNumber"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/PartNumber"
-            app:layout_constraintBaseline_toBaselineOf="@+id/edit_part_number"
-            app:layout_constraintEnd_toStartOf="@+id/edit_part_number"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_observations2"
+            app:layout_constraintTop_toBottomOf="@+id/edit_category2"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_observations1"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Serial Number"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_part_number"
-            app:layout_constraintTop_toBottomOf="@+id/edit_part_number" />
-
-        <TextView
-            android:id="@+id/observation1"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/observations1"
-            app:layout_constraintEnd_toStartOf="@+id/edit_observations2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/category3" />
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_install_date"
+            app:layout_constraintTop_toBottomOf="@+id/edit_part_number"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_observations2"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Observations 1"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_category3"
-            app:layout_constraintTop_toBottomOf="@+id/edit_category3" />
-
-        <TextView
-            android:id="@+id/observation2"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/observations3"
-            app:layout_constraintEnd_toStartOf="@+id/edit_observations3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/observation1" />
-
-        <TextView
-            android:id="@+id/observation3"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/observations4"
-            app:layout_constraintEnd_toStartOf="@+id/edit_observations4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/observation2" />
-
-        <TextView
-            android:id="@+id/observation4"
-            style="@style/NormalText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/observations5"
-            app:layout_constraintEnd_toStartOf="@+id/edit_observations5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/observation3" />
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_observations3"
+            app:layout_constraintTop_toBottomOf="@+id/edit_category3"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_observations3"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Observations 2"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/edit_observations2"
-            app:layout_constraintTop_toBottomOf="@+id/edit_observations2" />
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/edit_observations4"
+            app:layout_constraintTop_toBottomOf="@+id/edit_observations2"
+            tools:layout_editor_absoluteX="124dp" />
 
         <EditText
+
             android:id="@+id/edit_observations4"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/equip_name"
+            android:hint="Observations 3"
             android:inputType="textPersonName"
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
             app:layout_constraintBottom_toTopOf="@+id/edit_observations5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/observation3"
-            app:layout_constraintStart_toStartOf="@+id/edit_observations3" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_observations3"
+            tools:layout_editor_absoluteX="-164dp" />
 
         <EditText
+
             android:id="@+id/edit_observations5"
             style="@style/EditText"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/equip_name"
+            android:hint="Observations 4"
             android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/observation4"
-            app:layout_constraintStart_toStartOf="@+id/edit_observations4"
-            app:layout_constraintTop_toTopOf="@+id/observation4" />
+            android:padding="18dp"
+            android:textColorHint="#C4C4C4"
+            app:layout_constraintBottom_toTopOf="@+id/save_changes"
+            app:layout_constraintTop_toBottomOf="@+id/edit_observations4"
+            tools:layout_editor_absoluteX="124dp" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/save_changes"
-            style="@style/Button"
+            style="@style/MaterialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="1dp"
             android:layout_toStartOf="@+id/delete_equip"
             android:text="@string/save_changes"
+            app:cornerRadius="48dp"
+            app:layout_constraintTop_toBottomOf="@id/edit_observations5"
             app:layout_constraintEnd_toStartOf="@+id/delete_equip"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_observations5" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"/>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/delete_equip"
-            style="@style/Button"
+            app:layout_constraintTop_toBottomOf="@id/edit_observations5"
+            style="@style/MaterialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/edit_observations5"
             android:layout_alignParentEnd="true"
             android:layout_centerHorizontal="true"
             android:text="@string/delete_equipment"
+            app:cornerRadius="48dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/save_changes"
-            app:layout_constraintTop_toTopOf="@+id/save_changes" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/save_changes" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/add_qr_code"
-            style="@style/Button"
+            app:layout_constraintTop_toBottomOf="@id/delete_equip"
+            style="@style/MaterialButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/save_changes"
             android:layout_centerHorizontal="true"
             android:text="@string/generate_new_qr_code"
+            app:cornerRadius="48dp"
             app:layout_constraintEnd_toStartOf="@+id/shareThisQr"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/save_changes" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/shareThisQr"
-            style="@style/Button"
+            style="@style/MaterialButton"
+            app:layout_constraintTop_toBottomOf="@id/delete_equip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/save_changes"
             android:layout_centerHorizontal="true"
             android:text="Share This QR"
+            app:cornerRadius="48dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/add_qr_code"
-            app:layout_constraintTop_toBottomOf="@+id/delete_equip" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/add_qr_code" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

@@ -31,7 +31,7 @@ android {
 
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
-        applicationId "com.gohan.mikebamb"
+        applicationId "com.gohan.qrmyship"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 3
@@ -42,7 +42,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

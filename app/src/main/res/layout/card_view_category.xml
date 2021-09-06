@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
     android:elevation="5dp"
-    android:backgroundTint="@color/new_gray">
+    android:backgroundTint="#98C5D7">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:backgroundTint="@color/new_gray"
-        android:layout_width="200dp"
-        android:layout_height="60dp">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/category1"
@@ -19,9 +19,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:backgroundTint="@color/new_gray"
             android:gravity="center"
             android:text="@string/category"
+            android:padding="17dp"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

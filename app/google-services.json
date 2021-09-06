@@ -14,11 +14,48 @@
       },
       "oauth_client": [
         {
-          "client_id": "1064445777855-mks2vvmoesv5cd5ng0anunvmt90ilb0n.apps.googleusercontent.com",
+          "client_id": "1064445777855-l1tr7qedbtif0v8jvamo9ad9aj2urqfd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.gohan.mikebamb",
-            "certificate_hash": "5b4b1e367458703810b4545a89152eeb125e6025"
+            "certificate_hash": "29d362c0fcc1d23da580437b80b977d9524fc9d2"
+          }
+        },
+        {
+          "client_id": "1064445777855-asp50beeulr4ogh0t4m04e7c0vrtik8f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6dWgZU5OUqxKRuq6hyMbJOiEvcCrbXO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1064445777855-asp50beeulr4ogh0t4m04e7c0vrtik8f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1064445777855:android:31ca5a44249403a067f30a",
+        "android_client_info": {
+          "package_name": "com.gohan.qrmyship"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1064445777855-2uhffk5uh8djnapivks9trjd2r61o50e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gohan.qrmyship",
+            "certificate_hash": "30d25e38c34d9baabc0077c9da7623cd9f462be1"
           }
         },
         {

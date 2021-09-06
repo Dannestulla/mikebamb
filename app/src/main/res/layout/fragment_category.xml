@@ -4,41 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="@color/new_gray"
+    android:background="@color/white"
     tools:context=".main_app.presenter.fragment.CategoryFragment">
 
-    <!--<ImageView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_group_97"
+        android:backgroundTint="@color/blue_ident"
+        android:elevation="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:subtitleTextColor="@color/white"
+        app:titleTextAppearance="@color/white"
+        app:titleTextColor="@color/white" />
 
-        android:id="@+id/accountInfo"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/user2"
+    <TextView
+        android:id="@+id/editCategory"
+        style="@style/SubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:text="Categories"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />-->
-
-    <TextView
-        android:id="@+id/text_category"
-        style="@style/SubTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:text="@string/categories"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/edit_category"
-        style="@style/SubTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_toEndOf="@+id/text_category"
-        android:text=""
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintStart_toEndOf="@+id/text_category"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Category Name" />
 
@@ -46,12 +38,12 @@
         android:id="@+id/category_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@+id/text_category"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
-        app:spanCount="2"
+        app:spanCount="1"
         tools:listitem="@layout/card_view_category" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -59,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.05" />
+        app:layout_constraintGuide_percent="0.075" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"

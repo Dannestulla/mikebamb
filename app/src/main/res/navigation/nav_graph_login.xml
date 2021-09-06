@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.gohan.mikebamb.login.userlogin.UserLogin"
+        android:name="com.gohan.qrmyship.login.userlogin.UserLogin"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_user_login">
         <action
@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/userRegister"
-        android:name="com.gohan.mikebamb.login.userlogin.UserRegister"
+        android:name="com.gohan.qrmyship.login.userlogin.UserRegister"
         android:label="fragment_vessel_register"
         tools:layout="@layout/fragment_vessel_register" >
         <action
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/vesselLogin"
-        android:name="com.gohan.mikebamb.login.vessellogin.VesselLogin"
+        android:name="com.gohan.qrmyship.login.vessellogin.VesselLogin"
         android:label="fragment_vessel_login"
         tools:layout="@layout/fragment_vessel_login" >
         <action
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/vesselRegister"
-        android:name="com.gohan.mikebamb.login.vessellogin.VesselRegister"
+        android:name="com.gohan.qrmyship.login.vessellogin.VesselRegister"
         android:label="VesselRegister" >
         <action
             android:id="@+id/action_vesselRegister_to_vesselLogin"
