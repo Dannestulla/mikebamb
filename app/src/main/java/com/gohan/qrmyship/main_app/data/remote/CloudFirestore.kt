@@ -10,6 +10,7 @@ class CloudFirestore {
 
     companion object {
         var documentsLiveData = MutableLiveData<ArrayList<Any>>()
+        var canUserEdit = MutableLiveData<Boolean>()
     }
 
     var remoteDatabase = FirebaseFirestore.getInstance()
@@ -47,6 +48,19 @@ class CloudFirestore {
             .addOnSuccessListener { Log.e("item deleted", "Doc Name: $partNumber") }
             .addOnFailureListener { ex -> Log.e("item deleted", "Operation Failed: $ex") }
     }
+
+    fun checkIfUserCanEdit(userLoggedIn: String?, vesselLoggedIn: String?) {
+        if (vesselLoggedIn != null) {
+            remoteDatabase.collection("VesselInfo").document(vesselLoggedIn).get()
+                .addOnSuccessListener { task ->
+                    val result = task.data?.keys
+                    if (result?.contains(userLoggedIn) == true) {
+                        canUserEdit.postValue(true)
+                    }
+                }
+        }
+    }
 }
+
 
 

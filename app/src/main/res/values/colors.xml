@@ -11,4 +11,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="blue_ident">#216285</color>
+
+    <color name="graylight">#C4C4C4</color>
+    <color name="grayeditText">#EFECEC</color>
 </resources>

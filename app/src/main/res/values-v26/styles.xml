@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="EditText">
+        <item name="android:layout_marginHorizontal">21dp</item>
+        <item name="android:layout_marginVertical">20dp</item>
+        <item name="android:background">@drawable/ic_rectangle_20</item>
+        <item name="android:backgroundTint">@color/grayeditText</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:inputType">text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">left</item>
+        <item name="android:padding">18dp</item>
+        <item name="android:ems">10</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+</resources>

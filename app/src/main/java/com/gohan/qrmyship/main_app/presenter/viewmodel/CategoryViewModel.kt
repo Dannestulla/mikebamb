@@ -104,5 +104,9 @@ internal class CategoryViewModel @Inject constructor(
     fun writeOfflineItemsInCache() {
         equipmentUseCase.writeOfflineItemsInCache()
     }
+
+    fun checkIfUserCanEdit(userLoggedIn: String?, vesselLoggedIn: String?) {
+        equipmentUseCase.checkIfUserCanEdit(userLoggedIn, vesselLoggedIn)
+    }
 }
 

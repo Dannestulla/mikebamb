@@ -62,7 +62,6 @@ class LoginViewModel @Inject constructor(
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         if (loginOK.value == true) {
-                            addUserToVesselAccount(email)
                             saveShipEmailAndPassword(email, password)
                             shipLoginOk.postValue(true)
                         }
@@ -83,7 +82,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    private fun addUserToVesselAccount(vesselEmail: String) {
+    fun addUserToVesselAccount(vesselEmail: String) {
         val userEmail = hashMapOf(
             userEmail to true,
         )
@@ -208,7 +207,9 @@ class LoginViewModel @Inject constructor(
                     toastReceiver.postValue("ShipID Already Exists")
                 } else {
                     val accountNumbers = sharedPref.getInt("VesselAccounts", 0)
-                    toastReceiver.postValue("ShipID Created Successfully")
+                    if (userEmail != newShipId) {
+                        toastReceiver.postValue("ShipID Created Successfully")
+                    }
                     val emptydata = EMPTY_EQUIPMENT_ENTITY
                     emptydata.partNumber = "first entry"
                     remoteDatabase.collection(newShipId).document("first entry")

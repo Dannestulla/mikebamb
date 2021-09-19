@@ -14,13 +14,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.gohan.qrmyship.R
 import com.gohan.qrmyship.databinding.FragmentCategoryBinding
+import com.gohan.qrmyship.main_app.data.remote.CloudFirestore.Companion.canUserEdit
 import com.gohan.qrmyship.main_app.data.remote.CloudFirestore.Companion.documentsLiveData
+import com.gohan.qrmyship.main_app.domain.myConstants
+import com.gohan.qrmyship.main_app.domain.myConstants.CAN_EDIT
 import com.gohan.qrmyship.main_app.domain.myConstants.EMAIL
 import com.gohan.qrmyship.main_app.domain.myConstants.NEW_SHIP_ACCOUNT
 import com.gohan.qrmyship.main_app.domain.myConstants.SHARED_PREF
 import com.gohan.qrmyship.main_app.domain.myConstants.VESSEL_ID
 import com.gohan.qrmyship.main_app.presenter.adapter.CategoryAdapter
 import com.gohan.qrmyship.main_app.presenter.viewmodel.CategoryViewModel
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.runBlocking
 import kotlin.properties.Delegates
 
 class CategoryFragment : Fragment() {
@@ -33,7 +38,7 @@ class CategoryFragment : Fragment() {
     private var positionSub by Delegates.notNull<Int>()
     private var subCategory = " "
     private var subSubCategory = " "
-    private lateinit var sharedPref : SharedPreferences
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +56,7 @@ class CategoryFragment : Fragment() {
             mAdapter.submitList(it)
         })
         loadSharedPref()
+        checkIfUserCanEdit()
         deleteAllDataIfDifferentVesselAccount()
         localGetMainCategory()
         getOnlineDataOnce()
@@ -61,8 +67,19 @@ class CategoryFragment : Fragment() {
         onBackPressed()
     }
 
-    private fun deleteAllDataIfDifferentVesselAccount() {
+    private fun checkIfUserCanEdit() {
+        val userLoggedIn = sharedPref.getString(myConstants.EMAIL, "")
+        val vesselLoggedIn = sharedPref.getString(myConstants.VESSEL_EMAIL, "")
+        viewModel.checkIfUserCanEdit(userLoggedIn, vesselLoggedIn)
+        canUserEdit.observe(viewLifecycleOwner, {
+            if (it == true) {
+                sharedPref.edit().putBoolean(CAN_EDIT, true).apply()
+            }
+        })
 
+    }
+
+    private fun deleteAllDataIfDifferentVesselAccount() {
         if (sharedPref.getBoolean("New_Ship_Account", false)) {
             viewModel.localDeleteAllData()
         }
@@ -88,35 +105,7 @@ class CategoryFragment : Fragment() {
                 adapter = mAdapter
                 layoutManager = GridLayoutManager(context, 1, GridLayoutManager.VERTICAL, false)
             }
-            /*accountInfo.setOnClickListener {
-                accountInfoDialogBox()
-            }*/
-            /*account.setOnClickListener {
-                copyToClipBoard(binding.account.text)
-                Toast.makeText(context, "Ship Code Copied to Clipboard!", Toast.LENGTH_LONG).show()
-            }*/
         }
-    }
-
-    private fun accountInfoDialogBox() {
-        val vesselEmail = sharedPref.getString(VESSEL_ID, "")
-        val userEmail = sharedPref.getString(EMAIL, "")
-        val builder = AlertDialog.Builder(context)
-        builder.setMessage("Vessel Email: $vesselEmail \n User Email: $userEmail")
-            .setPositiveButton("Ok") { _, _ -> }
-        val alert = builder.create()
-        alert.getButton(AlertDialog.BUTTON_POSITIVE)
-            .setTextColor(resources.getColor(R.color.white))
-        alert.show()
-    }
-
-    private fun copyToClipBoard(accountId: CharSequence?) {
-        val clipboard = getSystemService(
-            requireContext(),
-            ClipboardManager::class.java
-        )
-        val clip = ClipData.newPlainText("ShipAccount:", accountId)
-        clipboard?.setPrimaryClip(clip)
     }
 
     private fun loadSharedPref() {

@@ -1,5 +1,6 @@
 package com.gohan.qrmyship.main_app.presenter.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +9,11 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import com.gohan.qrmyship.main_app.data.toEquipmentEntity
 import com.gohan.qrmyship.databinding.FragmentAddEquipmentBinding
-import com.gohan.qrmyship.main_app.domain.myConstants.USER
+import com.gohan.qrmyship.main_app.data.toEquipmentEntity
 import com.gohan.qrmyship.main_app.domain.EquipmentModel
+import com.gohan.qrmyship.main_app.domain.myConstants
+import com.gohan.qrmyship.main_app.domain.myConstants.CAN_EDIT
 import com.gohan.qrmyship.main_app.presenter.viewmodel.DescriptionViewModel
 import java.sql.Timestamp
 import java.util.*
@@ -34,7 +36,7 @@ class AddEquipmentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.addequipment.setOnClickListener { addNewItem() }
-        checkIsUser()
+        checkIfUserCanEdit()
     }
 
     private fun addNewItem() {
@@ -122,10 +124,30 @@ class AddEquipmentFragment : Fragment() {
         return isEmpty
     }
 
-    fun checkIsUser() {
-        if (USER) {
+    private fun checkIfUserCanEdit() {
+        val sharedPref =
+            context?.getSharedPreferences(myConstants.SHARED_PREF, Context.MODE_PRIVATE)!!
+        if (!sharedPref.getBoolean(CAN_EDIT, false)) {
             binding.addequipment.isEnabled = false
             binding.addequipment.isVisible = false
+            binding.editCategory1.setFocusable(false)
+            binding.editCategory2.setFocusable(false)
+            binding.editCategory3.setFocusable(false)
+            binding.editComments.setFocusable(false)
+            binding.editEquipName.setFocusable(false)
+            binding.editHours.setFocusable(false)
+            binding.editInstallDate.setFocusable(false)
+            binding.editManufacturer.setFocusable(false)
+            binding.editManuallink.setFocusable(false)
+            binding.editModel.setFocusable(false)
+            binding.editObservations1.setFocusable(false)
+            binding.editObservations2.setFocusable(false)
+            binding.editObservations3.setFocusable(false)
+            binding.editObservations4.setFocusable(false)
+            binding.editObservations5.setFocusable(false)
+            binding.editOrderNumber.setFocusable(false)
+            binding.editPartNumber.setFocusable(false)
+            binding.editQrCode.setFocusable(false)
         }
     }
 
@@ -134,7 +156,7 @@ class AddEquipmentFragment : Fragment() {
         _binding = null
     }
 
-    private fun getRandomString(length: Int) : String {
+    private fun getRandomString(length: Int): String {
         val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
         return (1..length)
             .map { allowedChars.random() }

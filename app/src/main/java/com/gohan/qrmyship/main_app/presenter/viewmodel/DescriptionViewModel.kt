@@ -87,10 +87,6 @@ class DescriptionViewModel @Inject constructor(
         return emailIntent
     }
 
-    fun localPrintAllQrCodes() {
-        val allQrCodes = equipmentUseCase.localPrintAllQrCodes()
-    }
-
     fun remoteAddNewItem(toEquipmentEntity: EquipmentEntity) {
         repository.remoteAddNewItem(toEquipmentEntity)
     }
@@ -102,4 +98,5 @@ class DescriptionViewModel @Inject constructor(
     fun getAllEquipments() : List<EquipmentEntity> {
         return repository.localGetAllEquipments()
     }
+
 }

@@ -157,5 +157,9 @@ class EquipmentUseCase @Inject constructor(
             }
         }
     }
+
+    fun checkIfUserCanEdit(userLoggedIn: String?, vesselLoggedIn: String?) {
+        repository.checkIfUserCanEdit(userLoggedIn, vesselLoggedIn)
+    }
 }
 

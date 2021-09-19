@@ -77,4 +77,8 @@ class EquipmentsRepository @Inject constructor(
         remoteDB.remoteDeleteEquipment(partNumber)
     }
 
+    fun checkIfUserCanEdit(userLoggedIn: String?, vesselLoggedIn: String?) {
+        remoteDB.checkIfUserCanEdit(userLoggedIn, vesselLoggedIn)
+    }
+
 }

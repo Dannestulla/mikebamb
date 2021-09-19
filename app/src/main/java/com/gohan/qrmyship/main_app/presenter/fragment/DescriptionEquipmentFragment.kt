@@ -1,6 +1,7 @@
 package com.gohan.qrmyship.main_app.presenter.fragment
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.ContextWrapper
 import android.net.Uri
 import android.os.Bundle
@@ -16,7 +17,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.navArgs
 import com.gohan.qrmyship.databinding.FragmentDescriptionEquipmentBinding
 import com.gohan.qrmyship.main_app.data.local.EquipmentEntity
-import com.gohan.qrmyship.main_app.domain.myConstants.USER
+import com.gohan.qrmyship.main_app.domain.myConstants
 import com.gohan.qrmyship.main_app.presenter.viewmodel.DescriptionViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -44,7 +45,7 @@ class DescriptionEquipmentFragment : Fragment() {
         incomingFromScanerOrRecyclerView()
         applyBinding()
         hideActionBar()
-        checkIsUser()
+        checkIfUserCanEdit()
     }
 
     private fun applyBinding() {
@@ -193,22 +194,42 @@ class DescriptionEquipmentFragment : Fragment() {
         alert.show()
     }
 
-    private fun printAllQrDatabase() {
-        viewModel.localPrintAllQrCodes()
-    }
 
     fun hideActionBar() {
         return (activity as AppCompatActivity).supportActionBar!!.hide()
     }
 
-    fun checkIsUser() {
-        if (USER) {
+    fun checkIfUserCanEdit() {
+        val sharedPref =
+            context?.getSharedPreferences(myConstants.SHARED_PREF, Context.MODE_PRIVATE)!!
+        if (!sharedPref.getBoolean(myConstants.CAN_EDIT, false)) {
             binding.addQrCode.isEnabled = false
             binding.addQrCode.isVisible = false
             binding.deleteEquip.isEnabled = false
             binding.deleteEquip.isVisible = false
             binding.saveChanges.isEnabled = false
             binding.saveChanges.isVisible = false
+            binding.shareThisQr.isEnabled = false
+            binding.shareThisQr.isVisible = false
+            binding.editCategory1.setFocusable(false)
+            binding.editCategory2.setFocusable(false)
+            binding.editCategory3.setFocusable(false)
+            binding.editComments.setFocusable(false)
+            binding.editEquipName.setFocusable(false)
+            binding.editHours.setFocusable(false)
+            binding.editInstallDate.setFocusable(false)
+            binding.editManufacturer.setFocusable(false)
+            binding.editManuallink.setFocusable(false)
+            binding.editModel.setFocusable(false)
+            binding.editObservations1.setFocusable(false)
+            binding.editObservations2.setFocusable(false)
+            binding.editObservations3.setFocusable(false)
+            binding.editObservations4.setFocusable(false)
+            binding.editObservations5.setFocusable(false)
+            binding.editOrderNumber.setFocusable(false)
+            binding.editPartNumber.setFocusable(false)
+            binding.editQrCode.setFocusable(false)
+
         }
     }
 
