@@ -1,5 +1,4 @@
-7
-# TracksBuddy
+# CifraFinder
 
 ### About
 - An application used to help in the engine room management of a ship. Prints and scans QR codes, stores data localy and online. 
